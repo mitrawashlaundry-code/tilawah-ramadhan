@@ -1,0 +1,2834 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tilawah Ramadhan</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tilawah">
+<meta name="theme-color" content="#0a0e1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #0f1422;
+  --surface: #141929;
+  --surface2: #1a2035;
+  --surface3: #202540;
+  --border: #2a3150;
+  --border2: #374060;
+
+  --gold: #e8b84b;
+  --gold2: #f5d06e;
+  --gold-dim: rgba(232,184,75,0.12);
+  --gold-glow: rgba(232,184,75,0.25);
+
+  --amber: #f0a030;
+  --amber-dim: rgba(240,160,48,0.15);
+
+  --blue: #4a90e8;
+  --blue-dim: rgba(74,144,232,0.13);
+
+  --green: #3dd68c;
+  --green-dim: rgba(61,214,140,0.13);
+
+  --red: #e85454;
+  --red-dim: rgba(232,84,84,0.13);
+
+  --text: #e8eeff;
+  --text2: #8899bb;
+  --text3: #4a5578;
+
+  --r: 16px;
+  --r-sm: 10px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.5);
+
+  --font-body: 'DM Sans', sans-serif;
+  --font-display: 'Amiri', serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ─── UTILITY ─── */
+.hidden { display: none !important; }
+.flex { display: flex; }
+.center { align-items: center; justify-content: center; }
+.gap-s { gap: 8px; }
+.gap-m { gap: 12px; }
+
+/* ─── BACKGROUND EFFECTS ─── */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; left: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse, rgba(232,184,75,0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -200px; right: -200px;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(74,144,232,0.05) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ─── ONBOARDING / WELCOME ─── */
+#welcomeScreen {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  z-index: 1000;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.5s ease;
+}
+
+.welcome-logo {
+  font-size: 72px;
+  animation: float 3s ease-in-out infinite;
+  margin-bottom: 16px;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-logo { animation: none; }
+  .benefit-item { animation: none; opacity: 1; transform: none; }
+  .btn-welcome { animation: none; opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.welcome-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  color: var(--gold2);
+  text-align: center;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  text-shadow: 0 0 40px var(--gold-glow);
+}
+.welcome-sub {
+  font-size: 0.9rem;
+  color: var(--text2);
+  text-align: center;
+  margin-bottom: 36px;
+  font-style: italic;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 32px;
+}
+
+.benefit-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px;
+  animation: slideUp 0.5s ease both;
+}
+.benefit-item:nth-child(1) { animation-delay: 0.1s; }
+.benefit-item:nth-child(2) { animation-delay: 0.2s; }
+.benefit-item:nth-child(3) { animation-delay: 0.3s; }
+
+.benefit-icon { font-size: 1.6rem; flex-shrink: 0; }
+.benefit-text strong { display: block; font-size: 0.88rem; color: var(--text); margin-bottom: 2px; }
+.benefit-text span { font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-welcome {
+  background: linear-gradient(135deg, var(--gold), #c8902b);
+  color: #0a0e1a;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 48px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  box-shadow: 0 4px 20px var(--gold-glow);
+  transition: all 0.2s ease;
+  animation: slideUp 0.5s ease 0.5s both;
+}
+.btn-welcome:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--gold-glow); }
+.btn-welcome:active { transform: translateY(0); }
+
+/* ─── SETUP WIZARD ─── */
+#setupWizard {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  z-index: 999;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
+
+.wizard-header {
+  padding: 20px 20px 16px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+
+.wizard-step-indicator {
+  display: flex; gap: 6px; align-items: center;
+  margin-bottom: 10px;
+}
+.step-dot {
+  flex: 1; height: 3px; border-radius: 2px;
+  background: var(--border2);
+  transition: background 0.3s ease;
+}
+.step-dot.active { background: var(--gold); }
+.step-dot.done { background: var(--green); }
+
+.wizard-step-label {
+  font-size: 0.72rem;
+  color: var(--text2);
+}
+.wizard-step-label strong { color: var(--gold2); }
+
+.wizard-body {
+  padding: 20px;
+  flex: 1;
+}
+
+.wizard-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--gold2);
+  margin-bottom: 6px;
+}
+.wizard-desc {
+  font-size: 0.84rem;
+  color: var(--text2);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.wizard-footer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  padding: 16px 20px;
+  background: linear-gradient(to top, var(--bg) 70%, transparent);
+  display: flex; gap: 10px;
+}
+
+/* ─── MAIN APP ─── */
+#mainApp {
+  display: none;
+  min-height: 100vh;
+  padding-bottom: 80px;
+  position: relative; z-index: 1;
+}
+
+/* ─── HEADER ─── */
+.app-header {
+  background: linear-gradient(180deg, #0f1422 0%, #0a0e1a 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 16px 12px;
+  position: sticky; top: 0; z-index: 100;
+}
+
+.header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.header-brand {
+  display: flex; align-items: center; gap: 8px;
+}
+.header-brand .logo { font-size: 1.3rem; }
+.header-brand h1 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--gold2);
+  line-height: 1.2;
+}
+.header-brand .subtitle {
+  font-size: 0.65rem;
+  color: var(--text3);
+}
+
+.header-chips {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.68rem;
+  color: var(--text2);
+}
+.chip.gold {
+  background: var(--gold-dim);
+  border-color: rgba(232,184,75,0.3);
+  color: var(--gold2);
+}
+
+.header-today-summary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+}
+
+.today-progress-info {
+  display: flex; flex-direction: column; gap: 3px; flex: 1;
+}
+.today-label {
+  font-size: 0.65rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.today-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.today-mini-bar {
+  width: 100%; height: 4px;
+  background: var(--surface2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 3px;
+}
+.today-mini-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.today-pct {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.header-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.header-btn:hover { border-color: var(--gold); color: var(--gold2); }
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 8px 4px 12px;
+  display: flex;
+  z-index: 100;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 2px;
+  background: none; border: none;
+  cursor: pointer;
+  padding: 6px 4px;
+  border-radius: var(--r-sm);
+  transition: all 0.2s;
+  color: var(--text3);
+  font-family: var(--font-body);
+  position: relative;
+}
+.nav-item.active { color: var(--gold2); }
+.nav-item .nav-icon { font-size: 1.1rem; }
+.nav-item .nav-label { font-size: 0.58rem; font-weight: 500; }
+.nav-item.active::after {
+  content: '';
+  position: absolute; top: 0; left: 20%; right: 20%;
+  height: 2px; border-radius: 0 0 2px 2px;
+  background: var(--gold);
+}
+.nav-item.locked { opacity: 0.35; cursor: default; }
+.nav-item.locked::before {
+  content: '🔒';
+  position: absolute; top: 4px; right: 8px;
+  font-size: 0.5rem;
+}
+
+/* ─── FAB ─── */
+.fab {
+  position: fixed;
+  bottom: 80px; right: 16px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), #c8902b);
+  color: #0a0e1a;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 3px 14px var(--gold-glow), 0 2px 6px rgba(0,0,0,0.3);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+  z-index: 99;
+  opacity: 0.55;
+}
+.fab:hover, .fab:focus { transform: scale(1.08); box-shadow: 0 6px 24px var(--gold-glow); opacity: 1; }
+.fab:active { transform: scale(0.95); opacity: 1; }
+/* Fab becomes fully opaque briefly after interaction, then fades again */
+.fab.active-flash { opacity: 1; }
+
+/* ─── SECTIONS ─── */
+.section { display: none; padding: 14px 14px 0; animation: fadeIn 0.22s ease; }
+.section.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border2); }
+
+.card-header {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 14px;
+}
+.card-icon { font-size: 1rem; }
+.card-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  flex: 1;
+}
+.card-badge {
+  font-size: 0.65rem;
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,184,75,0.3);
+  color: var(--gold2);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* ─── FORMS ─── */
+label {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--text2);
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+input[type="text"], input[type="number"], input[type="date"], select, textarea {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: 0.86rem;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+  outline: none;
+  -webkit-appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+  background: var(--surface3);
+}
+input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
+
+.form-group { margin-bottom: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 360px) { .form-row { grid-template-columns: 1fr; } }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 18px;
+  border: none; border-radius: var(--r-sm);
+  cursor: pointer; font-size: 0.86rem;
+  font-family: var(--font-body); font-weight: 600;
+  transition: all 0.2s;
+  width: 100%;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), #c8902b);
+  color: #0a0e1a;
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 16px var(--gold-glow); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+.btn-secondary {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-secondary:hover { border-color: var(--border2); color: var(--gold2); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold2); }
+
+.btn-danger { background: var(--red-dim); border: 1px solid rgba(232,84,84,0.4); color: var(--red); }
+.btn-success { background: var(--green-dim); border: 1px solid rgba(61,214,140,0.4); color: var(--green); }
+.btn-amber { background: var(--amber-dim); border: 1px solid rgba(240,160,48,0.4); color: var(--amber); }
+.btn-blue { background: var(--blue-dim); border: 1px solid rgba(74,144,232,0.4); color: var(--blue); }
+
+.btn-sm { padding: 7px 12px; font-size: 0.76rem; }
+.btn-xs { padding: 5px 10px; font-size: 0.7rem; }
+.btn-auto { width: auto; }
+
+/* ─── QUICK INPUT BUTTONS ─── */
+.quick-btns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin-bottom: 12px;
+}
+.quick-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 6px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold2);
+  font-family: var(--font-body);
+  transition: all 0.15s;
+  text-align: center;
+}
+.quick-btn:hover { border-color: var(--gold); background: var(--gold-dim); }
+.quick-btn:active { transform: scale(0.95); background: var(--gold); color: #0a0e1a; }
+
+/* ─── KHATAM COUNTER ─── */
+.khatam-row {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  padding: 8px 0;
+}
+.khatam-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.khatam-btn:hover { border-color: var(--gold); color: var(--gold2); }
+.khatam-num-big {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--gold2);
+  text-shadow: 0 0 30px var(--gold-glow);
+  line-height: 1;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* ─── PROGRESS RING ─── */
+.progress-ring-wrap {
+  display: flex; align-items: center; justify-content: center;
+  margin: 10px 0;
+  position: relative;
+}
+.ring-label {
+  position: absolute;
+  text-align: center;
+  pointer-events: none;
+}
+.ring-pct { font-size: 1.8rem; font-weight: 700; color: var(--gold2); line-height: 1; }
+.ring-sub { font-size: 0.65rem; color: var(--text2); margin-top: 2px; }
+
+/* ─── STAT GRID ─── */
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.stat-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px;
+  text-align: center;
+}
+.stat-val { font-size: 1.3rem; font-weight: 700; color: var(--gold2); line-height: 1; }
+.stat-lbl { font-size: 0.64rem; color: var(--text2); margin-top: 4px; line-height: 1.4; }
+
+/* ─── STATUS BANNER ─── */
+.status-banner {
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.status-banner.ahead { background: var(--green-dim); border: 1px solid rgba(61,214,140,0.3); }
+.status-banner.on-track { background: var(--blue-dim); border: 1px solid rgba(74,144,232,0.3); }
+.status-banner.behind { background: var(--amber-dim); border: 1px solid rgba(240,160,48,0.3); }
+.status-banner .status-icon { font-size: 1.5rem; margin-bottom: 6px; }
+.status-banner .status-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+.status-banner.ahead .status-title { color: var(--green); }
+.status-banner.on-track .status-title { color: var(--blue); }
+.status-banner.behind .status-title { color: var(--amber); }
+.status-banner .status-msg { font-size: 0.8rem; color: var(--text2); line-height: 1.55; }
+.status-banner .status-action { margin-top: 10px; }
+
+/* ─── STREAK DOTS ─── */
+.streak-bar { display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; margin: 8px 0; }
+.s-dot {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.42rem; font-weight: 700;
+  position: relative;
+}
+.s-dot.over { background: var(--green-dim); border: 1.5px solid var(--green); color: var(--green); }
+.s-dot.on { background: var(--blue-dim); border: 1.5px solid var(--blue); color: var(--blue); }
+.s-dot.today { background: var(--gold); border: 2px solid var(--gold2); color: #0a0e1a; }
+.s-dot.miss { background: var(--amber-dim); border: 1.5px solid rgba(240,160,48,0.35); color: var(--amber); }
+.s-dot.empty { background: var(--surface); border: 1.5px dashed var(--border); color: var(--text3); }
+
+/* ─── PRAYER GRID ─── */
+.prayer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+@media (max-width: 340px) { .prayer-grid { grid-template-columns: repeat(2, 1fr); } }
+.prayer-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 9px 6px;
+  text-align: center;
+}
+.prayer-emoji { font-size: 1.1rem; display: block; }
+.prayer-name { font-size: 0.62rem; color: var(--text2); margin: 3px 0 2px; }
+.prayer-pages { font-size: 0.9rem; font-weight: 700; color: var(--gold2); }
+.prayer-pages span { font-size: 0.62rem; color: var(--text3); font-weight: 400; }
+
+/* ─── LOG ENTRY ─── */
+.log-entry {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+}
+.log-icon { font-size: 1.1rem; flex-shrink: 0; }
+.log-main { flex: 1; min-width: 0; }
+.log-prayer { font-weight: 600; color: var(--text); }
+.log-pos { font-size: 0.69rem; color: var(--text3); margin-top: 1px; }
+.log-right { display: flex; align-items: center; gap: 6px; }
+.log-pages { color: var(--blue); font-weight: 700; font-size: 0.82rem; }
+.log-time { font-size: 0.65rem; color: var(--text3); }
+.log-del {
+  background: none; border: none; color: var(--text3);
+  cursor: pointer; padding: 4px 6px; border-radius: 6px;
+  font-size: 0.85rem; transition: all 0.15s;
+}
+.log-del:hover { color: var(--red); background: var(--red-dim); }
+
+/* ─── PROGRESS BAR ─── */
+.prog-bar-wrap {
+  background: var(--surface2);
+  border-radius: 20px; height: 7px;
+  overflow: hidden; margin: 6px 0;
+}
+.prog-bar-fill {
+  height: 100%; border-radius: 20px;
+  transition: width 0.6s cubic-bezier(.4,0,.2,1);
+}
+.prog-bar-fill.ahead { background: linear-gradient(90deg, var(--green), #4ade80); }
+.prog-bar-fill.on-track { background: linear-gradient(90deg, var(--blue), #60a5fa); }
+.prog-bar-fill.behind { background: linear-gradient(90deg, var(--amber), #fbbf24); }
+
+/* ─── INSIGHT CARD ─── */
+.insight-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px;
+  background: var(--surface2);
+  border-radius: var(--r-sm);
+  margin-bottom: 7px;
+}
+.insight-icon { font-size: 1.1rem; flex-shrink: 0; }
+.insight-text { font-size: 0.78rem; color: var(--text2); line-height: 1.5; flex: 1; }
+.insight-text strong { color: var(--text); }
+
+/* ─── CHART ─── */
+.chart-wrap { overflow-x: auto; margin-top: 6px; }
+.chart-bars {
+  display: flex; align-items: flex-end; gap: 3px;
+  height: 120px; padding: 0 2px;
+  min-width: 100%;
+}
+.bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 16px; cursor: pointer; }
+.bar-fill {
+  width: 100%; border-radius: 4px 4px 0 0;
+  min-height: 3px;
+  transition: height 0.5s cubic-bezier(.4,0,.2,1);
+  position: relative;
+}
+.bar-fill.ahead { background: linear-gradient(180deg, var(--green), #15803d); }
+.bar-fill.on-track { background: linear-gradient(180deg, var(--blue), #1d4ed8); }
+.bar-fill.behind { background: linear-gradient(180deg, var(--amber), #92400e); }
+.bar-lbl { font-size: 0.5rem; color: var(--text3); margin-top: 2px; text-align: center; }
+
+/* ─── WEEKLY CARD ─── */
+.week-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.week-label { font-size: 0.72rem; font-weight: 700; color: var(--gold); }
+.week-total { font-size: 0.72rem; color: var(--text2); }
+
+/* ─── BADGES ─── */
+.badge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.badge-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 8px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.badge-item.earned { border-color: rgba(232,184,75,0.4); background: var(--gold-dim); }
+.badge-item.locked-badge { opacity: 0.4; filter: grayscale(1); }
+.badge-emoji { font-size: 1.8rem; display: block; margin-bottom: 4px; }
+.badge-name { font-size: 0.62rem; color: var(--text2); font-weight: 600; }
+.badge-desc { font-size: 0.58rem; color: var(--text3); margin-top: 2px; }
+
+/* ─── YEAR HISTORY ─── */
+.year-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 14px;
+}
+.year-icon { font-size: 2rem; flex-shrink: 0; }
+.year-info { flex: 1; }
+.year-label { font-size: 0.78rem; font-weight: 700; color: var(--gold2); }
+.year-data { font-size: 0.72rem; color: var(--text2); margin-top: 2px; }
+
+/* ─── SHARE CARD ─── */
+#shareCanvas {
+  border-radius: var(--r);
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ─── MODAL ─── */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 500;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 0;
+}
+.modal-backdrop.center-modal { align-items: center; padding: 20px; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r) var(--r) 0 0;
+  padding: 20px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+  animation: slideModal 0.3s cubic-bezier(.4,0,.2,1);
+}
+.modal-backdrop.center-modal .modal {
+  border-radius: var(--r);
+  max-width: 420px;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes slideModal { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-handle {
+  width: 36px; height: 4px;
+  background: var(--border2);
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+.modal-title { font-size: 1rem; font-weight: 700; color: var(--gold2); margin-bottom: 8px; }
+.modal-body { font-size: 0.82rem; color: var(--text2); margin-bottom: 16px; line-height: 1.65; }
+.modal-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.modal-actions .btn { flex: 1; margin: 0; }
+
+/* ─── TOAST ─── */
+#toast {
+  position: fixed; bottom: 90px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 24px; padding: 10px 20px;
+  font-size: 0.82rem; color: var(--text);
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  opacity: 0;
+}
+#toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ─── INPUT SHEET (Catat Tilawah) ─── */
+#inputSheet {
+  position: fixed; inset: 0;
+  z-index: 300;
+  display: flex; align-items: flex-end;
+  background: rgba(0,0,0,0.7);
+}
+.input-sheet-inner {
+  background: var(--surface);
+  border-radius: var(--r) var(--r) 0 0;
+  border: 1px solid var(--border2);
+  border-bottom: none;
+  padding: 0 0 30px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideModal 0.3s cubic-bezier(.4,0,.2,1);
+}
+.sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface);
+}
+.sheet-title { font-size: 0.95rem; font-weight: 700; color: var(--gold2); }
+.sheet-close {
+  background: none; border: 1px solid var(--border);
+  border-radius: 50%; width: 30px; height: 30px;
+  color: var(--text2); font-size: 0.85rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.sheet-close:hover { border-color: var(--red); color: var(--red); }
+.sheet-body { padding: 16px 18px; }
+
+/* ─── CONFIRM CHECK ANIM ─── */
+.confirm-check {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  z-index: 2000;
+  pointer-events: none;
+  animation: checkAnim 1s ease forwards;
+}
+@keyframes checkAnim {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  30% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+  70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* ─── CELEBRATION ─── */
+#celebrationOverlay {
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.85);
+  animation: fadeIn 0.3s ease;
+}
+.celebration-content {
+  text-align: center; padding: 24px;
+  animation: slideUp 0.4s cubic-bezier(.4,0,.2,1);
+}
+.celebration-emoji { font-size: 5rem; margin-bottom: 12px; display: block; }
+.celebration-title {
+  font-family: var(--font-display);
+  font-size: 2rem; color: var(--gold2);
+  text-shadow: 0 0 40px var(--gold-glow);
+  margin-bottom: 8px;
+}
+.celebration-sub { font-size: 0.88rem; color: var(--text2); margin-bottom: 24px; }
+.confetti-dot {
+  position: absolute; width: 8px; height: 8px;
+  border-radius: 2px;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ─── REMINDER TOGGLE ─── */
+.reminder-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 11px 13px; margin-bottom: 7px;
+}
+.reminder-item.active { border-color: rgba(232,184,75,0.4); }
+.reminder-time { font-size: 1rem; font-weight: 700; color: var(--gold2); min-width: 44px; }
+.reminder-label { flex: 1; font-size: 0.78rem; color: var(--text2); line-height: 1.4; }
+.toggle-wrap { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+.toggle-wrap input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; inset: 0;
+  background: var(--surface3); border-radius: 22px;
+  cursor: pointer; transition: all 0.2s; border: 1px solid var(--border);
+}
+.toggle-slider::before {
+  content: ''; position: absolute;
+  width: 16px; height: 16px; left: 2px; top: 2px;
+  background: var(--text3); border-radius: 50%;
+  transition: all 0.2s;
+}
+input:checked + .toggle-slider { background: var(--gold-dim); border-color: var(--gold); }
+input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--gold2); }
+
+/* ─── VS MANUAL ─── */
+.vs-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.vs-row:last-child { border-bottom: none; }
+.vs-icon { font-size: 1rem; flex-shrink: 0; width: 28px; text-align: center; }
+.vs-aspect { font-size: 0.76rem; font-weight: 600; color: var(--text); flex: 1; }
+.vs-manual { font-size: 0.72rem; color: var(--text3); text-align: center; flex: 1; }
+.vs-app { font-size: 0.72rem; color: var(--green); font-weight: 500; text-align: center; flex: 1; }
+
+/* ─── FONT SIZE TOGGLE ─── */
+body.font-md { font-size: 1.1rem; }
+body.font-md .nav-item .nav-label { font-size: 0.65rem; }
+body.font-md .card-title { font-size: 0.82rem; }
+body.font-md .btn { font-size: 0.95rem; padding: 13px; }
+body.font-md .stat-val { font-size: 1.5rem; }
+body.font-md .s-dot { width: 18px; height: 18px; }
+
+body.font-lg { font-size: 1.2rem; }
+body.font-lg .nav-item .nav-label { font-size: 0.72rem; }
+body.font-lg .card-title { font-size: 0.9rem; }
+body.font-lg .btn { font-size: 1.05rem; padding: 15px; }
+body.font-lg .stat-val { font-size: 1.8rem; }
+body.font-lg .s-dot { width: 22px; height: 22px; }
+
+/* ─── EMPTY STATE ─── */
+.empty-state { text-align: center; padding: 28px 16px; color: var(--text3); font-size: 0.8rem; }
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+
+/* ─── HISTORY LOG HEADER ─── */
+.history-day-header {
+  font-size: 0.72rem; font-weight: 700; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.history-day-total { color: var(--text2); font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+/* ─── CALCULATOR ─── */
+.calc-result {
+  background: var(--surface2);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-sm);
+  padding: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+.calc-result .calc-num { font-size: 2rem; font-weight: 700; color: var(--gold2); }
+.calc-result .calc-label { font-size: 0.76rem; color: var(--text2); margin-top: 3px; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     WELCOME SCREEN
+═══════════════════════════════════════ -->
+<div id="welcomeScreen">
+  <div class="welcome-logo">📖</div>
+  <h1 class="welcome-title">Target Tilawah<br>Ramadhan</h1>
+  <p class="welcome-sub">Raih Khatam dengan Istiqomah</p>
+
+  <div class="benefits-grid">
+    <div class="benefit-item">
+      <span class="benefit-icon">🧮</span>
+      <div class="benefit-text">
+        <strong>Kalkulasi Otomatis</strong>
+        <span>Target harian, per sholat, dan proyeksi khatam dihitung otomatis setiap saat</span>
+      </div>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">📊</span>
+      <div class="benefit-text">
+        <strong>Insight Personal</strong>
+        <span>Waktu terbanyak membaca Quran, hari terkonsisten, dan tren bacaan kamu teranalisis otomatis</span>
+      </div>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">🔥</span>
+      <div class="benefit-text">
+        <strong>Motivasi Adaptif</strong>
+        <span>Dorongan dan saran kejar setoran disesuaikan langsung dengan progres kamu hari ini</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-welcome" onclick="startOnboarding()">✨ Mulai Penyusunan Target</button>
+  <p style="margin-top:14px;font-size:0.7rem;color:var(--text3);">Gratis selamanya • Offline • Data tidak dikirim ke mana pun</p>
+  <button onclick="toggleFontSize()" style="margin-top:12px;background:none;border:1px solid var(--border);border-radius:20px;padding:7px 18px;color:var(--text2);font-family:var(--font-body);font-size:0.78rem;cursor:pointer;">🔡 Perbesar Huruf</button>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SETUP WIZARD
+═══════════════════════════════════════ -->
+<div id="setupWizard" style="display:none;">
+  <div class="wizard-header">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <span style="font-size:0.72rem;color:var(--text3);">Setup Target Tilawah</span>
+      <button onclick="toggleFontSize()" style="background:none;border:1px solid var(--border);border-radius:20px;padding:4px 12px;color:var(--text2);font-family:var(--font-body);font-size:0.72rem;cursor:pointer;">🔡 Huruf</button>
+    </div>
+    <div class="wizard-step-indicator" id="stepIndicator">
+      <div class="step-dot active" id="step-dot-1"></div>
+      <div class="step-dot" id="step-dot-2"></div>
+      <div class="step-dot" id="step-dot-3"></div>
+    </div>
+    <div class="wizard-step-label" id="stepLabel">Langkah <strong>1</strong> dari 3</div>
+  </div>
+
+  <div class="wizard-body">
+    <!-- Step 1 -->
+    <div id="wizardStep1">
+      <h2 class="wizard-title">Halo! 👋</h2>
+      <p class="wizard-desc">Mari kita siapkan target tilawah Ramadhan kamu. Hanya butuh 1 menit!</p>
+
+      <div class="form-group">
+        <label>Nama Panggilan</label>
+        <input type="text" id="wiz_name" placeholder="Nama kamu..." maxlength="30">
+      </div>
+      <div class="form-group">
+        <label id="wiz_start_label">Tanggal 1 Ramadhan</label>
+        <input type="date" id="wiz_start" value="2026-02-19" onchange="wizUpdatePreview()">
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="wizardStep2" style="display:none;">
+      <h2 class="wizard-title">Target Khatam 🎯</h2>
+      <p class="wizard-desc">Berapa kali kamu ingin khatam Al-Qur'an di Ramadhan ini? Pilih sesuai kemampuan.</p>
+
+      <div class="card" style="margin-bottom:14px;">
+        <div class="khatam-row">
+          <button class="khatam-btn" onclick="wizKhatam(-1)">−</button>
+          <div class="khatam-num-big" id="wiz_khatam_num">1</div>
+          <button class="khatam-btn" onclick="wizKhatam(1)">+</button>
+        </div>
+        <div style="text-align:center;font-size:0.75rem;color:var(--text3);margin-top:4px;">khatam selama Ramadhan</div>
+      </div>
+
+      <!-- Live preview -->
+      <div class="card" style="background:var(--surface2);">
+        <div class="card-header"><span class="card-icon">📋</span><span class="card-title">Preview Target Kamu</span></div>
+        <div class="stat-grid" style="margin-bottom:12px;">
+          <div class="stat-card"><div class="stat-val" id="wiz_daily">20</div><div class="stat-lbl">Halaman/Hari</div></div>
+          <div class="stat-card"><div class="stat-val" id="wiz_total">604</div><div class="stat-lbl">Total Halaman</div></div>
+          <div class="stat-card"><div class="stat-val" id="wiz_juz">1.0</div><div class="stat-lbl">Juz/Hari</div></div>
+          <div class="stat-card"><div class="stat-val" id="wiz_total_juz">30</div><div class="stat-lbl">Total Juz</div></div>
+        </div>
+        <div class="prayer-grid" id="wiz_prayer_preview"></div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="wizardStep3" style="display:none;">
+      <h2 class="wizard-title">Siap Memulai! 🌙</h2>
+      <p class="wizard-desc">Ini rencana tilawah kamu. Aplikasi ini akan melacak progres dan memberi tahu kamu kapan harus mengejar target.</p>
+
+      <div class="card">
+        <div id="wiz_summary_content"></div>
+      </div>
+
+      <div class="card" style="background:var(--gold-dim);border-color:rgba(232,184,75,0.3);margin-bottom:0;">
+        <div class="card-header"><span class="card-icon">💡</span><span class="card-title" style="color:var(--gold2);">Mengapa lebih baik dari buku catatan?</span></div>
+        <div class="vs-row">
+          <span class="vs-icon">🧮</span><span class="vs-aspect">Kalkulasi Target</span>
+          <span class="vs-manual">Hitung sendiri setiap hari</span>
+          <span class="vs-app">✓ Otomatis, selalu akurat</span>
+        </div>
+        <div class="vs-row">
+          <span class="vs-icon">📈</span><span class="vs-aspect">Proyeksi Khatam</span>
+          <span class="vs-manual">Tidak bisa dilakukan</span>
+          <span class="vs-app">✓ Update setiap input</span>
+        </div>
+        <div class="vs-row">
+          <span class="vs-icon">🏃</span><span class="vs-aspect">Kejar Setoran</span>
+          <span class="vs-manual">Hitung manual sisa hari</span>
+          <span class="vs-app">✓ Kalkulator otomatis</span>
+        </div>
+        <div class="vs-row">
+          <span class="vs-icon">🔔</span><span class="vs-aspect">Pengingat</span>
+          <span class="vs-manual">Bergantung ingatan</span>
+          <span class="vs-app">✓ Notifikasi terjadwal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <button class="btn btn-secondary btn-auto" id="wizBackBtn" onclick="wizBack()" style="display:none;">← Kembali</button>
+    <button class="btn btn-primary" id="wizNextBtn" onclick="wizNext()">Lanjut →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MAIN APP
+═══════════════════════════════════════ -->
+<div id="mainApp">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="header-brand">
+        <span class="logo">📖</span>
+        <div>
+          <h1 id="mainTitle">Tilawah Ramadhan</h1>
+          <div class="subtitle" id="mainSubtitle">1447H</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="header-btn" onclick="toggleFontSize()" title="Ukuran huruf">Aa</button>
+        <button class="header-btn" onclick="showSection('settings')" title="Pengaturan">⚙️</button>
+      </div>
+    </div>
+
+    <div class="header-chips">
+      <span class="chip" id="headerDate">—</span>
+      <span class="chip gold" id="headerRamDay">Hari ke-1</span>
+    </div>
+
+    <div class="header-today-summary" id="headerSummary">
+      <div class="today-progress-info">
+        <span class="today-label">Progress Hari Ini</span>
+        <span class="today-value" id="headerTodayVal">0 / 20 halaman</span>
+        <div class="today-mini-bar">
+          <div class="today-mini-fill on-track" id="headerMiniBar" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="today-pct" id="headerTodayPct" style="color:var(--gold2);">0%</div>
+    </div>
+  </header>
+
+  <!-- SECTIONS -->
+  <div id="section-home" class="section active">
+    <!-- Status Banner -->
+    <div id="statusBanner" class="status-banner on-track" style="margin-top:0">
+      <div class="status-icon" id="statusIcon">📖</div>
+      <div class="status-title" id="statusTitle">Bismillah, mulai tilawah hari ini!</div>
+      <div class="status-msg" id="statusMsg">Target kamu <span id="statusTarget">20</span> halaman hari ini.</div>
+      <div class="status-action" id="statusAction"></div>
+    </div>
+
+    <!-- Progress Ring -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🏆</span><span class="card-title">Progres Keseluruhan</span><span class="card-badge" id="khatamBadge">0× Khatam</span></div>
+      <div class="progress-ring-wrap">
+        <svg width="150" height="150" viewBox="0 0 150 150">
+          <circle cx="75" cy="75" r="63" fill="none" stroke="var(--surface2)" stroke-width="9"/>
+          <circle id="progressRingCircle" cx="75" cy="75" r="63" fill="none" stroke="url(#pgGrad)" stroke-width="9"
+            stroke-linecap="round" stroke-dasharray="395.84" stroke-dashoffset="395.84"
+            transform="rotate(-90 75 75)" style="transition:stroke-dashoffset 0.9s cubic-bezier(.4,0,.2,1)"/>
+          <defs>
+            <linearGradient id="pgGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#4a90e8" id="pgG1"/>
+              <stop offset="100%" stop-color="#3dd68c" id="pgG2"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="ring-label">
+          <div class="ring-pct" id="progressPct">0%</div>
+          <div class="ring-sub" id="progressSub">Selesai</div>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-val" id="totalRead">0</div><div class="stat-lbl">Dibaca<br><span style="color:var(--text3);font-size:0.58rem;" id="totalReadJuz">0.0 Juz</span></div></div>
+        <div class="stat-card"><div class="stat-val" id="remaining">0</div><div class="stat-lbl">Tersisa<br><span style="color:var(--text3);font-size:0.58rem;" id="remainingJuz">0.0 Juz</span></div></div>
+        <div class="stat-card"><div class="stat-val" id="projDate">—</div><div class="stat-lbl">Estimasi<br>Khatam</div></div>
+        <div class="stat-card"><div class="stat-val" id="avgDaily">0</div><div class="stat-lbl">Rata-rata<br>Hal/Hari</div></div>
+      </div>
+    </div>
+
+    <!-- Insights -->
+    <div class="card" id="insightCard">
+      <div class="card-header"><span class="card-icon">💡</span><span class="card-title">Insight Hari Ini</span></div>
+      <div id="insightContent">
+        <div class="empty-state"><span class="empty-icon">📊</span>Insight tersedia setelah beberapa hari input data</div>
+      </div>
+    </div>
+
+    <!-- Streak -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🔥</span><span class="card-title">Streak Harian</span><span class="card-badge" id="streakBadge">0 hari</span></div>
+      <div id="streakInfo" style="text-align:center;font-size:0.78rem;color:var(--text2);margin-bottom:8px;"></div>
+      <div class="streak-bar" id="streakBar"></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:6px;font-size:0.6rem;color:var(--text3);flex-wrap:wrap;">
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:3px;"></span>Di atas target</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:3px;"></span>Tepat target</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber);margin-right:3px;"></span>Di bawah target</span>
+      </div>
+    </div>
+
+    <!-- Target per sholat -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">⏰</span><span class="card-title">Target Per Waktu Sholat</span></div>
+      <div class="prayer-grid" id="prayerBreakdown"></div>
+    </div>
+
+    <!-- Badges -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🏅</span><span class="card-title">Pencapaian</span></div>
+      <div class="badge-grid" id="badgeGrid"></div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION: INPUT ─── -->
+  <div id="section-input" class="section">
+    <!-- Today summary -->
+    <div class="card" style="margin-top:0;">
+      <div class="card-header"><span class="card-icon">📅</span><span class="card-title" id="inputCardTitle">Hari Ini</span></div>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+        <div style="flex:1;">
+          <div style="font-size:0.72rem;color:var(--text2);margin-bottom:3px;">Total dibaca hari ini</div>
+          <div style="font-size:1.6rem;font-weight:700;color:var(--gold2);" id="inputTodayTotal">0</div>
+          <div style="font-size:0.7rem;color:var(--text2);">dari <span id="inputDailyTarget">20</span> halaman target</div>
+          <div class="prog-bar-wrap" style="margin-top:6px;">
+            <div class="prog-bar-fill on-track" id="inputTodayBar" style="width:0%"></div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:0.65rem;color:var(--text2);">Sisa</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--text);" id="inputTodayRemain">20</div>
+          <div style="font-size:0.63rem;color:var(--text3);">halaman</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick input card -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">✏️</span><span class="card-title">Catat Tilawah</span></div>
+
+      <div class="form-group">
+        <label>📅 Tanggal</label>
+        <input type="date" id="logDate" onchange="onLogDateChange()">
+      </div>
+
+      <div class="form-row" style="margin-bottom:12px;">
+        <div>
+          <label>Waktu Sholat</label>
+          <select id="prayerSelect" onchange="updatePrayerHint()">
+            <option value="Subuh">🌅 Subuh</option>
+            <option value="Dhuha">☀️ Dhuha</option>
+            <option value="Dzuhur">🌤️ Dzuhur</option>
+            <option value="Ashar">🌆 Ashar</option>
+            <option value="Maghrib">🌇 Maghrib</option>
+            <option value="Tarawih">🌙 Tarawih</option>
+          </select>
+        </div>
+        <div>
+          <label>Jumlah Halaman</label>
+          <input type="number" id="pagesInput" min="1" max="604" placeholder="0" inputmode="numeric"
+            style="font-size:1.4rem;font-weight:700;text-align:center;padding:8px;">
+        </div>
+      </div>
+
+      <label style="margin-bottom:4px;">⚡ Pilih Jumlah Halaman</label>
+      <div style="font-size:0.72rem;color:var(--text2);margin-bottom:8px;">Ketuk untuk langsung mengisi kolom halaman</div>
+      <div class="quick-btns">
+        <button class="quick-btn" onclick="quickInput(2)">2 hal</button>
+        <button class="quick-btn" onclick="quickInput(4)">4 hal</button>
+        <button class="quick-btn" onclick="quickInput(8)">8 hal</button>
+        <button class="quick-btn" onclick="quickInput(20)">1 Juz</button>
+      </div>
+
+      <div class="form-group">
+        <label>📌 Posisi Baca <span style="color:var(--text3);font-size:0.68rem;">(opsional)</span></label>
+        <input type="text" id="lastPosInput" placeholder="Cth: Al-Baqarah 255 atau Hal. 32">
+      </div>
+
+      <div id="prayerHint" style="font-size:0.7rem;color:var(--text3);margin-bottom:10px;min-height:1em;"></div>
+
+      <button class="btn btn-primary" onclick="addLog()" id="addLogBtn">+ Tambah Tilawah</button>
+    </div>
+
+    <!-- Today log -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">📋</span><span class="card-title">Log Hari Ini</span></div>
+      <div id="todayLog"><div class="empty-state"><span class="empty-icon">📖</span>Belum ada tilawah hari ini</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border);margin-top:4px;">
+        <span style="font-size:0.76rem;color:var(--text2);">Total hari ini:</span>
+        <span style="font-size:0.96rem;font-weight:700;color:var(--gold2);" id="todayTotalBottom">0 Halaman</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION: HISTORY ─── -->
+  <div id="section-history" class="section">
+    <div class="card" style="margin-top:0;">
+      <div class="card-header"><span class="card-icon">📈</span><span class="card-title">Grafik Harian</span></div>
+      <div class="chart-wrap"><div class="chart-bars" id="dailyChart"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">📆</span><span class="card-title">Ringkasan Mingguan</span></div>
+      <div id="weeklySummary"><div class="empty-state">Belum ada data</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🔍</span><span class="card-title">Detail Harian</span></div>
+      <div class="form-group">
+        <label>Pilih Tanggal</label>
+        <select id="historyDateSelect" onchange="renderHistoryDetail()"></select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <button class="btn btn-secondary btn-sm" onclick="navHistory(-1)" style="margin:0;">← Sebelumnya</button>
+        <button class="btn btn-secondary btn-sm" onclick="navHistory(1)" style="margin:0;">Berikutnya →</button>
+      </div>
+      <div id="historyDetail"><div class="empty-state">Pilih tanggal</div></div>
+    </div>
+
+    <!-- Riwayat Multi-Tahun (Fase 3) -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">📚</span><span class="card-title">Riwayat Ramadhan</span></div>
+      <div id="yearHistory"></div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showModal('📚 Riwayat Ramadhan','Riwayat khatam dari tahun-tahun sebelumnya tersimpan di sini secara otomatis setiap Ramadhan berakhir. Mulai tahun depan, kamu bisa lihat perbandingannya!','Tutup','closeModal()')">ℹ️ Tentang Fitur Ini</button>
+    </div>
+  </div>
+
+  <!-- ─── SECTION: SHARE ─── -->
+  <div id="section-share" class="section">
+    <div class="card" style="margin-top:0;">
+      <div class="card-header"><span class="card-icon">🎨</span><span class="card-title">Kartu Progres</span></div>
+      <canvas id="shareCanvas" width="700" height="440" style="width:100%;border-radius:var(--r-sm);"></canvas>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+        <button class="btn btn-primary" style="margin:0;" onclick="shareWA()">💬 Share WA</button>
+        <button class="btn btn-secondary" style="margin:0;" onclick="downloadCanvas()">⬇️ Simpan</button>
+        <button class="btn btn-blue" style="grid-column:1/-1;margin:0;" onclick="shareApp()">🔗 Bagikan Aplikasi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION: SETTINGS ─── -->
+  <div id="section-settings" class="section">
+    <!-- Setup info -->
+    <div class="card" style="margin-top:0;" id="setupInfoCard">
+      <div class="card-header"><span class="card-icon">⚙️</span><span class="card-title">Pengaturan Target</span></div>
+      <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px;">
+        Nama: <strong style="color:var(--text);" id="settingNameDisplay">—</strong><br>
+        Target: <strong style="color:var(--gold2);" id="settingKhatamDisplay">1 khatam</strong><br>
+        Mulai Ramadhan: <strong style="color:var(--text);" id="settingStartDisplay">—</strong>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="showEditSetup()">✏️ Ubah Pengaturan</button>
+    </div>
+
+    <!-- Kalkulator Kejar Setoran (Fase 2) -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🏃</span><span class="card-title">Kalkulator Kejar Setoran</span></div>
+      <div style="font-size:0.78rem;color:var(--text2);margin-bottom:12px;">Hitung berapa halaman yang perlu dibaca per hari untuk mengejar target.</div>
+      <div class="form-group">
+        <label>Sisa hari Ramadhan</label>
+        <input type="number" id="calcDays" placeholder="Cth: 15" min="1" max="30" inputmode="numeric" onchange="calcCatchUp()">
+      </div>
+      <div id="calcResult" style="display:none;">
+        <div class="calc-result">
+          <div class="calc-num" id="calcNum">0</div>
+          <div class="calc-label" id="calcLabel">halaman/hari yang dibutuhkan</div>
+        </div>
+        <div id="calcAdvice" style="font-size:0.76rem;color:var(--text2);margin-top:8px;line-height:1.5;"></div>
+      </div>
+    </div>
+
+    <!-- Perbandingan vs Manual (Fase 2) -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">📊</span><span class="card-title">Statistik Penggunaan</span></div>
+      <div id="usageStats">
+        <div class="insight-row"><span class="insight-icon">✏️</span><span class="insight-text">Total log yang dicatat: <strong id="statTotalLogs">0</strong></span></div>
+        <div class="insight-row"><span class="insight-icon">🧮</span><span class="insight-text" id="statCalcSaved">Kalkulasi otomatis yang ditangani: <strong>0</strong></span></div>
+        <div class="insight-row"><span class="insight-icon">🌙</span><span class="insight-text">Waktu terbanyak membaca Quran: <strong id="statBestPrayer">—</strong></span></div>
+        <div class="insight-row"><span class="insight-icon">📅</span><span class="insight-text">Hari terkonsisten: <strong id="statBestDay">—</strong></span></div>
+      </div>
+    </div>
+
+    <!-- Reminder -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🔔</span><span class="card-title">Pengingat Tilawah</span></div>
+      <div style="font-size:0.74rem;color:var(--text2);margin-bottom:12px;line-height:1.6;">Aktifkan pengingat agar tidak lupa membaca. <span style="color:var(--text3);">⚠ Izinkan notifikasi browser saat diminta.</span></div>
+      <div id="reminderList"></div>
+      <button class="btn btn-ghost btn-sm" onclick="addReminder()" style="margin-top:6px;">+ Tambah Pengingat</button>
+    </div>
+
+    <!-- Install Guide -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">📲</span><span class="card-title">Pasang di Homescreen</span></div>
+      <div style="font-size:0.76rem;color:var(--text2);line-height:1.7;margin-bottom:10px;">
+        <div><strong style="color:var(--gold2);">Android Chrome:</strong> Menu ⋮ → Tambahkan ke layar utama</div>
+        <div><strong style="color:var(--gold2);">iPhone Safari:</strong> Bagikan ⬆ → Tambahkan ke Layar Utama</div>
+      </div>
+      <button class="btn btn-blue btn-sm" id="installBtn" onclick="triggerInstall()" style="display:none;">📲 Pasang Sekarang</button>
+    </div>
+
+    <!-- Reset -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">⚠️</span><span class="card-title">Kelola Data</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button class="btn btn-secondary btn-sm" onclick="confirmResetProgress()" style="margin:0;">🔄 Reset Bacaan</button>
+        <button class="btn btn-danger btn-sm" onclick="confirmResetAll()" style="margin:0;">⚠️ Reset Semua</button>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:16px 0;font-size:0.65rem;color:var(--text3);">
+      Target Tilawah Ramadhan v6.0<br>Semua data tersimpan di perangkat Anda
+    </div>
+  </div>
+
+</div><!-- end mainApp -->
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="nav-item active" id="nav-home" onclick="showSection('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Beranda</span>
+  </button>
+  <button class="nav-item locked" id="nav-input" onclick="navGuard('input')">
+    <span class="nav-icon">✏️</span>
+    <span class="nav-label">Catat</span>
+  </button>
+  <button class="nav-item locked" id="nav-history" onclick="navGuard('history')">
+    <span class="nav-icon">📈</span>
+    <span class="nav-label">Riwayat</span>
+  </button>
+  <button class="nav-item locked" id="nav-share" onclick="navGuard('share')">
+    <span class="nav-icon">📲</span>
+    <span class="nav-label">Bagikan</span>
+  </button>
+  <button class="nav-item" id="nav-settings" onclick="showSection('settings')">
+    <span class="nav-icon">⚙️</span>
+    <span class="nav-label">Pengaturan</span>
+  </button>
+</nav>
+
+<!-- FAB -->
+<button class="fab" id="fabBtn" onclick="openInputSheet()" title="Catat Tilawah" style="display:none;">✏️</button>
+
+<!-- INPUT SHEET -->
+<div id="inputSheet" style="display:none;" onclick="closeSheetBg(event)">
+  <div class="input-sheet-inner">
+    <div class="sheet-header">
+      <span class="sheet-title">✏️ Catat Tilawah</span>
+      <button class="sheet-close" onclick="closeInputSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="form-row" style="margin-bottom:12px;">
+        <div>
+          <label>Waktu Sholat</label>
+          <select id="sheetPrayer">
+            <option value="Subuh">🌅 Subuh</option>
+            <option value="Dhuha">☀️ Dhuha</option>
+            <option value="Dzuhur">🌤️ Dzuhur</option>
+            <option value="Ashar">🌆 Ashar</option>
+            <option value="Maghrib">🌇 Maghrib</option>
+            <option value="Tarawih">🌙 Tarawih</option>
+          </select>
+        </div>
+        <div>
+          <label>Halaman</label>
+          <input type="number" id="sheetPages" min="1" max="604" placeholder="0" inputmode="numeric"
+            style="font-size:1.4rem;font-weight:700;text-align:center;padding:8px;">
+        </div>
+      </div>
+
+      <label style="margin-bottom:4px;">⚡ Pilih Jumlah Halaman</label>
+      <div style="font-size:0.72rem;color:var(--text2);margin-bottom:8px;">Ketuk untuk langsung mengisi kolom halaman</div>
+      <div class="quick-btns">
+        <button class="quick-btn" onclick="sheetQuickInput(2)">2 hal</button>
+        <button class="quick-btn" onclick="sheetQuickInput(4)">4 hal</button>
+        <button class="quick-btn" onclick="sheetQuickInput(8)">8 hal</button>
+        <button class="quick-btn" onclick="sheetQuickInput(20)">1 Juz</button>
+      </div>
+
+      <div class="form-group">
+        <label>Posisi Baca (opsional)</label>
+        <input type="text" id="sheetPos" placeholder="Cth: Al-Baqarah 255">
+      </div>
+
+      <button class="btn btn-primary" onclick="addLogFromSheet()">+ Simpan Tilawah</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modalBackdrop" class="modal-backdrop hidden" onclick="closeModalBg(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════
+const PRAYERS = [
+  {name:'Subuh',emoji:'🌅'},{name:'Dhuha',emoji:'☀️'},{name:'Dzuhur',emoji:'🌤️'},
+  {name:'Ashar',emoji:'🌆'},{name:'Maghrib',emoji:'🌇'},{name:'Tarawih',emoji:'🌙'}
+];
+const PRAYER_WEIGHTS = {Subuh:1,Dhuha:1,Dzuhur:1,Ashar:1,Maghrib:1.5,Tarawih:1.5};
+const PAGES_PER_KHATAM = 604;
+const DAYS_RAMADHAN = 30;
+const HIJRI_LOOKUP = [
+  {masehi:'2024-03-11',hijri:1445},{masehi:'2025-03-01',hijri:1446},
+  {masehi:'2026-02-19',hijri:1447},{masehi:'2027-02-09',hijri:1448},
+  {masehi:'2028-01-29',hijri:1449},{masehi:'2029-01-17',hijri:1450},
+];
+const BADGES = [
+  {id:'first_log',emoji:'📖',name:'Langkah Pertama',desc:'Input tilawah pertama'},
+  {id:'streak3',emoji:'🔥',name:'Konsisten 3 Hari',desc:'3 hari berturut-turut'},
+  {id:'streak7',emoji:'💫',name:'Seminggu Penuh',desc:'7 hari berturut-turut'},
+  {id:'half_khatam',emoji:'🌙',name:'Setengah Jalan',desc:'Baca 50% target'},
+  {id:'first_khatam',emoji:'🏆',name:'Khatam Pertama',desc:'Selesaikan 1 khatam'},
+  {id:'on_track_5',emoji:'🎯',name:'On Track',desc:'5 hari tepat target'},
+];
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let S = {
+  userName: '', startDate: '2026-02-19', khatamTarget: 1,
+  totalTarget: PAGES_PER_KHATAM, dailyTarget: 20,
+  totalRead: 0, currentKhatam: 0,
+  dailyLogs: {}, reminders: [], earnedBadges: [],
+  yearHistory: [], modeSet: false, breakdown: {}
+};
+
+let wizStep = 1, wizKhatamVal = 1;
+let deferredInstall = null;
+let _shareCanvasDirty = true;
+
+// ── Active date for input tab (single source of truth) ──
+let _activeInputDate = null; // set on launchMainApp, always valid
+
+function getActiveInputDate() {
+  return _activeInputDate || localDate();
+}
+function setActiveInputDate(d) {
+  _activeInputDate = d || localDate();
+  // Sync the DOM input too
+  const el = document.getElementById('logDate');
+  if (el) el.value = _activeInputDate;
+}
+
+// ═══════════════════════════════════════
+// FONT SIZE (apply immediately on load)
+// ═══════════════════════════════════════
+let fontLevel = parseInt(localStorage.getItem('tilawah_fontLevel') || '0');
+(function applyFontLevel() {
+  document.body.className = document.body.className.replace(/font-\w+/g,'').trim();
+  if (fontLevel === 1) document.body.classList.add('font-md');
+  if (fontLevel === 2) document.body.classList.add('font-lg');
+})();
+function toggleFontSize() {
+  fontLevel = (fontLevel + 1) % 3;
+  localStorage.setItem('tilawah_fontLevel', fontLevel);
+  document.body.className = document.body.className.replace(/font-\w+/g,'').trim();
+  if (fontLevel === 1) document.body.classList.add('font-md');
+  if (fontLevel === 2) document.body.classList.add('font-lg');
+  const labels = ['Normal', 'Besar', 'Sangat Besar'];
+  showToast('Huruf: ' + labels[fontLevel]);
+}
+
+// ═══════════════════════════════════════
+// DATE HELPERS
+// ═══════════════════════════════════════
+function localDate(d) {
+  return (d || new Date()).toLocaleDateString('en-CA');
+}
+function getHijriYear(d) {
+  const t = new Date(d).getTime();
+  let best = HIJRI_LOOKUP[0];
+  for (const e of HIJRI_LOOKUP) if (Math.abs(new Date(e.masehi)-t) < Math.abs(new Date(best.masehi)-t)) best = e;
+  return best.hijri + Math.round((t - new Date(best.masehi).getTime()) / 86400000 / 354.367);
+}
+function getRamLabel() { return 'Ramadhan ' + getHijriYear(S.startDate) + 'H'; }
+function getRamadhanDay() {
+  const today = new Date(localDate() + 'T00:00:00');
+  const start = new Date(S.startDate + 'T00:00:00');
+  return Math.max(1, Math.min(Math.floor((today - start) / 86400000) + 1, DAYS_RAMADHAN));
+}
+function getDaysGone() {
+  const today = new Date(localDate() + 'T00:00:00');
+  const start = new Date(S.startDate + 'T00:00:00');
+  return Math.max(0, Math.min(Math.floor((today - start) / 86400000) + 1, DAYS_RAMADHAN));
+}
+function getDaysLeft() { return Math.max(0, DAYS_RAMADHAN - getDaysGone()); }
+
+// ═══════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════
+function save() { localStorage.setItem('tilawahV3', JSON.stringify(S)); }
+function load() {
+  try {
+    const d = localStorage.getItem('tilawahV3');
+    if (d) S = { ...S, ...JSON.parse(d) };
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+function el(id) { return document.getElementById(id); }
+function setText(id, val) { const e = el(id); if (e) e.textContent = val; }
+function setHTML(id, val) { const e = el(id); if (e) e.innerHTML = val; }
+function setWidth(id, pct) { const e = el(id); if (e) e.style.width = pct + '%'; }
+function getTodayPages(dateStr) {
+  return (S.dailyLogs[dateStr] || []).reduce((s,l) => s + l.pages, 0);
+}
+function getStatusClass(read, target) {
+  if (read >= target) return 'ahead';
+  if (read >= target * 0.8) return 'on-track';
+  return 'behind';
+}
+function calcBreakdown(daily) {
+  const totalW = Object.values(PRAYER_WEIGHTS).reduce((a,b) => a+b, 0);
+  const bd = {};
+  let assigned = 0;
+  PRAYERS.forEach((p, i) => {
+    const pg = (i === PRAYERS.length-1)
+      ? (daily - assigned)
+      : Math.round((PRAYER_WEIGHTS[p.name]/totalW)*daily);
+    bd[p.name] = Math.max(0, pg);
+    assigned += bd[p.name];
+  });
+  return bd;
+}
+
+// ═══════════════════════════════════════
+// ONBOARDING
+// ═══════════════════════════════════════
+function startOnboarding() {
+  el('welcomeScreen').style.display = 'none';
+  el('setupWizard').style.display = 'flex';
+  wizUpdatePreview();
+  updateWizStartLabel();
+}
+function updateWizStartLabel() {
+  const d = el('wiz_start').value || S.startDate;
+  const lbl = el('wiz_start_label');
+  if (lbl) lbl.textContent = 'Tanggal 1 Ramadhan ' + getHijriYear(d) + 'H';
+}
+function wizKhatam(delta) {
+  wizKhatamVal = Math.max(1, Math.min(5, wizKhatamVal + delta));
+  setText('wiz_khatam_num', wizKhatamVal);
+  wizUpdatePreview();
+}
+function wizUpdatePreview() {
+  updateWizStartLabel();
+  const total = wizKhatamVal * PAGES_PER_KHATAM;
+  const daily = Math.ceil(total / DAYS_RAMADHAN);
+  const juzDay = (daily / (PAGES_PER_KHATAM / 30)).toFixed(1);
+  if (el('wiz_daily')) {
+    setText('wiz_daily', daily);
+    setText('wiz_total', total);
+    setText('wiz_juz', juzDay);
+    setText('wiz_total_juz', wizKhatamVal * 30);
+    renderPrayerPreview('wiz_prayer_preview', daily);
+  }
+}
+function renderPrayerPreview(containerId, daily) {
+  const container = el(containerId);
+  if (!container) return;
+  const totalWeight = Object.values(PRAYER_WEIGHTS).reduce((a,b) => a+b, 0);
+  container.innerHTML = PRAYERS.map(p => {
+    const pg = Math.round((PRAYER_WEIGHTS[p.name] / totalWeight) * daily);
+    return `<div class="prayer-item">
+      <span class="prayer-emoji">${p.emoji}</span>
+      <div class="prayer-name">${p.name}</div>
+      <div class="prayer-pages">${pg}<span> hal</span></div>
+    </div>`;
+  }).join('');
+}
+function wizNext() {
+  if (wizStep === 1) {
+    const name = el('wiz_name').value.trim();
+    if (!name) { showToast('⚠️ Masukkan nama kamu dulu!'); return; }
+    wizStep = 2;
+    el('wizardStep1').style.display = 'none';
+    el('wizardStep2').style.display = '';
+    wizUpdatePreview();
+  } else if (wizStep === 2) {
+    wizStep = 3;
+    el('wizardStep2').style.display = 'none';
+    el('wizardStep3').style.display = '';
+    renderWizSummary();
+    el('wizNextBtn').textContent = '✅ Mulai Tilawah!';
+  } else if (wizStep === 3) {
+    finalizeSetup();
+    return;
+  }
+  updateWizHeader();
+}
+function wizBack() {
+  if (wizStep === 2) {
+    wizStep = 1;
+    el('wizardStep2').style.display = 'none';
+    el('wizardStep1').style.display = '';
+    el('wizNextBtn').textContent = 'Lanjut →';
+  } else if (wizStep === 3) {
+    wizStep = 2;
+    el('wizardStep3').style.display = 'none';
+    el('wizardStep2').style.display = '';
+    el('wizNextBtn').textContent = 'Lanjut →';
+  }
+  updateWizHeader();
+}
+function updateWizHeader() {
+  document.querySelectorAll('.step-dot').forEach((d, i) => {
+    d.className = 'step-dot';
+    if (i < wizStep-1) d.classList.add('done');
+    else if (i === wizStep-1) d.classList.add('active');
+  });
+  el('stepLabel').innerHTML = `Langkah <strong>${wizStep}</strong> dari 3`;
+  el('wizBackBtn').style.display = wizStep > 1 ? '' : 'none';
+}
+function renderWizSummary() {
+  const name = el('wiz_name').value.trim();
+  const start = el('wiz_start').value;
+  const total = wizKhatamVal * PAGES_PER_KHATAM;
+  const daily = Math.ceil(total / DAYS_RAMADHAN);
+  setHTML('wiz_summary_content', `
+    <div style="font-size:0.82rem;color:var(--text2);line-height:2;">
+      👤 <strong style="color:var(--text);">${name}</strong><br>
+      🌙 Ramadhan mulai: <strong style="color:var(--gold2);">${start}</strong><br>
+      🎯 Target: <strong style="color:var(--gold2);">${wizKhatamVal}× khatam</strong> (${total} halaman)<br>
+      📖 Harus baca: <strong style="color:var(--gold2);">${daily} halaman/hari</strong>
+    </div>`);
+}
+function finalizeSetup() {
+  S.userName = el('wiz_name').value.trim();
+  S.startDate = el('wiz_start').value;
+  S.khatamTarget = wizKhatamVal;
+  S.totalTarget = wizKhatamVal * PAGES_PER_KHATAM;
+  S.dailyTarget = Math.ceil(S.totalTarget / DAYS_RAMADHAN);
+  S.modeSet = true;
+  S.breakdown = calcBreakdown(S.dailyTarget);
+  save();
+  el('setupWizard').style.display = 'none';
+  launchMainApp();
+  showToast(`✅ Selamat datang, ${S.userName}! 🌙`);
+}
+
+// ═══════════════════════════════════════
+// LAUNCH
+// ═══════════════════════════════════════
+function launchMainApp() {
+  el('mainApp').style.display = 'block';
+  el('bottomNav').style.display = 'flex';
+  unlockNav();
+  // Initialize active date to today
+  setActiveInputDate(localDate());
+  updateAllUI();
+  initReminders();
+  renderBadges();
+  renderYearHistory();
+}
+function unlockNav() {
+  ['input','history','share'].forEach(id => {
+    const navEl = el('nav-' + id);
+    if (navEl) navEl.classList.remove('locked');
+  });
+  el('fabBtn').style.display = 'flex';
+}
+function navGuard(section) {
+  if (!S.modeSet) { showToast('⚙️ Selesaikan pengaturan terlebih dahulu'); return; }
+  showSection(section);
+}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = el('section-' + id);
+  const nav = el('nav-' + id);
+  if (sec) sec.classList.add('active');
+  if (nav) nav.classList.add('active');
+
+  if (id === 'input') {
+    // Reset to today when entering input tab
+    setActiveInputDate(localDate());
+    updateInputSection();
+  }
+  if (id === 'history') { renderHistory(); renderChart(); renderYearHistory(); }
+  if (id === 'share') renderShareCanvas();
+  if (id === 'settings') renderSettings();
+}
+
+// ═══════════════════════════════════════
+// MASTER UI UPDATE
+// All updates are safe (null-guarded via setText/setHTML helpers)
+// ═══════════════════════════════════════
+function updateAllUI() {
+  updateHeader();
+  updateHomeSection();
+  updateInputSection(); // always refresh input section
+}
+
+// ═══════════════════════════════════════
+// HEADER
+// ═══════════════════════════════════════
+function updateHeader() {
+  const elDate = el('headerDate');
+  if (!elDate) return; // mainApp not visible yet
+
+  const today = new Date();
+  elDate.textContent = today.toLocaleDateString('id-ID', {weekday:'short', day:'numeric', month:'short'});
+  setText('headerRamDay', S.modeSet ? `Hari ke-${getRamadhanDay()} ${getRamLabel()}` : getRamLabel());
+  setText('mainTitle', `Tilawah ${getRamLabel()}`);
+  setText('mainSubtitle', S.modeSet ? S.userName : '');
+
+  if (!S.modeSet) return;
+
+  const todayStr = localDate();
+  const todayPages = getTodayPages(todayStr);
+  const pct = Math.min(100, Math.round((todayPages / S.dailyTarget) * 100));
+  setText('headerTodayVal', `${todayPages} / ${S.dailyTarget} halaman`);
+
+  const elPct = el('headerTodayPct');
+  if (elPct) {
+    elPct.textContent = pct + '%';
+    elPct.style.color = pct >= 100 ? 'var(--green)' : pct >= 70 ? 'var(--blue)' : 'var(--amber)';
+  }
+  const elBar = el('headerMiniBar');
+  if (elBar) {
+    elBar.style.width = pct + '%';
+    elBar.className = 'today-mini-fill ' + getStatusClass(todayPages, S.dailyTarget);
+  }
+}
+
+// ═══════════════════════════════════════
+// HOME SECTION
+// ═══════════════════════════════════════
+function updateHomeSection() {
+  if (!S.modeSet) return;
+
+  const daysGone = getDaysGone();
+  const daysLeft = getDaysLeft();
+
+  // ── Progress ring: progress vs TOTAL TARGET (keseluruhan khatam Ramadhan)
+  // Tapi tampilkan juga "hari ke-N" agar kontekstual
+  const overallPct = S.totalTarget > 0 ? Math.min(100, (S.totalRead / S.totalTarget) * 100) : 0;
+
+  // Warna ring berdasarkan perbandingan dengan ekspektasi harian
+  const expectedSoFar = daysGone * S.dailyTarget;
+  const onTrackPct = expectedSoFar > 0 ? Math.min(100, (S.totalRead / expectedSoFar) * 100) : 0;
+  // Ring menampilkan on-track % (lebih bermakna untuk user harian)
+  // 100% = tepat sesuai jadwal, >100% = di atas, <100% = tertinggal
+  const ringPct = expectedSoFar > 0 ? Math.min(150, onTrackPct) : overallPct;
+  const ringDisplay = expectedSoFar > 0 ? Math.min(100, Math.round(onTrackPct)) : Math.round(overallPct);
+
+  const circum = 395.84;
+  const ring = el('progressRingCircle');
+  if (ring) {
+    // Cap visual ring at 100% fill
+    const fillPct = Math.min(100, ringPct);
+    ring.style.strokeDashoffset = circum - (fillPct/100) * circum;
+    // Warna ring sesuai status on-track
+    const g1 = el('pgG1'), g2 = el('pgG2');
+    if (onTrackPct >= 100) { if(g1) g1.setAttribute('stop-color','#3dd68c'); if(g2) g2.setAttribute('stop-color','#4ade80'); }
+    else if (onTrackPct >= 80) { if(g1) g1.setAttribute('stop-color','#4a90e8'); if(g2) g2.setAttribute('stop-color','#60a5fa'); }
+    else { if(g1) g1.setAttribute('stop-color','#f0a030'); if(g2) g2.setAttribute('stop-color','#fbbf24'); }
+  }
+  setText('progressPct', ringDisplay + '%');
+  // Sub-label: tunjukkan % total target + status
+  if (overallPct >= 100) {
+    setText('progressSub', 'Khatam! 🎉');
+  } else if (daysGone <= 0) {
+    setText('progressSub', 'Belum mulai');
+  } else {
+    // Tampilkan konteks: ini % kejar target harian
+    setText('progressSub', Math.round(overallPct) + '% total target');
+  }
+  setText('khatamBadge', `${S.currentKhatam}× Khatam`);
+
+  setText('totalRead', S.totalRead);
+  setText('totalReadJuz', (S.totalRead / (PAGES_PER_KHATAM/30)).toFixed(1) + ' Juz');
+  const rem = Math.max(0, S.totalTarget - S.totalRead);
+  setText('remaining', rem);
+  setText('remainingJuz', (rem / (PAGES_PER_KHATAM/30)).toFixed(1) + ' Juz');
+
+  // ── Rata-rata & Proyeksi
+  // Gunakan rata-rata 3 hari terakhir jika tersedia (lebih akurat dari hari ke-1)
+  const avgD = daysGone > 0 ? (S.totalRead / daysGone) : 0;
+  setText('avgDaily', Math.round(avgD));
+
+  if (rem <= 0) {
+    setText('projDate', '✅');
+    // Update label
+    const lbl = document.querySelector('#projDate')?.closest('.stat-card')?.querySelector('.stat-lbl');
+    if (lbl) lbl.innerHTML = 'Estimasi<br>Khatam';
+  } else if (avgD > 0) {
+    const daysNeeded = Math.ceil(rem / avgD);
+    const ramEndDate = new Date(S.startDate + 'T00:00:00');
+    ramEndDate.setDate(ramEndDate.getDate() + DAYS_RAMADHAN - 1);
+    const projDate = new Date();
+    projDate.setDate(projDate.getDate() + daysNeeded);
+    const pastRam = projDate > ramEndDate;
+    const projLbl = document.querySelector('#projDate')?.closest('.stat-card')?.querySelector('.stat-lbl');
+    if (!pastRam || daysNeeded <= daysLeft + 3) {
+      // Dalam Ramadhan, atau mepet (≤3 hari lewat) — tampilkan estimasi tanggal
+      setText('projDate', projDate.toLocaleDateString('id-ID', {day:'numeric',month:'short'}));
+      if (projLbl) projLbl.innerHTML = 'Estimasi<br>Khatam';
+    } else {
+      // Melewati Ramadhan — tampilkan sisa halaman/hari yang dibutuhkan agar selesai dalam Ramadhan
+      if (daysLeft > 0) {
+        const neededPerDay = Math.ceil(rem / daysLeft);
+        setText('projDate', neededPerDay + ' hal/hr');
+        if (projLbl) projLbl.innerHTML = 'Kejar<br>Khatam';
+      } else {
+        setText('projDate', '—');
+        if (projLbl) projLbl.innerHTML = 'Estimasi<br>Khatam';
+      }
+    }
+  } else {
+    setText('projDate', '—');
+    const projLbl = document.querySelector('#projDate')?.closest('.stat-card')?.querySelector('.stat-lbl');
+    if (projLbl) projLbl.innerHTML = 'Estimasi<br>Khatam';
+  }
+
+  updateStatusBanner();
+  renderStreakBar();
+  renderPrayerBreakdown();
+  updateInsights();
+  renderBadges();
+}
+
+function updateStatusBanner() {
+  const todayStr = localDate();
+  const todayPages = getTodayPages(todayStr);
+  const daysGone = getDaysGone();
+  const shouldHaveRead = daysGone * S.dailyTarget;
+  const diff = S.totalRead - shouldHaveRead;
+
+  const banner = el('statusBanner');
+  const icon = el('statusIcon');
+  const title = el('statusTitle');
+  const msg = el('statusMsg');
+  const action = el('statusAction');
+  if (!banner) return;
+  setText('statusTarget', S.dailyTarget);
+  action.innerHTML = '';
+
+  if (todayPages >= S.dailyTarget) {
+    banner.className = 'status-banner ahead';
+    icon.textContent = '🌟';
+    title.textContent = 'MasyaAllah! Target hari ini tercapai!';
+    msg.innerHTML = diff >= 0
+      ? `Kamu <strong style="color:var(--green);">${Math.abs(diff)} halaman</strong> di atas total target. Luar biasa!`
+      : 'Hari ini on-track! Pertahankan konsistensi ini.';
+  } else if (diff < -S.dailyTarget * 1.5) {
+    banner.className = 'status-banner behind';
+    icon.textContent = '⚡';
+    title.textContent = 'Yuk, kita kejar!';
+    const daysLeft = getDaysLeft();
+    const extraPerDay = daysLeft > 0 ? Math.ceil(Math.abs(diff) / daysLeft) : 0;
+    msg.innerHTML = `Kamu tertinggal <strong style="color:var(--amber);">${Math.abs(diff)} halaman</strong>. Tambah <strong>${extraPerDay} halaman/hari</strong> untuk ${daysLeft} hari ke depan.`;
+    action.innerHTML = `<button class="btn btn-amber btn-sm btn-auto" onclick="showSection('settings');setTimeout(()=>el('calcDays')?.focus(),200);">🏃 Hitung Kejar Setoran</button>`;
+  } else if (diff < 0) {
+    banner.className = 'status-banner behind';
+    icon.textContent = '📖';
+    title.textContent = 'Sedikit lagi!';
+    const todayLeft = Math.max(0, S.dailyTarget - todayPages);
+    msg.innerHTML = `Tambah <strong style="color:var(--amber);">${todayLeft} halaman</strong> lagi hari ini untuk kembali on-track.`;
+  } else {
+    banner.className = 'status-banner on-track';
+    icon.textContent = '✨';
+    title.textContent = 'Alhamdulillah, on-track!';
+    msg.innerHTML = `Kamu sudah baca <strong>${todayPages}</strong> halaman hari ini. Target: ${S.dailyTarget}.`;
+  }
+}
+
+function renderStreakBar() {
+  const bar = el('streakBar');
+  if (!bar) return;
+  const todayStr = localDate();
+  let streak = 0, cur = 0;
+  let dots = '';
+  for (let i = 0; i < DAYS_RAMADHAN; i++) {
+    const d = new Date(S.startDate + 'T00:00:00');
+    d.setDate(d.getDate() + i);
+    const ds = d.toLocaleDateString('en-CA');
+    const pages = getTodayPages(ds);
+    const isFuture = ds > todayStr;
+    const isToday = ds === todayStr;
+    let cls, label;
+    if (isFuture) { cls='empty'; label=i+1; }
+    else if (pages >= S.dailyTarget) { cls='over'; label='✓'; cur++; streak=Math.max(streak,cur); }
+    else if (pages > 0) { cls='on'; label='~'; cur++; }
+    else if (isToday) { cls='today'; label='▶'; cur++; }
+    else { cls='miss'; label='✗'; cur=0; }
+    dots += `<div class="s-dot ${cls}" title="Hari ${i+1}: ${pages} hal">${label}</div>`;
+  }
+  bar.innerHTML = dots;
+  setText('streakBadge', `${streak} hari 🔥`);
+  setText('streakInfo', streak > 0 ? `${streak} hari berturut-turut di atas target` : 'Mulai streak hari ini!');
+}
+
+function renderPrayerBreakdown() {
+  const container = el('prayerBreakdown');
+  if (!container) return;
+  const allLogs = Object.values(S.dailyLogs).flat();
+  container.innerHTML = PRAYERS.map(p => {
+    const target = S.breakdown[p.name] || 0;
+    const actual = allLogs.filter(l=>l.prayer===p.name).reduce((s,l)=>s+l.pages,0);
+    const color = actual > 0 ? 'var(--blue)' : 'var(--text3)';
+    return `<div class="prayer-item">
+      <span class="prayer-emoji">${p.emoji}</span>
+      <div class="prayer-name">${p.name}</div>
+      <div class="prayer-pages">${target}<span> hal</span></div>
+      <div style="font-size:0.55rem;color:${color};margin-top:2px;">${actual} total</div>
+    </div>`;
+  }).join('');
+}
+
+function updateInsights() {
+  const insightEl = el('insightContent');
+  if (!insightEl) return;
+  const dates = Object.keys(S.dailyLogs).sort();
+  if (dates.length < 3) {
+    insightEl.innerHTML = '<div class="empty-state"><span class="empty-icon">📊</span>Insight tersedia setelah beberapa hari input data</div>';
+    return;
+  }
+  const prayerTotals = {};
+  Object.values(S.dailyLogs).flat().forEach(l => { prayerTotals[l.prayer] = (prayerTotals[l.prayer]||0) + l.pages; });
+  const bestPrayer = Object.entries(prayerTotals).sort((a,b)=>b[1]-a[1])[0];
+  const dayTotals = {};
+  Object.entries(S.dailyLogs).forEach(([d,logs]) => {
+    const day = new Date(d+'T00:00:00').toLocaleDateString('id-ID',{weekday:'long'});
+    dayTotals[day] = (dayTotals[day]||0) + logs.reduce((s,l)=>s+l.pages,0);
+  });
+  const bestDay = Object.entries(dayTotals).sort((a,b)=>b[1]-a[1])[0];
+  const daysGone = getDaysGone();
+  const avgD = daysGone > 0 ? Math.round(S.totalRead / daysGone) : 0;
+  const rem = Math.max(0, S.totalTarget - S.totalRead);
+  const daysLeft = getDaysLeft();
+  const neededPerDay = daysLeft > 0 ? Math.ceil(rem / daysLeft) : 0;
+  let html = '';
+  if (bestPrayer) html += `<div class="insight-row"><span class="insight-icon">⭐</span><span class="insight-text">Waktu terbanyak membaca Quranmu: <strong>${bestPrayer[0]}</strong> (${bestPrayer[1]} hal total)</span></div>`;
+  if (bestDay) html += `<div class="insight-row"><span class="insight-icon">📅</span><span class="insight-text">Hari terkonsisten: <strong>${bestDay[0]}</strong></span></div>`;
+  html += `<div class="insight-row"><span class="insight-icon">📈</span><span class="insight-text">Rata-rata kamu: <strong>${avgD} hal/hari</strong> (target: ${S.dailyTarget})</span></div>`;
+  if (rem > 0 && daysLeft > 0) {
+    const neededPerDay = Math.ceil(rem / daysLeft);
+    // Check if achievable in Ramadhan
+    const ramEndDate = new Date(S.startDate + 'T00:00:00');
+    ramEndDate.setDate(ramEndDate.getDate() + DAYS_RAMADHAN - 1);
+    const projDate2 = new Date();
+    const daysNeeded2 = avgD > 0 ? Math.ceil(rem / avgD) : Infinity;
+    projDate2.setDate(projDate2.getDate() + daysNeeded2);
+    if (projDate2 <= ramEndDate) {
+      html += `<div class="insight-row"><span class="insight-icon">🏁</span><span class="insight-text">Perlu baca <strong>${neededPerDay} hal/hari</strong> untuk ${daysLeft} hari ke depan agar khatam dalam Ramadhan.</span></div>`;
+    } else {
+      html += `<div class="insight-row"><span class="insight-icon">⚡</span><span class="insight-text">Perlu <strong>${neededPerDay} hal/hari</strong> untuk kejar khatam dalam sisa ${daysLeft} hari Ramadhan.</span></div>`;
+    }
+  }
+  insightEl.innerHTML = html;
+}
+
+// ═══════════════════════════════════════
+// INPUT SECTION
+// ═══════════════════════════════════════
+function updateInputSection() {
+  if (!S.modeSet) return;
+  const dateStr = getActiveInputDate();
+  const todayPages = getTodayPages(dateStr);
+  const remain = Math.max(0, S.dailyTarget - todayPages);
+  const pct = Math.min(100, Math.round((todayPages / S.dailyTarget) * 100));
+  const isToday = dateStr === localDate();
+
+  // Update card title
+  const cardTitle = el('inputCardTitle');
+  if (cardTitle) {
+    if (isToday) {
+      cardTitle.textContent = 'Hari Ini';
+    } else {
+      const d = new Date(dateStr + 'T00:00:00');
+      cardTitle.textContent = d.toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'short'});
+    }
+  }
+
+  setText('inputTodayTotal', todayPages);
+  setText('inputDailyTarget', S.dailyTarget);
+  setText('inputTodayRemain', remain);
+
+  const barEl = el('inputTodayBar');
+  if (barEl) {
+    barEl.style.width = pct + '%';
+    barEl.className = 'prog-bar-fill ' + getStatusClass(todayPages, S.dailyTarget);
+  }
+
+  renderTodayLog(dateStr);
+  updatePrayerHint();
+}
+
+function updatePrayerHint() {
+  const prayer = el('prayerSelect')?.value;
+  const hint = el('prayerHint');
+  if (!hint || !prayer) return;
+  const target = S.breakdown[prayer] || 0;
+  hint.textContent = target > 0 ? `Target ${prayer}: ${target} halaman` : '';
+}
+
+function renderTodayLog(dateStr) {
+  const logEl = el('todayLog');
+  if (!logEl) return;
+  const logs = S.dailyLogs[dateStr] || [];
+  const total = logs.reduce((s,l) => s + l.pages, 0);
+  setText('todayTotalBottom', total + ' Halaman');
+
+  // Update log card title
+  const logCard = logEl.closest('.card');
+  const logCardTitle = logCard?.querySelector('.card-title');
+  if (logCardTitle) {
+    logCardTitle.textContent = dateStr === localDate() ? 'Log Hari Ini' : `Log: ${dateStr}`;
+  }
+
+  if (!logs.length) {
+    logEl.innerHTML = `<div class="empty-state"><span class="empty-icon">📖</span>Belum ada tilawah${dateStr === localDate() ? ' hari ini' : ' di tanggal ini'}</div>`;
+    return;
+  }
+  logEl.innerHTML = logs.slice().reverse().map(l => {
+    const pEmoji = PRAYERS.find(p=>p.name===l.prayer)?.emoji || '📖';
+    return `<div class="log-entry" id="log-${l.id}">
+      <span class="log-icon">${pEmoji}</span>
+      <div class="log-main">
+        <div class="log-prayer">${l.prayer}</div>
+        ${l.pos ? `<div class="log-pos">${l.pos}</div>` : ''}
+      </div>
+      <div class="log-right">
+        <span class="log-pages">+${l.pages} hal</span>
+        <span class="log-time">${l.time||''}</span>
+        <button class="log-del" onclick="confirmDeleteLog('${dateStr}',${l.id})" title="Hapus log ini">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// LOG DATE CHANGE (from input in tab Catat)
+// ═══════════════════════════════════════
+function onLogDateChange() {
+  const logDateEl = el('logDate');
+  if (logDateEl && logDateEl.value) {
+    setActiveInputDate(logDateEl.value);
+  }
+  updateInputSection();
+}
+
+// ═══════════════════════════════════════
+// ADD LOG
+// ═══════════════════════════════════════
+function addLog() {
+  const date = getActiveInputDate();
+  const prayer = el('prayerSelect')?.value;
+  const pages = parseInt(el('pagesInput')?.value) || 0;
+  const pos = el('lastPosInput')?.value.trim() || '';
+  if (!prayer) { showToast('⚠️ Pilih waktu sholat!'); return; }
+  if (pages < 1) { showToast('⚠️ Masukkan jumlah halaman!'); return; }
+
+  doAddLog(date, prayer, pages, pos);
+
+  if (el('pagesInput')) el('pagesInput').value = '';
+  if (el('lastPosInput')) el('lastPosInput').value = '';
+  if (el('pagesInput')) el('pagesInput').focus();
+}
+
+function addLogFromSheet() {
+  const date = localDate(); // FAB sheet always logs for today
+  const prayer = el('sheetPrayer')?.value;
+  const pages = parseInt(el('sheetPages')?.value) || 0;
+  const pos = el('sheetPos')?.value.trim() || '';
+  if (pages < 1) { showToast('⚠️ Masukkan jumlah halaman dulu!'); return; }
+
+  const saveBtn = document.querySelector('#inputSheet .btn-primary');
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.textContent = '✅ Tersimpan!';
+    saveBtn.style.background = 'var(--green)';
+  }
+
+  doAddLog(date, prayer, pages, pos);
+  if (el('sheetPages')) el('sheetPages').value = '';
+  if (el('sheetPos')) el('sheetPos').value = '';
+
+  setTimeout(() => closeInputSheet(), 900);
+}
+
+function doAddLog(date, prayer, pages, pos) {
+  if (!S.dailyLogs[date]) S.dailyLogs[date] = [];
+  S.dailyLogs[date].push({
+    id: Date.now(), prayer, pages, pos,
+    time: new Date().toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'})
+  });
+  S.totalRead = Object.values(S.dailyLogs).flat().reduce((s,l) => s + l.pages, 0);
+  const prevKhatam = S.currentKhatam;
+  S.currentKhatam = Math.floor(S.totalRead / PAGES_PER_KHATAM);
+  checkBadges();
+  save();
+  _shareCanvasDirty = true;
+  updateAllUI();
+  showCheckAnim();
+  showToast(`✅ +${pages} halaman (${prayer}) tersimpan!`);
+  if (S.currentKhatam > prevKhatam) showCelebration(S.currentKhatam);
+}
+
+function quickInput(n) {
+  const inp = el('pagesInput');
+  if (!inp) return;
+  inp.value = n;
+  inp.style.transition = 'background 0.2s';
+  inp.style.background = 'rgba(61,214,140,0.18)';
+  setTimeout(() => { inp.style.background = ''; }, 500);
+}
+
+function sheetQuickInput(n) {
+  const inp = el('sheetPages');
+  if (!inp) return;
+  inp.value = n;
+  inp.style.transition = 'background 0.2s';
+  inp.style.background = 'rgba(61,214,140,0.18)';
+  setTimeout(() => { inp.style.background = ''; }, 500);
+}
+
+// ═══════════════════════════════════════
+// DELETE LOG
+// ═══════════════════════════════════════
+function confirmDeleteLog(date, id) {
+  const entry = el('log-' + id);
+  const delBtn = entry?.querySelector('.log-del');
+  if (!delBtn) { deleteLog(date, id); return; }
+  if (delBtn.dataset.confirming === '1') {
+    deleteLog(date, id);
+    return;
+  }
+  delBtn.dataset.confirming = '1';
+  delBtn.textContent = 'Yakin?';
+  delBtn.style.color = 'var(--red)';
+  delBtn.style.background = 'var(--red-dim)';
+  delBtn.style.padding = '3px 7px';
+  delBtn.style.border = '1px solid rgba(232,84,84,0.4)';
+  delBtn.style.borderRadius = '6px';
+  delBtn.style.fontSize = '0.68rem';
+  setTimeout(() => {
+    if (delBtn.dataset.confirming === '1') {
+      delBtn.dataset.confirming = '0';
+      delBtn.textContent = '🗑';
+      delBtn.style.cssText = '';
+    }
+  }, 3000);
+}
+
+function deleteLog(date, id) {
+  if (!S.dailyLogs[date]) return;
+  S.dailyLogs[date] = S.dailyLogs[date].filter(l => l.id !== id);
+  if (!S.dailyLogs[date].length) delete S.dailyLogs[date];
+  S.totalRead = Object.values(S.dailyLogs).flat().reduce((s,l) => s + l.pages, 0);
+  S.currentKhatam = Math.floor(S.totalRead / PAGES_PER_KHATAM);
+  save();
+  _shareCanvasDirty = true;
+  updateAllUI();
+  showToast('🗑️ Log dihapus');
+}
+
+// ═══════════════════════════════════════
+// HISTORY
+// ═══════════════════════════════════════
+function renderHistory() {
+  renderWeekly();
+  populateHistorySelect();
+}
+function renderWeekly() {
+  const container = el('weeklySummary');
+  if (!container) return;
+  const weeks = [];
+  for (let w = 0; w < 5; w++) {
+    const days = [];
+    for (let d = 0; d < 7; d++) {
+      const idx = w*7 + d;
+      if (idx >= DAYS_RAMADHAN) break;
+      const dt = new Date(S.startDate + 'T00:00:00');
+      dt.setDate(dt.getDate() + idx);
+      const ds = dt.toLocaleDateString('en-CA');
+      days.push({ds, pages: getTodayPages(ds), day: idx+1});
+    }
+    if (days.length) weeks.push(days);
+  }
+  if (!weeks.some(w => w.some(d => d.pages > 0))) {
+    container.innerHTML = '<div class="empty-state">Belum ada data</div>'; return;
+  }
+  container.innerHTML = weeks.map((wdays, wi) => {
+    const total = wdays.reduce((s,d)=>s+d.pages,0);
+    const weekTarget = wdays.length * S.dailyTarget;
+    const cls = total >= weekTarget ? 'ahead' : total > 0 ? 'on-track' : 'behind';
+    return `<div class="week-card">
+      <div class="week-header">
+        <span class="week-label">Minggu ${wi+1} (Hari ${wdays[0].day}–${wdays[wdays.length-1].day})</span>
+        <span class="week-total">${total} / ${weekTarget} hal</span>
+      </div>
+      <div class="prog-bar-wrap"><div class="prog-bar-fill ${cls}" style="width:${Math.min(100,(total/weekTarget)*100)}%"></div></div>
+    </div>`;
+  }).join('');
+}
+function renderChart() {
+  const container = el('dailyChart');
+  if (!container) return;
+  const todayStr = localDate();
+  let maxPages = S.dailyTarget;
+  const bars = [];
+  for (let i = 0; i < DAYS_RAMADHAN; i++) {
+    const dt = new Date(S.startDate + 'T00:00:00');
+    dt.setDate(dt.getDate() + i);
+    const ds = dt.toLocaleDateString('en-CA');
+    const pages = getTodayPages(ds);
+    bars.push({ds, pages, day: i+1});
+    if (pages > maxPages) maxPages = pages;
+  }
+  container.innerHTML = bars.map(b => {
+    const pct = maxPages > 0 ? (b.pages / maxPages) * 100 : 0;
+    const cls = b.pages >= S.dailyTarget ? 'ahead' : b.pages > 0 ? 'on-track' : 'behind';
+    return `<div class="bar-col" onclick="selectHistoryDate('${b.ds}')">
+      <div class="bar-fill ${cls}" style="height:${pct}%;${b.pages===0?'opacity:0.2;':''}"></div>
+      <div class="bar-lbl">${b.day}</div>
+    </div>`;
+  }).join('');
+}
+function populateHistorySelect() {
+  const sel = el('historyDateSelect');
+  if (!sel) return;
+  const dates = Object.keys(S.dailyLogs).sort().reverse();
+  sel.innerHTML = dates.length
+    ? dates.map(d => `<option value="${d}">${d} (${getTodayPages(d)} hal)</option>`).join('')
+    : '<option value="">Belum ada data</option>';
+  if (dates.length) renderHistoryDetail();
+}
+function selectHistoryDate(ds) {
+  const sel = el('historyDateSelect');
+  if (sel) { sel.value = ds; renderHistoryDetail(); }
+  showSection('history');
+}
+function navHistory(dir) {
+  const sel = el('historyDateSelect');
+  if (!sel || !sel.options.length) return;
+  const next = sel.selectedIndex - dir;
+  if (next >= 0 && next < sel.options.length) { sel.selectedIndex = next; renderHistoryDetail(); }
+}
+function renderHistoryDetail() {
+  const sel = el('historyDateSelect');
+  const detailEl = el('historyDetail');
+  if (!sel?.value || !detailEl) return;
+  const ds = sel.value;
+  const logs = S.dailyLogs[ds] || [];
+  const total = logs.reduce((s,l)=>s+l.pages, 0);
+  if (!logs.length) { detailEl.innerHTML = '<div class="empty-state">Tidak ada log</div>'; return; }
+  detailEl.innerHTML = `<div class="history-day-header"><span>${ds}</span><span class="history-day-total">${total} halaman</span></div>` +
+    logs.map(l => {
+      const pEmoji = PRAYERS.find(p=>p.name===l.prayer)?.emoji || '📖';
+      return `<div class="log-entry">
+        <span class="log-icon">${pEmoji}</span>
+        <div class="log-main"><div class="log-prayer">${l.prayer}</div>${l.pos?`<div class="log-pos">${l.pos}</div>`:''}</div>
+        <div class="log-right"><span class="log-pages">+${l.pages} hal</span><span class="log-time">${l.time||''}</span></div>
+      </div>`;
+    }).join('');
+}
+function renderYearHistory() {
+  const container = el('yearHistory');
+  if (!container) return;
+  const currentYear = {year: getRamLabel(), khatam: S.currentKhatam, read: S.totalRead, target: S.khatamTarget};
+  const all = [currentYear, ...(S.yearHistory||[]).filter(y => y.year !== currentYear.year)];
+  if (all.length === 0 || (all.length === 1 && all[0].khatam === 0)) {
+    container.innerHTML = '<div class="insight-row"><span class="insight-icon">🌙</span><span class="insight-text">Riwayat Ramadhan dari tahun-tahun sebelumnya akan tampil di sini.</span></div>';
+    return;
+  }
+  container.innerHTML = all.map(y => `
+    <div class="year-card">
+      <span class="year-icon">${y.khatam >= y.target ? '🏆' : '📖'}</span>
+      <div class="year-info">
+        <div class="year-label">${y.year}</div>
+        <div class="year-data">${y.read} halaman • ${y.khatam}× khatam dari target ${y.target}×</div>
+      </div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════
+function renderSettings() {
+  if (!S.modeSet) return;
+  setText('settingNameDisplay', S.userName);
+  setText('settingKhatamDisplay', `${S.khatamTarget}× khatam (${S.totalTarget} halaman)`);
+  setText('settingStartDisplay', S.startDate);
+  const totalLogs = Object.values(S.dailyLogs).flat().length;
+  setText('statTotalLogs', totalLogs);
+  setHTML('statCalcSaved', `Kalkulasi otomatis yang ditangani: <strong>${totalLogs * 5}+</strong>`);
+  const prayerTotals = {};
+  Object.values(S.dailyLogs).flat().forEach(l => { prayerTotals[l.prayer] = (prayerTotals[l.prayer]||0) + l.pages; });
+  const bp = Object.entries(prayerTotals).sort((a,b)=>b[1]-a[1])[0];
+  setText('statBestPrayer', bp ? `${bp[0]} (${bp[1]} hal)` : '—');
+  const dayTotals = {};
+  Object.entries(S.dailyLogs).forEach(([d,logs]) => {
+    const day = new Date(d+'T00:00:00').toLocaleDateString('id-ID',{weekday:'long'});
+    dayTotals[day] = (dayTotals[day]||0) + logs.reduce((s,l)=>s+l.pages,0);
+  });
+  const bd = Object.entries(dayTotals).sort((a,b)=>b[1]-a[1])[0];
+  setText('statBestDay', bd ? bd[0] : '—');
+  calcCatchUp();
+}
+function calcCatchUp() {
+  if (!S.modeSet) return;
+  const daysEl = el('calcDays');
+  const resultEl = el('calcResult');
+  if (!daysEl || !resultEl) return;
+  const days = parseInt(daysEl.value) || 0;
+  if (days < 1) { resultEl.style.display = 'none'; return; }
+  const rem = Math.max(0, S.totalTarget - S.totalRead);
+  const needed = Math.ceil(rem / days);
+  setText('calcNum', needed);
+  setText('calcLabel', `halaman/hari untuk ${days} hari ke depan`);
+  const advice = el('calcAdvice');
+  if (advice) {
+    if (needed <= S.dailyTarget) advice.innerHTML = `<span style="color:var(--green);">✅ Lebih rendah dari target harianmu (${S.dailyTarget} hal). Sangat bisa dicapai!</span>`;
+    else if (needed <= S.dailyTarget * 1.5) advice.innerHTML = `<span style="color:var(--amber);">⚡ Sedikit lebih dari target harian. Tambah bacaan setelah Tarawih!</span>`;
+    else advice.innerHTML = `<span style="color:var(--red);">💪 Cukup berat, tapi tidak mustahil. Manfaatkan semua waktu sholat secara konsisten.</span>`;
+  }
+  resultEl.style.display = '';
+}
+function showEditSetup() {
+  showModal('✏️ Ubah Pengaturan',
+    `<div class="form-group"><label>Nama</label><input id="editName" type="text" value="${S.userName}" maxlength="30"></div>
+     <div class="form-group"><label>Target Khatam</label><input id="editKhatam" type="number" value="${S.khatamTarget}" min="1" max="10"></div>
+     <div class="form-group"><label>Mulai Ramadhan</label><input id="editStart" type="date" value="${S.startDate}"></div>`,
+    'Simpan', 'applyEditSetup()', 'Batal', 'closeModal()'
+  );
+}
+function applyEditSetup() {
+  const name = el('editName')?.value.trim();
+  const khatam = parseInt(el('editKhatam')?.value) || 1;
+  const start = el('editStart')?.value;
+  if (!name) { showToast('⚠️ Masukkan nama!'); return; }
+  S.userName = name;
+  S.khatamTarget = khatam;
+  S.startDate = start;
+  S.totalTarget = khatam * PAGES_PER_KHATAM;
+  S.dailyTarget = Math.ceil(S.totalTarget / DAYS_RAMADHAN);
+  S.breakdown = calcBreakdown(S.dailyTarget);
+  _shareCanvasDirty = true;
+  save(); closeModal(); updateAllUI(); renderSettings();
+  showToast('✅ Pengaturan disimpan!');
+}
+
+// ═══════════════════════════════════════
+// BADGES
+// ═══════════════════════════════════════
+function checkBadges() {
+  const totalLogs = Object.values(S.dailyLogs).flat().length;
+  const earned = [...(S.earnedBadges||[])];
+  if (totalLogs >= 1 && !earned.includes('first_log')) earned.push('first_log');
+  if (S.currentKhatam >= 1 && !earned.includes('first_khatam')) earned.push('first_khatam');
+  if (S.totalRead >= S.totalTarget * 0.5 && !earned.includes('half_khatam')) earned.push('half_khatam');
+  const todayStr = localDate();
+  let streak = 0;
+  for (let i = 0; i < DAYS_RAMADHAN; i++) {
+    const dt = new Date(S.startDate + 'T00:00:00');
+    dt.setDate(dt.getDate() + i);
+    const ds = dt.toLocaleDateString('en-CA');
+    if (ds > todayStr) break;
+    if (getTodayPages(ds) >= S.dailyTarget) streak++;
+    else streak = 0;
+  }
+  if (streak >= 3 && !earned.includes('streak3')) earned.push('streak3');
+  if (streak >= 7 && !earned.includes('streak7')) earned.push('streak7');
+  let onTrack = 0;
+  for (let i = 0; i < DAYS_RAMADHAN; i++) {
+    const dt = new Date(S.startDate + 'T00:00:00');
+    dt.setDate(dt.getDate() + i);
+    const ds = dt.toLocaleDateString('en-CA');
+    if (ds > todayStr) break;
+    if (getTodayPages(ds) >= S.dailyTarget * 0.9) onTrack++;
+  }
+  if (onTrack >= 5 && !earned.includes('on_track_5')) earned.push('on_track_5');
+  const newBadges = earned.filter(b => !(S.earnedBadges||[]).includes(b));
+  S.earnedBadges = earned;
+  if (newBadges.length) {
+    const badge = BADGES.find(b => b.id === newBadges[0]);
+    if (badge) showToast(`🏅 Badge baru: ${badge.emoji} ${badge.name}!`);
+  }
+}
+function renderBadges() {
+  const container = el('badgeGrid');
+  if (!container) return;
+  container.innerHTML = BADGES.map(b => {
+    const earned = (S.earnedBadges||[]).includes(b.id);
+    return `<div class="badge-item ${earned ? 'earned' : 'locked-badge'}">
+      <span class="badge-emoji">${b.emoji}</span>
+      <div class="badge-name">${b.name}</div>
+      <div class="badge-desc">${b.desc}</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// CELEBRATION
+// ═══════════════════════════════════════
+function showCelebration(n) {
+  const overlay = document.createElement('div');
+  overlay.id = 'celebrationOverlay';
+  const colors = ['#e8b84b','#3dd68c','#4a90e8','#f0a030','#fff'];
+  let confetti = '';
+  for (let i = 0; i < 40; i++) {
+    const x = Math.random() * 100, delay = Math.random() * 2, dur = 2 + Math.random() * 2;
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    confetti += `<div class="confetti-dot" style="left:${x}%;background:${color};animation-duration:${dur}s;animation-delay:${delay}s;"></div>`;
+  }
+  overlay.innerHTML = confetti + `
+    <div class="celebration-content">
+      <span class="celebration-emoji">🏆</span>
+      <h2 class="celebration-title">Khatam ke-${n}!</h2>
+      <p class="celebration-sub" style="color:var(--text2);">Alhamdulillah! Kamu telah menyelesaikan<br>${n}× khatam Al-Qur'an di Ramadhan ini!</p>
+      <button class="btn btn-primary" style="width:auto;padding:12px 32px;" onclick="closeCelebration()">✨ Syukur, Lanjutkan!</button>
+    </div>`;
+  document.body.appendChild(overlay);
+  showToast(`🎉 MasyaAllah! Khatam ke-${n}!`);
+}
+function closeCelebration() { el('celebrationOverlay')?.remove(); }
+
+// ═══════════════════════════════════════
+// INPUT SHEET (FAB)
+// ═══════════════════════════════════════
+function openInputSheet() {
+  if (el('sheetPages')) el('sheetPages').value = '';
+  if (el('sheetPos')) el('sheetPos').value = '';
+  const prayerEl = el('sheetPrayer');
+  if (prayerEl) prayerEl.selectedIndex = 0;
+  const saveBtn = document.querySelector('#inputSheet .btn-primary');
+  if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '+ Simpan Tilawah'; saveBtn.style.background = ''; }
+  el('inputSheet').style.display = 'flex';
+  if (el('sheetPages')) el('sheetPages').focus();
+}
+function closeInputSheet() {
+  el('inputSheet').style.display = 'none';
+  const saveBtn = document.querySelector('#inputSheet .btn-primary');
+  if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '+ Simpan Tilawah'; saveBtn.style.background = ''; }
+}
+function closeSheetBg(e) {
+  if (e.target === el('inputSheet')) closeInputSheet();
+}
+
+// ═══════════════════════════════════════
+// SHARE CANVAS
+// ═══════════════════════════════════════
+function renderShareCanvas() {
+  const canvas = el('shareCanvas');
+  if (!canvas || !S.modeSet) return;
+  if (!_shareCanvasDirty) return;
+  _shareCanvasDirty = false;
+  const ctx = canvas.getContext('2d');
+  const W = 700, H = 440;
+  ctx.fillStyle = '#0a0e1a';
+  ctx.fillRect(0,0,W,H);
+  const grad = ctx.createLinearGradient(0,0,W,0);
+  grad.addColorStop(0,'transparent'); grad.addColorStop(0.3,'#e8b84b');
+  grad.addColorStop(0.7,'#4a90e8'); grad.addColorStop(1,'transparent');
+  ctx.fillStyle = grad; ctx.fillRect(0,0,W,3);
+  ctx.font = 'bold 24px Georgia'; ctx.fillStyle = '#f5d06e'; ctx.textAlign = 'center';
+  ctx.fillText('📖 Tilawah Ramadhan ' + getRamLabel(), W/2, 50);
+  ctx.font = '16px sans-serif'; ctx.fillStyle = '#8899bb';
+  ctx.fillText(S.userName + ' • Hari ke-' + getRamadhanDay(), W/2, 78);
+  const pct = S.totalTarget > 0 ? Math.min(100, Math.round((S.totalRead/S.totalTarget)*100)) : 0;
+  ctx.font = 'bold 64px Georgia'; ctx.fillStyle = '#f5d06e';
+  ctx.fillText(pct + '%', W/2, 160);
+  ctx.font = '15px sans-serif'; ctx.fillStyle = '#8899bb';
+  ctx.fillText('target tercapai', W/2, 185);
+  const stats = [
+    ['📖', S.totalRead + ' hal', 'Dibaca'],
+    ['🏆', S.currentKhatam + '× Khatam', 'Tercapai'],
+    ['🎯', S.dailyTarget + ' hal/hari', 'Target Harian'],
+  ];
+  stats.forEach((s, i) => {
+    const x = 100 + i * 200 + 50;
+    ctx.font = '22px sans-serif'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
+    ctx.fillText(s[0], x, 240);
+    ctx.font = 'bold 18px sans-serif'; ctx.fillStyle = '#f5d06e'; ctx.fillText(s[1], x, 268);
+    ctx.font = '13px sans-serif'; ctx.fillStyle = '#8899bb'; ctx.fillText(s[2], x, 287);
+  });
+  ctx.fillStyle = '#1a2035';
+  ctx.beginPath(); ctx.roundRect(60, 310, W-120, 14, 7); ctx.fill();
+  ctx.fillStyle = '#4a90e8';
+  ctx.beginPath(); ctx.roundRect(60, 310, (W-120)*(pct/100), 14, 7); ctx.fill();
+  ctx.font = '13px sans-serif'; ctx.fillStyle = '#4a5578'; ctx.textAlign = 'center';
+  ctx.fillText('Catat tilawahmu, raih berkah Ramadhan', W/2, 380);
+  ctx.fillStyle = '#e8b84b'; ctx.fillRect(60, 395, W-120, 1);
+}
+function shareWA() {
+  if (!S.modeSet) return;
+  _shareCanvasDirty = true; renderShareCanvas();
+  const pct = S.totalTarget > 0 ? Math.min(100, Math.round((S.totalRead/S.totalTarget)*100)) : 0;
+  const text = `📖 *Tilawah ${getRamLabel()}* — ${S.userName}\n\n` +
+    `Hari ke-${getRamadhanDay()} • ${pct}% target tercapai\n` +
+    `📚 ${S.totalRead} halaman dibaca • 🏆 ${S.currentKhatam}× khatam\n\n` +
+    `_"Dan bacalah Al-Qur'an itu dengan tartil." (QS. Al-Muzzammil: 4)_`;
+  const canvas = el('shareCanvas');
+  canvas.toBlob(blob => {
+    if (navigator.canShare?.({ files: [new File([blob],'tilawah.png',{type:'image/png'})] })) {
+      navigator.share({ files: [new File([blob],'tilawah.png',{type:'image/png'})], text }).catch(()=>{});
+    } else {
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = 'tilawah-progres.png'; a.click();
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    }
+  });
+}
+function downloadCanvas() {
+  _shareCanvasDirty = true; renderShareCanvas();
+  const a = document.createElement('a');
+  a.href = el('shareCanvas').toDataURL('image/png');
+  a.download = 'tilawah-' + localDate() + '.png'; a.click();
+}
+function shareApp() {
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], {type: 'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'tilawah-ramadhan.html'; a.click();
+  URL.revokeObjectURL(a.href);
+  setTimeout(() => {
+    const text = `📖 Aplikasi *Target Tilawah Ramadhan* — gratis, offline, tanpa install!\n\nSaya sudah mengirimkan file aplikasinya. Buka file HTML-nya langsung dari browser.\n\nCatat tilawah, lacak progres, kejar khatam! 🌙`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+  }, 800);
+  showToast('📥 File diunduh — WhatsApp akan terbuka...');
+}
+
+// ═══════════════════════════════════════
+// REMINDERS
+// ═══════════════════════════════════════
+function initReminders() {
+  if (!S.reminders.length) {
+    S.reminders = [
+      {id:1, hour:5, minute:0, label:'Subuh — Tilawah pagi', active:false},
+      {id:2, hour:13, minute:0, label:'Dzuhur — Jeda tilawah', active:false},
+      {id:3, hour:20, minute:30, label:'Tarawih — Tilawah malam', active:false},
+    ];
+    save();
+  }
+  renderReminders();
+}
+function renderReminders() {
+  const container = el('reminderList');
+  if (!container) return;
+  container.innerHTML = (S.reminders||[]).map(r => `
+    <div class="reminder-item ${r.active?'active':''}">
+      <span class="reminder-time">${String(r.hour).padStart(2,'0')}:${String(r.minute).padStart(2,'0')}</span>
+      <span class="reminder-label">${r.label}</span>
+      <label class="toggle-wrap">
+        <input type="checkbox" ${r.active?'checked':''} onchange="toggleReminder(${r.id})">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>`).join('');
+}
+function toggleReminder(id) {
+  const r = S.reminders.find(r=>r.id===id);
+  if (!r) return;
+  r.active = !r.active;
+  if (r.active) {
+    if (Notification.permission === 'default') {
+      Notification.requestPermission().then(p => {
+        if (p !== 'granted') { r.active=false; renderReminders(); }
+        else scheduleReminder(r);
+      });
+    } else if (Notification.permission === 'granted') scheduleReminder(r);
+    else { r.active=false; showToast('⚠️ Izin notifikasi ditolak'); }
+  }
+  save(); renderReminders();
+}
+function scheduleReminder(r) {
+  showToast(`🔔 Pengingat ${String(r.hour).padStart(2,'0')}:${String(r.minute).padStart(2,'0')} aktif`);
+}
+function addReminder() {
+  showModal('🔔 Tambah Pengingat',
+    `<div class="form-row">
+      <div><label>Jam</label><input id="remH" type="number" value="7" min="0" max="23"></div>
+      <div><label>Menit</label><input id="remM" type="number" value="0" min="0" max="59"></div>
+    </div>
+    <div class="form-group" style="margin-top:10px;"><label>Label</label><input id="remLabel" type="text" placeholder="Cth: Setelah Ashar"></div>`,
+    'Tambah', 'doAddReminder()', 'Batal', 'closeModal()'
+  );
+}
+function doAddReminder() {
+  const h = parseInt(el('remH')?.value) || 0;
+  const m = parseInt(el('remM')?.value) || 0;
+  const label = el('remLabel')?.value.trim() || 'Pengingat Tilawah';
+  S.reminders.push({id: Date.now(), hour: h, minute: m, label, active: false});
+  save(); closeModal(); renderReminders();
+}
+
+// ═══════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════
+function showModal(title, body, btn1, fn1, btn2, fn2) {
+  setText('modalTitle', title);
+  setHTML('modalBody', body);
+  const actions = el('modalActions');
+  actions.innerHTML = '';
+  if (btn1) { const b = document.createElement('button'); b.className='btn btn-primary'; b.textContent=btn1; b.onclick=new Function(fn1); actions.appendChild(b); }
+  if (btn2) { const b = document.createElement('button'); b.className='btn btn-secondary'; b.textContent=btn2; b.onclick=new Function(fn2); actions.appendChild(b); }
+  el('modalBackdrop').classList.remove('hidden');
+}
+function closeModal() { el('modalBackdrop').classList.add('hidden'); }
+function closeModalBg(e) { if (e.target === el('modalBackdrop')) closeModal(); }
+
+// ═══════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════
+let toastTimer;
+function showToast(msg, duration=2500) {
+  const t = el('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ═══════════════════════════════════════
+// CHECK ANIM
+// ═══════════════════════════════════════
+function showCheckAnim() {
+  const e = document.createElement('div');
+  e.className = 'confirm-check'; e.textContent = '✅';
+  document.body.appendChild(e);
+  setTimeout(() => e.remove(), 1000);
+}
+
+// ═══════════════════════════════════════
+// RESET
+// ═══════════════════════════════════════
+function confirmResetProgress() {
+  showModal('🔄 Reset Data Bacaan?',
+    'Ini akan menghapus semua log tilawah, tetapi mempertahankan pengaturan target kamu.',
+    'Ya, Reset', 'doResetProgress()', 'Batal', 'closeModal()'
+  );
+}
+function doResetProgress() {
+  if (S.totalRead > 0) {
+    S.yearHistory = S.yearHistory || [];
+    S.yearHistory = S.yearHistory.filter(y => y.year !== getRamLabel());
+    S.yearHistory.unshift({year: getRamLabel(), khatam: S.currentKhatam, read: S.totalRead, target: S.khatamTarget});
+  }
+  S.dailyLogs = {}; S.totalRead = 0; S.currentKhatam = 0; S.earnedBadges = [];
+  save(); closeModal(); updateAllUI();
+  showToast('✅ Data bacaan direset');
+}
+function confirmResetAll() {
+  showModal('⚠️ Reset Semua?',
+    'Ini akan menghapus SEMUA data termasuk pengaturan. Kamu harus setup ulang dari awal.',
+    'Ya, Hapus Semua', 'doResetAll()', 'Batal', 'closeModal()'
+  );
+}
+function doResetAll() { localStorage.removeItem('tilawahV3'); location.reload(); }
+
+// ═══════════════════════════════════════
+// INSTALL PWA
+// ═══════════════════════════════════════
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredInstall = e;
+  const btn = el('installBtn');
+  if (btn) btn.style.display = '';
+});
+function triggerInstall() {
+  if (deferredInstall) {
+    deferredInstall.prompt();
+    deferredInstall.userChoice.then(r => {
+      if (r.outcome==='accepted') showToast('✅ Aplikasi terpasang!');
+      deferredInstall = null;
+    });
+  } else {
+    showModal('📲 Cara Pasang di HP',
+      '<div style="line-height:2;font-size:0.82rem;">' +
+      '<strong style="color:var(--gold2);">Android Chrome:</strong> Menu ⋮ → Tambahkan ke layar utama<br>' +
+      '<strong style="color:var(--gold2);">iPhone Safari:</strong> Tombol Bagikan ⬆ → Tambahkan ke Layar Utama<br>' +
+      '<strong style="color:var(--gold2);">Samsung Internet:</strong> Menu ≡ → Tambahkan halaman ke → Layar beranda</div>',
+      'Mengerti', 'closeModal()'
+    );
+  }
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+function init() {
+  load();
+  if (S.modeSet) {
+    el('welcomeScreen').style.display = 'none';
+    launchMainApp();
+  }
+  updateHeader(); // null-safe via helper functions
+}
+
+init();
+</script>
+</body>
+</html>
