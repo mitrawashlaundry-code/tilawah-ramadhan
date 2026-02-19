@@ -87,7 +87,7 @@ index.html          ← Seluruh aplikasi dalam 1 file
 ```javascript
 // Struktur data tersimpan di localStorage
 {
-  userName: "Eko",
+  userName: "Amin",
   startDate: "2026-02-19",      // 1 Ramadhan
   khatamTarget: 1,               // target berapa kali khatam
   totalTarget: 604,              // total halaman (khatamTarget × 604)
