@@ -9,6 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Tilawah">
 <meta name="theme-color" content="#0a0e1a">
+<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Target%20Tilawah%20Ramadhan%22,%22short_name%22:%22Tilawah%22,%22start_url%22:%22./%22,%22display%22:%22standalone%22,%22background_color%22:%22%230a0e1a%22,%22theme_color%22:%22%230a0e1a%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520512%2520512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%2527110%2527%2520fill%253D%2527%25230a0e1a%2527%252F%253E%253Ccircle%2520cx%253D%2527256%2527%2520cy%253D%2527220%2527%2520r%253D%2527120%2527%2520fill%253D%2527none%2527%2520stroke%253D%2527%2523e8b84b%2527%2520stroke-width%253D%252724%2527%252F%253E%253Ccircle%2520cx%253D%2527310%2527%2520cy%253D%2527200%2527%2520r%253D%2527115%2527%2520fill%253D%2527%25230a0e1a%2527%252F%253E%253Ctext%2520x%253D%2527256%2527%2520y%253D%2527420%2527%2520text-anchor%253D%2527middle%2527%2520font-size%253D%252772%2527%2520fill%253D%2527%2523e8b84b%2527%2520font-family%253D%2527serif%2527%253ERamadhan%253C%252Ftext%253E%253C%252Fsvg%253E%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%20maskable%22}]}">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%230a0e1a'/><circle cx='256' cy='220' r='120' fill='none' stroke='%23e8b84b' stroke-width='24'/><circle cx='310' cy='200' r='115' fill='%230a0e1a'/><text x='256' y='420' text-anchor='middle' font-size='72' fill='%23e8b84b' font-family='serif'>Tilawah</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -975,7 +977,14 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
 .reminder-time { font-size: 1rem; font-weight: 700; color: var(--gold2); min-width: 44px; }
 .reminder-label { flex: 1; font-size: 0.78rem; color: var(--text2); line-height: 1.4; }
 .toggle-wrap { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
-.toggle-wrap input { opacity: 0; width: 0; height: 0; }
+.reminder-del-btn {
+  background: none; border: none; color: var(--text3);
+  cursor: pointer; padding: 4px 6px; border-radius: 6px;
+  font-size: 0.9rem; transition: all 0.15s; flex-shrink: 0;
+  line-height: 1;
+}
+.reminder-del-btn:hover { color: var(--red); background: var(--red-dim); }
+
 .toggle-slider {
   position: absolute; inset: 0;
   background: var(--surface3); border-radius: 22px;
@@ -1003,19 +1012,126 @@ input:checked + .toggle-slider::before { transform: translateX(18px); background
 .vs-app { font-size: 0.72rem; color: var(--green); font-weight: 500; text-align: center; flex: 1; }
 
 /* ─── FONT SIZE TOGGLE ─── */
+/* Level 1: Besar */
 body.font-md { font-size: 1.1rem; }
-body.font-md .nav-item .nav-label { font-size: 0.65rem; }
+body.font-md .nav-item .nav-label { font-size: 0.68rem; }
 body.font-md .card-title { font-size: 0.82rem; }
 body.font-md .btn { font-size: 0.95rem; padding: 13px; }
 body.font-md .stat-val { font-size: 1.5rem; }
+body.font-md .stat-lbl { font-size: 0.74rem; }
 body.font-md .s-dot { width: 18px; height: 18px; }
+/* Label & deskripsi */
+body.font-md label { font-size: 0.86rem; }
+body.font-md .chip { font-size: 0.76rem; }
+body.font-md .today-label { font-size: 0.74rem; }
+body.font-md .today-value { font-size: 0.96rem; }
+body.font-md .card-badge { font-size: 0.74rem; }
+body.font-md .benefit-text strong { font-size: 0.98rem; }
+body.font-md .benefit-text span { font-size: 0.86rem; }
+body.font-md .welcome-sub { font-size: 1rem; }
+body.font-md .insight-text { font-size: 0.88rem; }
+body.font-md .log-entry { font-size: 0.88rem; }
+body.font-md .log-prayer { font-size: 0.88rem; }
+body.font-md .log-pos { font-size: 0.78rem; }
+body.font-md .log-pages { font-size: 0.92rem; }
+body.font-md .log-time { font-size: 0.74rem; }
+body.font-md .prayer-name { font-size: 0.72rem; }
+body.font-md .prayer-pages { font-size: 1rem; }
+body.font-md .badge-name { font-size: 0.72rem; }
+body.font-md .badge-desc { font-size: 0.68rem; }
+body.font-md .week-label { font-size: 0.82rem; }
+body.font-md .week-total { font-size: 0.82rem; }
+body.font-md .status-banner .status-msg { font-size: 0.9rem; }
+body.font-md .status-banner .status-title { font-size: 1.02rem; }
+body.font-md .history-day-header { font-size: 0.82rem; }
+body.font-md .reminder-label { font-size: 0.88rem; }
+body.font-md .reminder-time { font-size: 1.1rem; }
+body.font-md .wizard-desc { font-size: 0.94rem; }
+body.font-md .wizard-step-label { font-size: 0.82rem; }
+body.font-md .ring-pct { font-size: 2rem; }
+body.font-md .ring-sub { font-size: 0.72rem; }
+body.font-md .empty-state { font-size: 0.9rem; }
+body.font-md .bar-lbl { font-size: 0.58rem; }
+body.font-md .vs-aspect { font-size: 0.86rem; }
+body.font-md .vs-manual, body.font-md .vs-app { font-size: 0.82rem; }
+body.font-md .year-label { font-size: 0.88rem; }
+body.font-md .year-data { font-size: 0.82rem; }
+body.font-md .today-pct { font-size: 1.55rem; }
 
+/* Level 2: Sangat Besar */
 body.font-lg { font-size: 1.2rem; }
-body.font-lg .nav-item .nav-label { font-size: 0.72rem; }
+body.font-lg .nav-item .nav-label { font-size: 0.74rem; }
 body.font-lg .card-title { font-size: 0.9rem; }
 body.font-lg .btn { font-size: 1.05rem; padding: 15px; }
 body.font-lg .stat-val { font-size: 1.8rem; }
+body.font-lg .stat-lbl { font-size: 0.82rem; }
 body.font-lg .s-dot { width: 22px; height: 22px; }
+/* Label & deskripsi */
+body.font-lg label { font-size: 0.94rem; }
+body.font-lg .chip { font-size: 0.82rem; }
+body.font-lg .today-label { font-size: 0.8rem; }
+body.font-lg .today-value { font-size: 1.04rem; }
+body.font-lg .card-badge { font-size: 0.8rem; }
+body.font-lg .benefit-text strong { font-size: 1.06rem; }
+body.font-lg .benefit-text span { font-size: 0.94rem; }
+body.font-lg .welcome-sub { font-size: 1.08rem; }
+body.font-lg .insight-text { font-size: 0.96rem; }
+body.font-lg .log-entry { font-size: 0.96rem; }
+body.font-lg .log-prayer { font-size: 0.96rem; }
+body.font-lg .log-pos { font-size: 0.84rem; }
+body.font-lg .log-pages { font-size: 1rem; }
+body.font-lg .log-time { font-size: 0.8rem; }
+body.font-lg .prayer-name { font-size: 0.78rem; }
+body.font-lg .prayer-pages { font-size: 1.08rem; }
+body.font-lg .badge-name { font-size: 0.78rem; }
+body.font-lg .badge-desc { font-size: 0.72rem; }
+body.font-lg .week-label { font-size: 0.9rem; }
+body.font-lg .week-total { font-size: 0.9rem; }
+body.font-lg .status-banner .status-msg { font-size: 0.98rem; }
+body.font-lg .status-banner .status-title { font-size: 1.1rem; }
+body.font-lg .history-day-header { font-size: 0.9rem; }
+body.font-lg .reminder-label { font-size: 0.96rem; }
+body.font-lg .reminder-time { font-size: 1.2rem; }
+body.font-lg .wizard-desc { font-size: 1.02rem; }
+body.font-lg .wizard-step-label { font-size: 0.88rem; }
+body.font-lg .ring-pct { font-size: 2.2rem; }
+body.font-lg .ring-sub { font-size: 0.78rem; }
+body.font-lg .empty-state { font-size: 0.98rem; }
+body.font-lg .bar-lbl { font-size: 0.62rem; }
+body.font-lg .vs-aspect { font-size: 0.94rem; }
+body.font-lg .vs-manual, body.font-lg .vs-app { font-size: 0.9rem; }
+body.font-lg .year-label { font-size: 0.96rem; }
+body.font-lg .year-data { font-size: 0.9rem; }
+body.font-lg .today-pct { font-size: 1.7rem; }
+
+/* ─── FONT SIZE: Inline-style elements via parent context ─── */
+/* Ini mencakup teks dengan inline style yang tidak bisa di-override via class biasa */
+/* Besar (font-md) */
+body.font-md #section-input .form-group [style*="font-size"] { font-size: 0.82rem; }
+body.font-md .streak-info-text { font-size: 0.88rem !important; }
+body.font-md #section-settings .card > div[style*="font-size:0.7"],
+body.font-md #section-settings .card > div[style*="font-size:0.8"] { font-size: 0.88rem; }
+body.font-md [id="prayerHint"] { font-size: 0.82rem !important; }
+body.font-md [id="appLinkDisplay"] { font-size: 0.86rem !important; }
+body.font-md [id="calcAdvice"] { font-size: 0.86rem !important; }
+body.font-md .reminder-del-btn { font-size: 1rem; }
+
+/* Sangat Besar (font-lg) */
+body.font-lg #section-input .form-group [style*="font-size"] { font-size: 0.9rem; }
+body.font-lg [id="prayerHint"] { font-size: 0.9rem !important; }
+body.font-lg [id="appLinkDisplay"] { font-size: 0.94rem !important; }
+body.font-lg [id="calcAdvice"] { font-size: 0.92rem !important; }
+body.font-lg .reminder-del-btn { font-size: 1.1rem; }
+
+/* ─── CATATAN FONT ─── */
+/* Beberapa elemen menggunakan inline style yang tidak dapat di-override CSS class biasa.
+   Elemen-elemen ini sengaja tidak di-scale berlebihan untuk menjaga proposi visual:
+   - .welcome-logo (emoji besar 72px)
+   - .khatam-num-big (angka khatam display)
+   - .celebration-emoji, .celebration-title
+   - .calc-result .calc-num (kalkulasi kejar setoran)
+   - icon emoji di card-header, nav-icon
+   Proporsi elemen display besar yang dijaga demi keseimbangan visual. */
 
 /* ─── EMPTY STATE ─── */
 .empty-state { text-align: center; padding: 28px 16px; color: var(--text3); font-size: 0.8rem; }
@@ -1520,6 +1636,9 @@ body.font-lg .s-dot { width: 22px; height: 22px; }
       <div style="font-size:0.76rem;color:var(--text2);line-height:1.7;margin-bottom:10px;">
         <div><strong style="color:var(--gold2);">Android Chrome:</strong> Menu ⋮ → Tambahkan ke layar utama</div>
         <div><strong style="color:var(--gold2);">iPhone Safari:</strong> Bagikan ⬆ → Tambahkan ke Layar Utama</div>
+        <div style="margin-top:8px;padding:8px 10px;background:var(--gold-dim);border:1px solid rgba(232,184,75,0.25);border-radius:var(--r-sm);">
+          🌙 <strong style="color:var(--gold2);">Ikon Aplikasi:</strong> Setelah dipasang, ikon bulan sabit emas akan muncul di homescreen kamu. Ikon ini sudah tertanam di dalam aplikasi, tidak perlu file gambar terpisah.
+        </div>
       </div>
       <button class="btn btn-blue btn-sm" id="installBtn" onclick="triggerInstall()" style="display:none;">📲 Pasang Sekarang</button>
     </div>
@@ -1534,7 +1653,7 @@ body.font-lg .s-dot { width: 22px; height: 22px; }
     </div>
 
     <div style="text-align:center;padding:16px 0;font-size:0.65rem;color:var(--text3);">
-      Target Tilawah Ramadhan v1.0<br>Semua data tersimpan di perangkat Anda
+      Target Tilawah Ramadhan v1.3<br>Semua data tersimpan di perangkat Anda
     </div>
   </div>
 
@@ -1645,7 +1764,7 @@ const PRAYERS = [
   {name:'Subuh',emoji:'🌅'},{name:'Dhuha',emoji:'☀️'},{name:'Dzuhur',emoji:'🌤️'},
   {name:'Ashar',emoji:'🌆'},{name:'Maghrib',emoji:'🌇'},{name:'Tarawih',emoji:'🌙'}
 ];
-const PRAYER_WEIGHTS = {Subuh:1,Dhuha:1,Dzuhur:1,Ashar:1,Maghrib:1.5,Tarawih:1.5};
+const PRAYER_WEIGHTS = {Subuh:2.5,Dhuha:1,Dzuhur:1,Ashar:1,Maghrib:1.5,Tarawih:2};
 const PAGES_PER_KHATAM = 604;
 const DAYS_RAMADHAN = 30;
 const HIJRI_LOOKUP = [
@@ -1761,9 +1880,12 @@ function getStatusClass(read, target) {
   return 'behind';
 }
 function calcBreakdown(daily) {
+  const MAGHRIB_MAX = 6; // Waktu Maghrib pendek (berbuka puasa), maks 6 halaman
   const totalW = Object.values(PRAYER_WEIGHTS).reduce((a,b) => a+b, 0);
   const bd = {};
   let assigned = 0;
+
+  // First pass: hitung normal tanpa cap
   PRAYERS.forEach((p, i) => {
     const pg = (i === PRAYERS.length-1)
       ? (daily - assigned)
@@ -1771,6 +1893,14 @@ function calcBreakdown(daily) {
     bd[p.name] = Math.max(0, pg);
     assigned += bd[p.name];
   });
+
+  // Cap Maghrib dan redistribusi sisa ke Tarawih
+  if (bd['Maghrib'] > MAGHRIB_MAX) {
+    const excess = bd['Maghrib'] - MAGHRIB_MAX;
+    bd['Maghrib'] = MAGHRIB_MAX;
+    bd['Tarawih'] = (bd['Tarawih'] || 0) + excess;
+  }
+
   return bd;
 }
 
@@ -1809,9 +1939,9 @@ function wizUpdatePreview() {
 function renderPrayerPreview(containerId, daily) {
   const container = el(containerId);
   if (!container) return;
-  const totalWeight = Object.values(PRAYER_WEIGHTS).reduce((a,b) => a+b, 0);
+  const bd = calcBreakdown(daily); // Gunakan calcBreakdown agar cap Maghrib berlaku
   container.innerHTML = PRAYERS.map(p => {
-    const pg = Math.round((PRAYER_WEIGHTS[p.name] / totalWeight) * daily);
+    const pg = bd[p.name] || 0;
     return `<div class="prayer-item">
       <span class="prayer-emoji">${p.emoji}</span>
       <div class="prayer-name">${p.name}</div>
@@ -2988,6 +3118,10 @@ function initReminders() {
 function renderReminders() {
   const container = el('reminderList');
   if (!container) return;
+  if (!S.reminders || S.reminders.length === 0) {
+    container.innerHTML = '<div class="empty-state" style="padding:16px;"><span class="empty-icon">🔔</span>Belum ada pengingat. Tambah di bawah.</div>';
+    return;
+  }
   container.innerHTML = (S.reminders||[]).map(r => `
     <div class="reminder-item ${r.active?'active':''}">
       <span class="reminder-time">${String(r.hour).padStart(2,'0')}:${String(r.minute).padStart(2,'0')}</span>
@@ -2996,6 +3130,7 @@ function renderReminders() {
         <input type="checkbox" ${r.active?'checked':''} onchange="toggleReminder(${r.id})">
         <span class="toggle-slider"></span>
       </label>
+      <button class="reminder-del-btn" onclick="confirmDeleteReminder(${r.id})" title="Hapus pengingat">🗑️</button>
     </div>`).join('');
 }
 function toggleReminder(id) {
@@ -3012,6 +3147,20 @@ function toggleReminder(id) {
     else { r.active=false; showToast('⚠️ Izin notifikasi ditolak'); }
   }
   save(); renderReminders();
+}
+function confirmDeleteReminder(id) {
+  const r = S.reminders.find(r=>r.id===id);
+  if (!r) return;
+  const timeStr = `${String(r.hour).padStart(2,'0')}:${String(r.minute).padStart(2,'0')}`;
+  showModal('🗑️ Hapus Pengingat',
+    `<p style="color:var(--text2);font-size:0.86rem;line-height:1.6;">Hapus pengingat <strong style="color:var(--text);">${timeStr} — ${r.label}</strong>?<br>Tindakan ini tidak bisa dibatalkan.</p>`,
+    '🗑️ Hapus', `deleteReminder(${id})`, 'Batal', 'closeModal()'
+  );
+}
+function deleteReminder(id) {
+  S.reminders = S.reminders.filter(r => r.id !== id);
+  save(); closeModal(); renderReminders();
+  showToast('🗑️ Pengingat dihapus');
 }
 function scheduleReminder(r) {
   showToast(`🔔 Pengingat ${String(r.hour).padStart(2,'0')}:${String(r.minute).padStart(2,'0')} aktif`);
@@ -3032,7 +3181,9 @@ function doAddReminder() {
   const label = el('remLabel')?.value.trim() || 'Pengingat Tilawah';
   S.reminders.push({id: Date.now(), hour: h, minute: m, label, active: false});
   save(); closeModal(); renderReminders();
+  showToast('✅ Pengingat ditambahkan');
 }
+
 
 // ═══════════════════════════════════════
 // MODAL
