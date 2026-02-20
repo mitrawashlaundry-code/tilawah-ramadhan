@@ -809,8 +809,65 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
 .modal-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .modal-actions .btn { flex: 1; margin: 0; }
 
-/* ─── TOAST ─── */
-#toast {
+/* ─── SHARE ACTION SHEET ─── */
+#shareSheet {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 600;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.share-sheet-inner {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r) var(--r) 0 0;
+  width: 100%; max-width: 480px;
+  padding: 20px 20px 32px;
+  animation: slideModal 0.3s cubic-bezier(.4,0,.2,1);
+}
+.share-sheet-title {
+  font-size: 0.78rem; color: var(--text3);
+  text-align: center; margin-bottom: 16px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.share-options {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; margin-bottom: 16px;
+}
+.share-option {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 14px 8px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.share-option:active { background: var(--surface3); border-color: var(--border2); }
+.share-option-icon { font-size: 1.6rem; }
+.share-option-label { font-size: 0.62rem; color: var(--text2); text-align: center; line-height: 1.3; }
+.share-cancel {
+  width: 100%; padding: 14px; background: var(--surface2);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  color: var(--text2); font-size: 0.88rem; cursor: pointer;
+}
+/* ─── BACKFILL BANNER ─── */
+.backfill-banner {
+  background: linear-gradient(135deg, rgba(74,144,232,0.15), rgba(74,144,232,0.08));
+  border: 1px solid rgba(74,144,232,0.35);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.backfill-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.backfill-content { flex: 1; }
+.backfill-title { font-size: 0.84rem; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+.backfill-text { font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+.backfill-btn {
+  margin-top: 10px; padding: 8px 14px;
+  background: rgba(74,144,232,0.2); border: 1px solid rgba(74,144,232,0.5);
+  border-radius: 8px; color: var(--blue); font-size: 0.76rem;
+  cursor: pointer; font-weight: 600;
+}
+
+
   position: fixed; bottom: 90px; left: 50%;
   transform: translateX(-50%) translateY(20px);
   background: var(--surface3);
@@ -1309,7 +1366,16 @@ body.font-lg .s-dot { width: 22px; height: 22px; }
 
     <!-- Today log -->
     <div class="card">
-      <div class="card-header"><span class="card-icon">📋</span><span class="card-title">Log Hari Ini</span></div>
+      <div class="card-header"><span class="card-icon">📋</span><span class="card-title" id="logCardTitle">Log Hari Ini</span></div>
+      <div id="backfillBanner" style="display:none;" class="backfill-banner">
+        <div class="backfill-icon">📅</div>
+        <div class="backfill-content">
+          <div class="backfill-title">Baru mulai pakai aplikasi?</div>
+          <div class="backfill-text" id="backfillText">Kamu bisa memasukkan catatan tilawah dari hari-hari sebelumnya agar data progresmu lengkap dan akurat.</div>
+          <button class="backfill-btn" onclick="openBackfillGuide()">📝 Isi Data Hari Sebelumnya</button>
+        </div>
+        <button onclick="dismissBackfill()" style="background:none;border:none;color:var(--text3);font-size:1rem;cursor:pointer;padding:0;flex-shrink:0;">✕</button>
+      </div>
       <div id="todayLog"><div class="empty-state"><span class="empty-icon">📖</span>Belum ada tilawah hari ini</div></div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border);margin-top:4px;">
         <span style="font-size:0.76rem;color:var(--text2);">Total hari ini:</span>
@@ -1353,13 +1419,48 @@ body.font-lg .s-dot { width: 22px; height: 22px; }
 
   <!-- ─── SECTION: SHARE ─── -->
   <div id="section-share" class="section">
+    <!-- Kartu Progres -->
     <div class="card" style="margin-top:0;">
       <div class="card-header"><span class="card-icon">🎨</span><span class="card-title">Kartu Progres</span></div>
       <canvas id="shareCanvas" width="700" height="440" style="width:100%;border-radius:var(--r-sm);"></canvas>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
-        <button class="btn btn-primary" style="margin:0;" onclick="shareWA()">💬 Share WA</button>
-        <button class="btn btn-secondary" style="margin:0;" onclick="downloadCanvas()">⬇️ Simpan</button>
-        <button class="btn btn-blue" style="grid-column:1/-1;margin:0;" onclick="shareApp()">🔗 Bagikan Aplikasi</button>
+        <button class="btn btn-primary" style="margin:0;" onclick="shareProgressCard()">🖼️ Bagikan Kartu</button>
+        <button class="btn btn-secondary" style="margin:0;" onclick="downloadCanvas()">⬇️ Simpan PNG</button>
+      </div>
+    </div>
+
+    <!-- Bagikan Aplikasi -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🔗</span><span class="card-title">Bagikan Aplikasi</span></div>
+      <div style="font-size:0.82rem;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+        Ajak teman &amp; keluarga untuk ikut melacak tilawah Ramadhan mereka.
+        Aplikasi ini gratis, online, dan tidak perlu instalasi.
+      </div>
+      <div style="background:var(--surface2);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:1.2rem;">🌐</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:0.68rem;color:var(--text3);margin-bottom:2px;">Link Aplikasi</div>
+          <div style="font-size:0.78rem;color:var(--gold2);word-break:break-all;font-weight:600;" id="appLinkDisplay">https://mitrawashlaundry-code.github.io/tilawah-ramadhan/</div>
+        </div>
+        <button onclick="copyAppLink()" style="background:var(--gold-dim);border:1px solid var(--gold);color:var(--gold2);border-radius:8px;padding:6px 10px;font-size:0.72rem;white-space:nowrap;cursor:pointer;">📋 Salin</button>
+      </div>
+      <button class="btn btn-primary" onclick="shareAppLink()">🚀 Bagikan ke...</button>
+    </div>
+
+    <!-- Backup & Restore -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">☁️</span><span class="card-title">Backup &amp; Restore Data</span></div>
+      <div style="font-size:0.8rem;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+        Simpan data tilawah kamu ke file, lalu pulihkan di HP atau tablet lain.
+        File backup bisa disimpan di <strong style="color:var(--text);">Google Drive, WhatsApp, email</strong>, dll.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button class="btn btn-blue" style="margin:0;" onclick="backupData()">⬆️ Backup Data</button>
+        <button class="btn btn-secondary" style="margin:0;" onclick="triggerRestoreData()">⬇️ Restore Data</button>
+      </div>
+      <input type="file" id="restoreFileInput" accept=".json" style="display:none;" onchange="restoreData(event)">
+      <div style="font-size:0.68rem;color:var(--text3);margin-top:10px;line-height:1.5;">
+        💡 <strong>Tips:</strong> Backup dulu sebelum ganti HP. Untuk pindah ke HP lain: Backup → kirim file via WA/Drive → buka app di HP baru → Restore.
       </div>
     </div>
   </div>
@@ -1433,7 +1534,7 @@ body.font-lg .s-dot { width: 22px; height: 22px; }
     </div>
 
     <div style="text-align:center;padding:16px 0;font-size:0.65rem;color:var(--text3);">
-      Target Tilawah Ramadhan v6.0<br>Semua data tersimpan di perangkat Anda
+      Target Tilawah Ramadhan v1.0<br>Semua data tersimpan di perangkat Anda
     </div>
   </div>
 
@@ -1467,7 +1568,18 @@ body.font-lg .s-dot { width: 22px; height: 22px; }
 <button class="fab" id="fabBtn" onclick="openInputSheet()" title="Catat Tilawah" style="display:none;">✏️</button>
 
 <!-- INPUT SHEET -->
-<div id="inputSheet" style="display:none;" onclick="closeSheetBg(event)">
+<!-- SHARE ACTION SHEET -->
+<div id="shareSheet" style="display:none;" onclick="closeShareSheetBg(event)">
+  <div class="share-sheet-inner">
+    <div class="share-sheet-title" id="shareSheetTitle">Bagikan ke</div>
+    <div class="share-options" id="shareOptions">
+      <!-- filled by JS -->
+    </div>
+    <button class="share-cancel" onclick="closeShareSheet()">Batal</button>
+  </div>
+</div>
+
+<!-- INPUT SHEET (FAB) -->
   <div class="input-sheet-inner">
     <div class="sheet-header">
       <span class="sheet-title">✏️ Catat Tilawah</span>
@@ -2127,6 +2239,7 @@ function updateInputSection() {
 
   renderTodayLog(dateStr);
   updatePrayerHint();
+  checkBackfillBanner();
 }
 
 function updatePrayerHint() {
@@ -2145,8 +2258,7 @@ function renderTodayLog(dateStr) {
   setText('todayTotalBottom', total + ' Halaman');
 
   // Update log card title
-  const logCard = logEl.closest('.card');
-  const logCardTitle = logCard?.querySelector('.card-title');
+  const logCardTitle = el('logCardTitle');
   if (logCardTitle) {
     logCardTitle.textContent = dateStr === localDate() ? 'Log Hari Ini' : `Log: ${dateStr}`;
   }
@@ -2623,46 +2735,240 @@ function renderShareCanvas() {
   ctx.fillStyle = '#4a90e8';
   ctx.beginPath(); ctx.roundRect(60, 310, (W-120)*(pct/100), 14, 7); ctx.fill();
   ctx.font = '13px sans-serif'; ctx.fillStyle = '#4a5578'; ctx.textAlign = 'center';
-  ctx.fillText('Catat tilawahmu, raih berkah Ramadhan', W/2, 380);
+  ctx.fillText(APP_LINK, W/2, 380);
   ctx.fillStyle = '#e8b84b'; ctx.fillRect(60, 395, W-120, 1);
 }
-function shareWA() {
+// ═══════════════════════════════════════
+// SHARE — KARTU PROGRES
+// ═══════════════════════════════════════
+const APP_LINK = 'https://mitrawashlaundry-code.github.io/tilawah-ramadhan/';
+
+function shareProgressCard() {
   if (!S.modeSet) return;
   _shareCanvasDirty = true; renderShareCanvas();
   const pct = S.totalTarget > 0 ? Math.min(100, Math.round((S.totalRead/S.totalTarget)*100)) : 0;
   const text = `📖 *Tilawah ${getRamLabel()}* — ${S.userName}\n\n` +
     `Hari ke-${getRamadhanDay()} • ${pct}% target tercapai\n` +
     `📚 ${S.totalRead} halaman dibaca • 🏆 ${S.currentKhatam}× khatam\n\n` +
-    `_"Dan bacalah Al-Qur'an itu dengan tartil." (QS. Al-Muzzammil: 4)_`;
+    `Lacak tilawahmu juga di: ${APP_LINK}`;
   const canvas = el('shareCanvas');
   canvas.toBlob(blob => {
-    if (navigator.canShare?.({ files: [new File([blob],'tilawah.png',{type:'image/png'})] })) {
-      navigator.share({ files: [new File([blob],'tilawah.png',{type:'image/png'})], text }).catch(()=>{});
+    const file = new File([blob], 'tilawah-progres.png', {type:'image/png'});
+    if (navigator.canShare?.({files:[file]})) {
+      // Native share sheet (Android/iOS) — user bisa pilih app sendiri
+      navigator.share({files:[file], text}).catch(()=>{});
     } else {
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      // Fallback: download + open share sheet
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
       a.download = 'tilawah-progres.png'; a.click();
-      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+      setTimeout(() => showShareSheet('card', text), 500);
     }
   });
 }
+
 function downloadCanvas() {
   _shareCanvasDirty = true; renderShareCanvas();
   const a = document.createElement('a');
   a.href = el('shareCanvas').toDataURL('image/png');
   a.download = 'tilawah-' + localDate() + '.png'; a.click();
+  showToast('📥 Kartu progres tersimpan!');
 }
-function shareApp() {
-  const html = document.documentElement.outerHTML;
-  const blob = new Blob([html], {type: 'text/html'});
+
+// ═══════════════════════════════════════
+// SHARE — LINK APLIKASI
+// ═══════════════════════════════════════
+function copyAppLink() {
+  navigator.clipboard?.writeText(APP_LINK).then(() => {
+    showToast('✅ Link disalin ke clipboard!');
+  }).catch(() => {
+    // Fallback untuk browser lama
+    const t = document.createElement('textarea');
+    t.value = APP_LINK; document.body.appendChild(t);
+    t.select(); document.execCommand('copy');
+    document.body.removeChild(t);
+    showToast('✅ Link disalin!');
+  });
+}
+
+function shareAppLink() {
+  const text = `📖 *Target Tilawah Ramadhan* — Gratis, Online, Tanpa Install!\n\nYuk lacak target khatam Al-Qur'an kamu di Ramadhan ini 🌙\n\n👉 ${APP_LINK}\n\nCatat tilawah per waktu sholat, pantau progres, kejar khatam!`;
+  if (navigator.share) {
+    navigator.share({ title: 'Target Tilawah Ramadhan', text, url: APP_LINK }).catch(()=>{});
+  } else {
+    showShareSheet('link', text);
+  }
+}
+
+// ─── Share Action Sheet ───
+function showShareSheet(type, text) {
+  const encoded = encodeURIComponent(text);
+  const encodedLink = encodeURIComponent(APP_LINK);
+  const options = [
+    { icon:'💬', label:'WhatsApp', action: `window.open('https://wa.me/?text=${encoded}','_blank')` },
+    { icon:'📘', label:'Facebook', action: `window.open('https://www.facebook.com/sharer/sharer.php?u=${encodedLink}','_blank')` },
+    { icon:'🐦', label:'Twitter/X', action: `window.open('https://twitter.com/intent/tweet?text=${encoded}','_blank')` },
+    { icon:'✉️', label:'Email', action: `window.open('mailto:?subject=Aplikasi%20Tilawah%20Ramadhan&body=${encoded}','_blank')` },
+    { icon:'📋', label:'Salin Teks', action: `copyShareText('${text.replace(/'/g,"\\'")}')` },
+    { icon:'🔗', label:'Salin Link', action: `copyShareText('${APP_LINK}')` },
+    { icon:'📤', label:'Telegram', action: `window.open('https://t.me/share/url?url=${encodedLink}&text=${encoded}','_blank')` },
+    { icon:'📱', label:'SMS', action: `window.open('sms:?body=${encoded}','_blank')` },
+  ];
+  const title = type === 'card' ? 'Bagikan Kartu Progres' : 'Bagikan Aplikasi';
+  setText('shareSheetTitle', title);
+  el('shareOptions').innerHTML = options.map(o =>
+    `<div class="share-option" onclick="${o.action};closeShareSheet()">
+      <span class="share-option-icon">${o.icon}</span>
+      <span class="share-option-label">${o.label}</span>
+    </div>`
+  ).join('');
+  el('shareSheet').style.display = 'flex';
+}
+
+function copyShareText(text) {
+  navigator.clipboard?.writeText(text).then(() => showToast('✅ Disalin!')).catch(() => {
+    const t = document.createElement('textarea');
+    t.value = text; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); document.body.removeChild(t);
+    showToast('✅ Disalin!');
+  });
+}
+
+function closeShareSheet() { el('shareSheet').style.display = 'none'; }
+function closeShareSheetBg(e) { if (e.target === el('shareSheet')) closeShareSheet(); }
+
+// ═══════════════════════════════════════
+// BACKUP & RESTORE DATA
+// ═══════════════════════════════════════
+function backupData() {
+  const backup = {
+    version: '1.0',
+    exportedAt: new Date().toISOString(),
+    appName: 'Tilawah Ramadhan',
+    data: S
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob); a.download = 'tilawah-ramadhan.html'; a.click();
+  a.href = URL.createObjectURL(blob);
+  a.download = `tilawah-backup-${localDate()}.json`;
+  a.click();
   URL.revokeObjectURL(a.href);
   setTimeout(() => {
-    const text = `📖 Aplikasi *Target Tilawah Ramadhan* — gratis, offline, tanpa install!\n\nSaya sudah mengirimkan file aplikasinya. Buka file HTML-nya langsung dari browser.\n\nCatat tilawah, lacak progres, kejar khatam! 🌙`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-  }, 800);
-  showToast('📥 File diunduh — WhatsApp akan terbuka...');
+    showToast('📦 File backup diunduh!');
+    // Tawarkan share ke Google Drive / WA
+    const text = `Ini file backup data tilawah Ramadhanku — ${localDate()}`;
+    if (navigator.share) {
+      const file = new File([JSON.stringify(backup, null, 2)], a.download, {type:'application/json'});
+      if (navigator.canShare?.({files:[file]})) {
+        navigator.share({files:[file], text}).catch(()=>{});
+      }
+    }
+  }, 400);
 }
+
+function triggerRestoreData() {
+  showModal('⬇️ Restore Data',
+    `<div style="font-size:0.82rem;color:var(--text2);line-height:1.7;">
+      <strong style="color:var(--amber);">⚠️ Perhatian:</strong> Restore akan <strong>mengganti semua data saat ini</strong> dengan data dari file backup.<br><br>
+      Pastikan kamu memilih file <strong style="color:var(--gold2);">.json</strong> hasil backup dari aplikasi ini.
+    </div>`,
+    'Pilih File Backup', 'doTriggerRestore()', 'Batal', 'closeModal()'
+  );
+}
+
+function doTriggerRestore() {
+  closeModal();
+  el('restoreFileInput').click();
+}
+
+function restoreData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const backup = JSON.parse(e.target.result);
+      // Validasi format
+      if (!backup.data || !backup.appName || backup.appName !== 'Tilawah Ramadhan') {
+        showToast('❌ File tidak valid. Pastikan pilih file backup dari aplikasi ini.');
+        return;
+      }
+      // Restore
+      S = { ...S, ...backup.data };
+      save();
+      updateAllUI();
+      showToast('✅ Data berhasil dipulihkan!');
+      showModal('✅ Restore Berhasil!',
+        `<div style="font-size:0.84rem;color:var(--text2);line-height:1.7;">
+          Data tilawah <strong style="color:var(--gold2);">${S.userName}</strong> berhasil dipulihkan.<br>
+          Total: <strong style="color:var(--green);">${S.totalRead} halaman</strong> dari ${Object.keys(S.dailyLogs||{}).length} hari.
+        </div>`,
+        'Lanjutkan', 'closeModal()'
+      );
+    } catch(err) {
+      showToast('❌ File rusak atau format tidak dikenal.');
+    }
+    event.target.value = ''; // reset input
+  };
+  reader.readAsText(file);
+}
+
+// ═══════════════════════════════════════
+// BACKFILL — SARAN ISI DATA HARI LALU
+// ═══════════════════════════════════════
+let _backfillDismissed = false;
+
+function checkBackfillBanner() {
+  if (!S.modeSet) return;
+  if (_backfillDismissed) return;
+  if (localStorage.getItem('tilawah_backfillDismissed') === '1') {
+    _backfillDismissed = true; return;
+  }
+  const banner = el('backfillBanner');
+  if (!banner) return;
+
+  const daysGone = getDaysGone(); // berapa hari sudah berlalu
+  const loggedDays = Object.keys(S.dailyLogs || {}).length;
+
+  // Tampilkan jika: sudah lewat ≥2 hari Ramadhan, tapi log < 50% dari hari yang sudah lewat
+  if (daysGone >= 2 && loggedDays < Math.ceil(daysGone * 0.5)) {
+    const missingDays = daysGone - loggedDays;
+    const textEl = el('backfillText');
+    if (textEl) {
+      textEl.textContent = `Ramadhan sudah berjalan ${daysGone} hari, tapi baru ada ${loggedDays} hari data. ` +
+        `Kamu bisa mengisi catatan tilawah untuk ${missingDays} hari yang belum tercatat agar progres terlihat akurat.`;
+    }
+    banner.style.display = 'flex';
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+function openBackfillGuide() {
+  const daysGone = getDaysGone();
+  showModal('📝 Cara Isi Data Hari Sebelumnya',
+    `<div style="font-size:0.82rem;color:var(--text2);line-height:1.9;">
+      <strong style="color:var(--gold2);">Langkah mudah:</strong><br>
+      1️⃣ Di tab <strong>Catat</strong>, ubah tanggal ke hari yang ingin diisi<br>
+      2️⃣ Pilih waktu sholat dan masukkan jumlah halaman<br>
+      3️⃣ Klik <strong>Tambah Tilawah</strong><br>
+      4️⃣ Ulangi untuk setiap sesi baca di hari itu<br><br>
+      <div style="background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:0.78rem;color:var(--text3);">
+        💡 Tidak ingat jumlah pasti? Masukkan <em>perkiraan</em> saja — yang penting konsisten mencatat mulai hari ini.
+      </div>
+    </div>`,
+    'Ke Tab Catat', "showSection('input');closeModal();", 'Nanti Dulu', 'closeModal()'
+  );
+}
+
+function dismissBackfill() {
+  _backfillDismissed = true;
+  localStorage.setItem('tilawah_backfillDismissed', '1');
+  const banner = el('backfillBanner');
+  if (banner) banner.style.display = 'none';
+}
+
+
 
 // ═══════════════════════════════════════
 // REMINDERS
