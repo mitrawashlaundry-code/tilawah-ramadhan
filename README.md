@@ -2,7 +2,7 @@
 
 Aplikasi Progressive Web App (PWA) untuk melacak target tilawah Al-Qur'an selama Ramadhan. Gratis, tanpa instalasi, tanpa akun — semua data tersimpan lokal di perangkat.
 
-[![Versi](https://img.shields.io/badge/versi-1.5.0-gold)](https://github.com/mitrawashlaundry-code/tilawah-ramadhan)
+[![Versi](https://img.shields.io/badge/versi-1.5.1-gold)](https://github.com/mitrawashlaundry-code/tilawah-ramadhan)
 [![PWA](https://img.shields.io/badge/PWA-ready-green)](https://web.dev/progressive-web-apps/)
 [![Lisensi](https://img.shields.io/badge/lisensi-MIT-blue)](LICENSE)
 
@@ -68,6 +68,7 @@ tilawah-ramadhan/
 
 | Versi | Tanggal | Ringkasan |
 |-------|---------|-----------|
+| **v1.5.1** | 2026-02-21 | Fix BUG-012: tombol Tutup badge tidak berfungsi |
 | **v1.5.0** | 2026-02-21 | Perbaikan UX & bug besar: progressive disclosure, smart prayer, streak redesign, security fix modal, pie chart, badge info, notif status |
 | v1.4.0 | 2026-02-21 | Export CSV, Trend Mingguan, Autocomplete Surah, Target Sholat Manual |
 | v1.3.0 | 2026-02-20 | Prioritas Subuh, hapus pengingat, ikon homescreen |

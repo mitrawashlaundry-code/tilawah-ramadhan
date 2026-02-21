@@ -2,6 +2,14 @@
 
 ---
 
+## [v1.5.1] — 2026-02-21
+
+### 🐛 Bug Fixed
+
+- **[BUG-012]** Tombol "Tutup" pada modal syarat badge tidak berfungsi — `showBadgeInfo()` memanggil `showModal()` dengan `fn1 = null` sehingga `onclick` handler tidak terpasang. Diperbaiki dengan mengganti `null` menjadi `closeModal`
+
+---
+
 ## [v1.5.0] — 2026-02-21
 
 ### 🐛 Bug Fixed
