@@ -1,19 +1,12 @@
 # 📖 Target Tilawah Ramadhan
 
-> Aplikasi web progresif (PWA) untuk melacak target khatam Al-Qur'an selama Ramadhan — gratis, offline, tanpa instalasi.
+Aplikasi Progressive Web App (PWA) untuk melacak target tilawah Al-Qur'an selama Ramadhan. Gratis, tanpa instalasi, tanpa akun — semua data tersimpan lokal di perangkat.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![PWA](https://img.shields.io/badge/PWA-Ready-blue)](https://mitrawashlaundry-code.github.io/tilawah-ramadhan/)
-[![Version](https://img.shields.io/badge/version-1.3.0-green)](#)
-[![HTML](https://img.shields.io/badge/HTML-Single%20File-orange)](#)
+[![Versi](https://img.shields.io/badge/versi-1.5.0-gold)](https://github.com/mitrawashlaundry-code/tilawah-ramadhan)
+[![PWA](https://img.shields.io/badge/PWA-ready-green)](https://web.dev/progressive-web-apps/)
+[![Lisensi](https://img.shields.io/badge/lisensi-MIT-blue)](LICENSE)
 
----
-
-## 🚀 Demo Langsung
-
-👉 **[Buka Aplikasi — mitrawashlaundry-code.github.io/tilawah-ramadhan](https://mitrawashlaundry-code.github.io/tilawah-ramadhan/)**
-
-Atau unduh file `index.html` dan buka langsung di browser — tidak perlu server, tidak perlu koneksi internet!
+🌐 **Live:** https://mitrawashlaundry-code.github.io/tilawah-ramadhan/
 
 ---
 
@@ -21,112 +14,79 @@ Atau unduh file `index.html` dan buka langsung di browser — tidak perlu server
 
 | Fitur | Keterangan |
 |-------|-----------|
-| 🧮 **Kalkulasi Otomatis** | Target harian, per waktu sholat, dan proyeksi khatam dihitung real-time |
-| 🌅 **Distribusi Cerdas per Sholat** | Subuh mendapat porsi terbesar; Maghrib dibatasi 6 hal (waktu singkat + berbuka) |
-| 📊 **Insight Personal** | Waktu terbanyak membaca, hari terkonsisten, tren bacaan |
-| 🔥 **Streak & Badge** | Pantau konsistensi harian + 6 pencapaian yang bisa diraih |
-| 🏃 **Kalkulator Kejar Setoran** | Hitung berapa halaman/hari untuk mengejar ketertinggalan |
-| 📈 **Grafik & Riwayat** | Grafik batang 30 hari + ringkasan mingguan + riwayat Ramadhan tahun lalu |
-| 🎨 **Kartu Progres** | Share progres ke WhatsApp dalam bentuk kartu gambar |
-| 🔔 **Pengingat Fleksibel** | Tambah, aktifkan/nonaktifkan, dan **hapus** pengingat tilawah harian |
-| 🔡 **Aksesibilitas** | 3 ukuran huruf (Normal / Besar / Sangat Besar) — berlaku menyeluruh |
-| 🌙 **Ikon Homescreen** | Ikon bulan sabit emas otomatis muncul saat dipasang ke homescreen |
-| 📲 **Installable PWA** | Bisa dipasang di homescreen Android & iPhone tanpa app store |
-| 🔒 **100% Offline & Privat** | Semua data tersimpan di perangkat — tidak dikirim ke mana pun |
+| 🎯 **Target Fleksibel** | Setup 1–5 kali khatam, target harian otomatis dihitung |
+| ⏰ **Pembagian per Sholat** | Target per Subuh/Dhuha/Dzuhur/Ashar/Maghrib/Tarawih (bisa diubah manual) |
+| ✏️ **Catat Tilawah** | Input per sesi + posisi baca + backfill hari sebelumnya |
+| 📝 **Autocomplete Surah** | Ketik nama surah, sistem sarankan dari 114 surah |
+| 🕐 **Saran Waktu Sholat** | Waktu sholat otomatis dipilih berdasarkan jam saat ini (v1.5) |
+| 📊 **Grafik Harian** | Bar chart 30 hari Ramadhan, klik bar untuk detail |
+| 📉 **Trend Mingguan** | Grafik naik/turun rata-rata per minggu |
+| 🔥 **Streak** | Dot chart konsistensi harian — diperbesar & lebih terbaca (v1.5) |
+| 🥧 **Pie Chart Sholat** | Distribusi tilawah per waktu sholat (v1.5) |
+| 📈 **Insight Otomatis** | Waktu favorit, hari terkonsisten, proyeksi khatam |
+| 🏅 **Badge** | 6 pencapaian — klik untuk lihat syarat (v1.5) |
+| 🎨 **Kartu Progres** | Share kartu bergambar ke WhatsApp/Instagram |
+| 📊 **Export CSV** | Unduh data ke Excel/Google Sheets — mode Detail & Harian |
+| ☁️ **Simpan & Pulihkan** | Ekspor/impor file JSON untuk pindah HP (v1.5) |
+| 🔔 **Pengingat Fleksibel** | Tambah/hapus pengingat, status izin notifikasi jelas (v1.5) |
+| 📲 **PWA** | Pasang ke homescreen, ikon bulan sabit emas |
+| 🔤 **Aksesibilitas Huruf** | Toggle 3 ukuran teks (Normal/Besar/Sangat Besar) |
+| 📚 **Riwayat Ramadhan** | Rekap khatam tahun-tahun sebelumnya |
 
 ---
 
-## 📲 Pasang di HP
+## 🚀 Cara Pakai
 
-**Android Chrome:**
-1. Buka URL di Chrome → tap menu ⋮ → "Tambahkan ke layar utama" → "Tambah"
-2. Ikon bulan sabit emas akan muncul di homescreen
+1. Buka https://mitrawashlaundry-code.github.io/tilawah-ramadhan/
+2. Isi nama, target khatam, dan tanggal mulai Ramadhan
+3. Catat tilawah setiap kali selesai baca
+4. Pantau progres di tab Beranda dan Riwayat
 
-**iPhone Safari:**
-1. Buka URL di Safari → tap tombol Bagikan ⬆ → "Tambahkan ke Layar Utama" → "Tambah"
-
----
-
-## 🔄 Update dari Android (Tanpa PC)
-
-Lihat panduan lengkap di **[docs/CARA-UPDATE-ANDROID.md](docs/CARA-UPDATE-ANDROID.md)**
-
-Ringkasan:
-1. Edit `index.html` di GitHub (via browser atau GitHub Mobile)
-2. Commit ke branch `main` → GitHub Pages rebuild ±1–2 menit
-3. Buka aplikasi → Hard Refresh (⋮ → Muat ulang)
+**Pasang di Homescreen:**
+- **Android Chrome:** Menu ⋮ → Tambahkan ke layar utama
+- **iPhone Safari:** Bagikan ⬆ → Tambahkan ke Layar Utama
 
 ---
 
-## 📐 Arsitektur Teknis
-
-```
-index.html          ← Seluruh aplikasi dalam 1 file
-├── CSS (inline)    ← Dark theme, CSS variables, font-size toggle 3 level
-├── HTML (inline)   ← 5 section + wizard + modals + overlays
-└── JS (inline)     ← Vanilla JS, localStorage, Canvas API
-```
-
-**Logika distribusi target per sholat (v1.3):**
-```
-Bobot: Subuh=2.5, Dhuha=1, Dzuhur=1, Ashar=1, Maghrib=1.5, Tarawih=2
-Cap:   Maghrib maksimal 6 halaman → kelebihan ke Tarawih
-Hasil: Subuh ≈ 28%, Tarawih ≈ 22%, Maghrib ≤ 6 hal
-```
-
----
-
-## 🗂️ Struktur Repository
+## 📁 Struktur File
 
 ```
 tilawah-ramadhan/
-├── index.html                        ← Aplikasi utama (satu file lengkap)
-├── README.md                         ← Dokumentasi ini
-├── LICENSE                           ← MIT License
-├── CHANGELOG.md                      ← Catatan perubahan versi
-├── CONTRIBUTING.md                   ← Panduan kontribusi
-└── docs/
-    ├── prompt-replikasi-v1_3.md      ← Prompt lengkap untuk replikasi/pengembangan
-    └── CARA-UPDATE-ANDROID.md        ← Panduan update dari Android tanpa PC
+├── index.html          # Aplikasi utama (single-file PWA)
+├── CHANGELOG.md        # Riwayat perubahan versi
+├── CONTRIBUTING.md     # Panduan kontribusi
+├── CARA-UPDATE-ANDROID.md  # Panduan update di Android
+├── docs/
+│   ├── ARCHITECTURE.md            # Dokumentasi teknis arsitektur
+│   └── replikasi-prompt.md        # Prompt untuk replikasi AI
+└── README.md
 ```
 
 ---
 
-## 📝 Changelog Singkat
+## 📋 Changelog Singkat
 
-Lihat [CHANGELOG.md](CHANGELOG.md) untuk riwayat lengkap.
+| Versi | Tanggal | Ringkasan |
+|-------|---------|-----------|
+| **v1.5.0** | 2026-02-21 | Perbaikan UX & bug besar: progressive disclosure, smart prayer, streak redesign, security fix modal, pie chart, badge info, notif status |
+| v1.4.0 | 2026-02-21 | Export CSV, Trend Mingguan, Autocomplete Surah, Target Sholat Manual |
+| v1.3.0 | 2026-02-20 | Prioritas Subuh, hapus pengingat, ikon homescreen |
+| v1.2.0 | 2026-02-20 | Cap Maghrib 6 hal, aksesibilitas huruf 40+ elemen |
+| v1.1.0 | 2026-02-19 | Backup/Restore, backfill, kalkulator kejar setoran |
+| v1.0.0 | 2026-02-19 | Rilis pertama — wizard, 5 tab, 6 badge, PWA |
 
-**v1.3.0** (2026-02-20)
-- 🌅 Subuh mendapat porsi terbesar (bobot 2.5×)
-- 🗑️ Fitur hapus pengingat dengan konfirmasi
-- 🌙 Ikon bulan sabit otomatis di homescreen
-- 🔡 Penjelasan aksesibilitas huruf + override CSS tambahan
+---
 
-**v1.2.0** (2026-02-20) — Cap Maghrib 6 hal, font toggle 40+ kelas CSS
+## 🛠️ Teknologi
 
-**v1.1.0** (2026-02-19) — 8 bug kritis diperbaiki, backup/restore JSON
-
-**v1.0.0** (2026-02-19) — 🎉 Rilis pertama
+- **Vanilla HTML/CSS/JS** — tanpa framework, tanpa dependensi NPM
+- **localStorage** — penyimpanan data lokal
+- **Canvas API** — render kartu progres & pie chart distribusi sholat
+- **Web Share API** — share native di Android/iOS
+- **PWA Manifest** — ikon homescreen inline (tanpa file gambar terpisah)
 
 ---
 
 ## 📄 Lisensi
 
-[MIT License](LICENSE) — bebas digunakan, dimodifikasi, dan didistribusikan.
-
----
-
-## 🌙 Doa & Harapan
-
-> *"Dan bacalah Al-Qur'an itu dengan tartil (perlahan-lahan)."*
-> — QS. Al-Muzzammil: 4
-
-Semoga aplikasi ini membantu kita semua meraih khatam di bulan Ramadhan yang penuh berkah. Aamiin.
-
----
-
-<p align="center">
-  Dibuat dengan ❤️ untuk umat Muslim di seluruh dunia<br>
-  <strong>Gratis selamanya • Offline • Data tidak dikirim ke mana pun</strong><br>
-  <a href="https://mitrawashlaundry-code.github.io/tilawah-ramadhan/">mitrawashlaundry-code.github.io/tilawah-ramadhan</a>
-</p>
+MIT License — bebas digunakan, dimodifikasi, dan didistribusikan.

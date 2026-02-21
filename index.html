@@ -9,12 +9,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Tilawah">
 <meta name="theme-color" content="#0a0e1a">
-<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Target%20Tilawah%20Ramadhan%22,%22short_name%22:%22Tilawah%22,%22start_url%22:%22./%22,%22display%22:%22standalone%22,%22background_color%22:%22%230a0e1a%22,%22theme_color%22:%22%230a0e1a%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520512%2520512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%2527110%2527%2520fill%253D%2527%25230a0e1a%2527%252F%253E%253Ccircle%2520cx%253D%2527256%2527%2520cy%253D%2527220%2527%2520r%253D%2527120%2527%2520fill%253D%2527none%2527%2520stroke%253D%2527%2523e8b84b%2527%2520stroke-width%253D%252724%2527%252F%253E%253Ccircle%2520cx%253D%2527310%2527%2520cy%253D%2527200%2527%2520r%253D%2527115%2527%2520fill%253D%2527%25230a0e1a%2527%252F%253E%253Ctext%2520x%253D%2527256%2527%2520y%253D%2527420%2527%2520text-anchor%253D%2527middle%2527%2520font-size%253D%252772%2527%2520fill%253D%2527%2523e8b84b%2527%2520font-family%253D%2527serif%2527%253ERamadhan%253C%252Ftext%253E%253C%252Fsvg%253E%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%20maskable%22}]}">
+<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Target%20Tilawah%20Ramadhan%22,%22short_name%22:%22Tilawah%22,%22start_url%22:%22./%22,%22display%22:%22standalone%22,%22background_color%22:%22%230a0e1a%22,%22theme_color%22:%22%230a0e1a%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520512%2520512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%2527110%2527%2520fill%253D%2527%25230a0e1a%2527%252F%253E%253Ccircle%2520cx%253D%2527256%2527%2520cy%253D%2527220%2527%2520r%253D%2527120%2527%2520fill%253D%2527none%2527%2520stroke%253D%2527%2523e8b84b%2527%2520stroke-width%253D%252724%2527%252F%253E%253Ccircle%2520cx%253D%2527310%2527%2520cy%253D%2527200%2527%2520r%253D%2527115%2527%2520fill%253D%2527%25230a0e1a%2527%252F%253E%253Ctext%2520x%253D%2527256%2527%2520y%253D%2527420%2527%2520text-anchor%253D%2527middle%2527%2520font-size%253D%252772%2527%2520fill%253D%2527%2523e8b84b%2527%2520font-family%253D%2527serif%2527%253ETilawah%253C%252Ftext%253E%253C%252Fsvg%253E%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%20maskable%22}]}">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%230a0e1a'/><circle cx='256' cy='220' r='120' fill='none' stroke='%23e8b84b' stroke-width='24'/><circle cx='310' cy='200' r='115' fill='%230a0e1a'/><text x='256' y='420' text-anchor='middle' font-size='72' fill='%23e8b84b' font-family='serif'>Tilawah</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS v1.5
+═══════════════════════════════════════ */
 :root {
   --bg: #0a0e1a;
   --bg2: #0f1422;
@@ -51,6 +54,12 @@
 
   --font-body: 'DM Sans', sans-serif;
   --font-display: 'Amiri', serif;
+
+  /* v1.5: minimum font sizes enforced */
+  --fs-base: 14px;        /* was ~11px */
+  --fs-label: 12px;       /* was 9-10px */
+  --fs-sm: 11px;          /* minimum */
+  --fs-xs: 11px;          /* minimum (was 0.58rem~9px) */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,6 +70,7 @@ body {
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+  font-size: var(--fs-base);
 }
 
 /* ─── SCROLLBAR ─── */
@@ -103,25 +113,21 @@ body::after {
   padding: 24px;
   animation: fadeIn 0.5s ease;
 }
-
 .welcome-logo {
   font-size: 72px;
   animation: float 3s ease-in-out infinite;
   margin-bottom: 16px;
   will-change: transform;
 }
-
 @media (prefers-reduced-motion: reduce) {
   .welcome-logo { animation: none; }
   .benefit-item { animation: none; opacity: 1; transform: none; }
   .btn-welcome { animation: none; opacity: 1; }
 }
-
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
-
 .welcome-title {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 5vw, 2.2rem);
@@ -138,7 +144,6 @@ body::after {
   margin-bottom: 36px;
   font-style: italic;
 }
-
 .benefits-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -147,7 +152,6 @@ body::after {
   max-width: 380px;
   margin-bottom: 32px;
 }
-
 .benefit-item {
   display: flex; align-items: flex-start; gap: 14px;
   background: var(--surface);
@@ -159,16 +163,14 @@ body::after {
 .benefit-item:nth-child(1) { animation-delay: 0.1s; }
 .benefit-item:nth-child(2) { animation-delay: 0.2s; }
 .benefit-item:nth-child(3) { animation-delay: 0.3s; }
-
 .benefit-icon { font-size: 1.6rem; flex-shrink: 0; }
 .benefit-text strong { display: block; font-size: 0.88rem; color: var(--text); margin-bottom: 2px; }
-.benefit-text span { font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+.benefit-text span { font-size: 0.8rem; color: var(--text2); line-height: 1.5; }
 
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 .btn-welcome {
   background: linear-gradient(135deg, var(--gold), #c8902b);
   color: #0a0e1a;
@@ -195,14 +197,12 @@ body::after {
   overflow-y: auto;
   padding-bottom: 100px;
 }
-
 .wizard-header {
   padding: 20px 20px 16px;
   background: var(--bg2);
   border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 10;
 }
-
 .wizard-step-indicator {
   display: flex; gap: 6px; align-items: center;
   margin-bottom: 10px;
@@ -214,18 +214,15 @@ body::after {
 }
 .step-dot.active { background: var(--gold); }
 .step-dot.done { background: var(--green); }
-
 .wizard-step-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--text2);
 }
 .wizard-step-label strong { color: var(--gold2); }
-
 .wizard-body {
   padding: 20px;
   flex: 1;
 }
-
 .wizard-title {
   font-family: var(--font-display);
   font-size: 1.6rem;
@@ -233,12 +230,11 @@ body::after {
   margin-bottom: 6px;
 }
 .wizard-desc {
-  font-size: 0.84rem;
+  font-size: 0.88rem;
   color: var(--text2);
   margin-bottom: 24px;
   line-height: 1.6;
 }
-
 .wizard-footer {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -246,6 +242,19 @@ body::after {
   background: linear-gradient(to top, var(--bg) 70%, transparent);
   display: flex; gap: 10px;
 }
+
+/* ─── KHATAM INFO BOX (v1.5 - new) ─── */
+.khatam-info-box {
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,184,75,0.25);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 0.82rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.khatam-info-box strong { color: var(--gold2); }
 
 /* ─── MAIN APP ─── */
 #mainApp {
@@ -262,12 +271,10 @@ body::after {
   padding: 16px 16px 12px;
   position: sticky; top: 0; z-index: 100;
 }
-
 .header-top {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 10px;
 }
-
 .header-brand {
   display: flex; align-items: center; gap: 8px;
 }
@@ -279,10 +286,9 @@ body::after {
   line-height: 1.2;
 }
 .header-brand .subtitle {
-  font-size: 0.65rem;
+  font-size: 0.7rem;      /* v1.5: was 0.65rem */
   color: var(--text3);
 }
-
 .header-chips {
   display: flex; gap: 6px; flex-wrap: wrap;
   margin-bottom: 4px;
@@ -292,7 +298,7 @@ body::after {
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 3px 10px;
-  font-size: 0.68rem;
+  font-size: 0.72rem;     /* v1.5: was 0.68rem */
   color: var(--text2);
 }
 .chip.gold {
@@ -300,7 +306,6 @@ body::after {
   border-color: rgba(232,184,75,0.3);
   color: var(--gold2);
 }
-
 .header-today-summary {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -309,12 +314,11 @@ body::after {
   display: flex; align-items: center; justify-content: space-between;
   gap: 10px;
 }
-
 .today-progress-info {
   display: flex; flex-direction: column; gap: 3px; flex: 1;
 }
 .today-label {
-  font-size: 0.65rem;
+  font-size: 0.69rem;     /* v1.5: was 0.65rem */
   color: var(--text3);
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -324,7 +328,6 @@ body::after {
   font-weight: 600;
   color: var(--text);
 }
-
 .today-mini-bar {
   width: 100%; height: 4px;
   background: var(--surface2);
@@ -337,19 +340,17 @@ body::after {
   border-radius: 2px;
   transition: width 0.5s ease;
 }
-
 .today-pct {
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1;
   flex-shrink: 0;
 }
-
 .header-btn {
   background: none;
   border: 1px solid var(--border);
   border-radius: 50%;
-  width: 34px; height: 34px;
+  width: 36px; height: 36px;
   display: flex; align-items: center; justify-content: center;
   color: var(--text2);
   cursor: pointer;
@@ -367,7 +368,6 @@ body::after {
   display: flex;
   z-index: 100;
 }
-
 .nav-item {
   flex: 1;
   display: flex; flex-direction: column;
@@ -383,40 +383,45 @@ body::after {
 }
 .nav-item.active { color: var(--gold2); }
 .nav-item .nav-icon { font-size: 1.1rem; }
-.nav-item .nav-label { font-size: 0.58rem; font-weight: 500; }
+.nav-item .nav-label {
+  font-size: 0.69rem;   /* v1.5: was 0.58rem (9px). Now 11px minimum. */
+  font-weight: 500;
+}
 .nav-item.active::after {
   content: '';
   position: absolute; top: 0; left: 20%; right: 20%;
   height: 2px; border-radius: 0 0 2px 2px;
   background: var(--gold);
 }
-.nav-item.locked { opacity: 0.35; cursor: default; }
-.nav-item.locked::before {
-  content: '🔒';
-  position: absolute; top: 4px; right: 8px;
-  font-size: 0.5rem;
+/* v1.5: Locked tabs - more visible indicator */
+.nav-item.locked {
+  opacity: 0.5;
+  cursor: default;
+}
+.nav-item.locked .nav-label {
+  font-size: 0.6rem;
+  color: var(--text3);
 }
 
 /* ─── FAB ─── */
 .fab {
   position: fixed;
   bottom: 80px; right: 16px;
-  width: 44px; height: 44px;
+  width: 48px; height: 48px;  /* v1.5: slightly larger */
   border-radius: 50%;
   background: linear-gradient(135deg, var(--gold), #c8902b);
   color: #0a0e1a;
   border: none;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   box-shadow: 0 3px 14px var(--gold-glow), 0 2px 6px rgba(0,0,0,0.3);
   display: flex; align-items: center; justify-content: center;
   transition: all 0.3s;
   z-index: 99;
-  opacity: 0.55;
+  opacity: 0.65;
 }
 .fab:hover, .fab:focus { transform: scale(1.08); box-shadow: 0 6px 24px var(--gold-glow); opacity: 1; }
 .fab:active { transform: scale(0.95); opacity: 1; }
-/* Fab becomes fully opaque briefly after interaction, then fades again */
 .fab.active-flash { opacity: 1; }
 
 /* ─── SECTIONS ─── */
@@ -435,14 +440,13 @@ body::after {
   transition: border-color 0.2s;
 }
 .card:hover { border-color: var(--border2); }
-
 .card-header {
   display: flex; align-items: center; gap: 8px;
   margin-bottom: 14px;
 }
 .card-icon { font-size: 1rem; }
 .card-title {
-  font-size: 0.72rem;
+  font-size: 0.75rem;     /* v1.5: was 0.72rem */
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -450,7 +454,7 @@ body::after {
   flex: 1;
 }
 .card-badge {
-  font-size: 0.65rem;
+  font-size: 0.69rem;     /* v1.5: improved */
   background: var(--gold-dim);
   border: 1px solid rgba(232,184,75,0.3);
   color: var(--gold2);
@@ -461,7 +465,7 @@ body::after {
 /* ─── FORMS ─── */
 label {
   display: block;
-  font-size: 0.76rem;
+  font-size: 0.8rem;      /* v1.5: was 0.76rem */
   color: var(--text2);
   margin-bottom: 5px;
   font-weight: 500;
@@ -471,80 +475,54 @@ input[type="text"], input[type="number"], input[type="date"], select, textarea {
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--r-sm);
-  padding: 10px 12px;
+  padding: 11px 12px;
   color: var(--text);
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-family: var(--font-body);
-  transition: all 0.2s;
   outline: none;
+  transition: border-color 0.2s;
   -webkit-appearance: none;
 }
-input:focus, select:focus, textarea:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px var(--gold-dim);
-  background: var(--surface3);
-}
-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
-
+input:focus, select:focus { border-color: var(--gold); }
 .form-group { margin-bottom: 14px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media (max-width: 360px) { .form-row { grid-template-columns: 1fr; } }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 /* ─── BUTTONS ─── */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  padding: 10px 18px;
-  border: none; border-radius: var(--r-sm);
-  cursor: pointer; font-size: 0.86rem;
-  font-family: var(--font-body); font-weight: 600;
+  display: block; width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--r-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  text-align: center;
   transition: all 0.2s;
-  width: 100%;
+  margin-bottom: 8px;
 }
-.btn-primary {
-  background: linear-gradient(135deg, var(--gold), #c8902b);
-  color: #0a0e1a;
-}
-.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 16px var(--gold-glow); }
-.btn-primary:active { transform: translateY(0); }
-.btn-primary:disabled { opacity: 0.35; cursor: default; transform: none; }
-
-.btn-secondary {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--text);
-}
-.btn-secondary:hover { border-color: var(--border2); color: var(--gold2); }
-
-.btn-ghost {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text2);
-}
-.btn-ghost:hover { border-color: var(--gold); color: var(--gold2); }
-
-.btn-danger { background: var(--red-dim); border: 1px solid rgba(232,84,84,0.4); color: var(--red); }
-.btn-success { background: var(--green-dim); border: 1px solid rgba(61,214,140,0.4); color: var(--green); }
-.btn-amber { background: var(--amber-dim); border: 1px solid rgba(240,160,48,0.4); color: var(--amber); }
+.btn-primary { background: linear-gradient(135deg, var(--gold), #c8902b); color: #0a0e1a; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(--gold-glow); }
+.btn-secondary { background: var(--surface2); border: 1px solid var(--border2); color: var(--text2); }
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold2); }
 .btn-blue { background: var(--blue-dim); border: 1px solid rgba(74,144,232,0.4); color: var(--blue); }
+.btn-blue:hover { background: rgba(74,144,232,0.25); }
+.btn-amber { background: var(--amber-dim); border: 1px solid rgba(240,160,48,0.4); color: var(--amber); }
+.btn-danger { background: var(--red-dim); border: 1px solid rgba(232,84,84,0.4); color: var(--red); }
+.btn-ghost { background: none; border: 1px solid var(--border); color: var(--text2); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold2); }
+.btn-sm { padding: 9px 14px; font-size: 0.82rem; }
+.btn-auto { width: auto; display: inline-block; }
 
-.btn-sm { padding: 7px 12px; font-size: 0.76rem; }
-.btn-xs { padding: 5px 10px; font-size: 0.7rem; }
-.btn-auto { width: auto; }
-
-/* ─── QUICK INPUT BUTTONS ─── */
-.quick-btns {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px;
-  margin-bottom: 12px;
-}
+/* ─── QUICK BUTTONS ─── */
+.quick-btns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
 .quick-btn {
   background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--r-sm);
   padding: 10px 6px;
   cursor: pointer;
-  font-size: 0.82rem;
+  font-size: 0.84rem;   /* v1.5: improved */
   font-weight: 700;
   color: var(--gold2);
   font-family: var(--font-body);
@@ -560,7 +538,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   padding: 8px 0;
 }
 .khatam-btn {
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   background: var(--surface2);
   border: 1px solid var(--border);
@@ -594,7 +572,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   pointer-events: none;
 }
 .ring-pct { font-size: 1.8rem; font-weight: 700; color: var(--gold2); line-height: 1; }
-.ring-sub { font-size: 0.65rem; color: var(--text2); margin-top: 2px; }
+.ring-sub { font-size: 0.69rem; color: var(--text2); margin-top: 2px; } /* v1.5: was 0.65rem */
 
 /* ─── STAT GRID ─── */
 .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -606,7 +584,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   text-align: center;
 }
 .stat-val { font-size: 1.3rem; font-weight: 700; color: var(--gold2); line-height: 1; }
-.stat-lbl { font-size: 0.64rem; color: var(--text2); margin-top: 4px; line-height: 1.4; }
+.stat-lbl { font-size: 0.69rem; color: var(--text2); margin-top: 4px; line-height: 1.4; } /* v1.5: was 0.64rem */
 
 /* ─── STATUS BANNER ─── */
 .status-banner {
@@ -622,23 +600,65 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
 .status-banner.ahead .status-title { color: var(--green); }
 .status-banner.on-track .status-title { color: var(--blue); }
 .status-banner.behind .status-title { color: var(--amber); }
-.status-banner .status-msg { font-size: 0.8rem; color: var(--text2); line-height: 1.55; }
+.status-banner .status-msg { font-size: 0.82rem; color: var(--text2); line-height: 1.55; } /* v1.5: was 0.8rem */
 .status-banner .status-action { margin-top: 10px; }
 
-/* ─── STREAK DOTS ─── */
+/* ─── PROGRESSIVE DISCLOSURE (v1.5 new) ─── */
+.collapsible-section {
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  max-height: 0;
+}
+.collapsible-section.expanded {
+  max-height: 9999px;
+}
+.collapse-toggle {
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px;
+  width: 100%;
+  background: none;
+  border: 1px dashed var(--border2);
+  border-radius: var(--r-sm);
+  padding: 10px;
+  color: var(--text3);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: all 0.2s;
+}
+.collapse-toggle:hover { border-color: var(--gold); color: var(--gold2); }
+.collapse-toggle .toggle-arrow { transition: transform 0.3s; display: inline-block; }
+.collapse-toggle.open .toggle-arrow { transform: rotate(180deg); }
+
+/* ─── STREAK DOTS (v1.5: larger) ─── */
 .streak-bar { display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; margin: 8px 0; }
 .s-dot {
-  width: 16px; height: 16px;
+  width: 24px; height: 24px;  /* v1.5: was 16px */
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.42rem; font-weight: 700;
+  font-size: 0.55rem;
+  font-weight: 700;
   position: relative;
 }
-.s-dot.over { background: var(--green-dim); border: 1.5px solid var(--green); color: var(--green); }
-.s-dot.on { background: var(--blue-dim); border: 1.5px solid var(--blue); color: var(--blue); }
+.s-dot.over { background: var(--green-dim); border: 1.5px solid var(--green); }
+.s-dot.on { background: var(--blue-dim); border: 1.5px solid var(--blue); }
 .s-dot.today { background: var(--gold); border: 2px solid var(--gold2); color: #0a0e1a; }
-.s-dot.miss { background: var(--amber-dim); border: 1.5px solid rgba(240,160,48,0.35); color: var(--amber); }
-.s-dot.empty { background: var(--surface); border: 1.5px dashed var(--border); color: var(--text3); }
+.s-dot.miss { background: var(--amber-dim); border: 1.5px solid rgba(240,160,48,0.35); }
+.s-dot.empty { background: var(--surface); border: 1.5px dashed var(--border); }
+/* v1.5: day number displayed below dot via data attr */
+.streak-day-label { font-size: 0.5rem; color: var(--text3); text-align: center; }
+.streak-dot-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+
+/* Streak legend */
+.streak-legend {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  margin-top: 8px; font-size: 0.69rem; color: var(--text3);  /* v1.5: was 0.6rem */
+}
+.streak-legend span { display: flex; align-items: center; gap: 4px; }
+.sl-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
 /* ─── PRAYER GRID ─── */
 .prayer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
@@ -649,11 +669,12 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   border-radius: var(--r-sm);
   padding: 9px 6px;
   text-align: center;
+  cursor: default;
 }
 .prayer-emoji { font-size: 1.1rem; display: block; }
-.prayer-name { font-size: 0.62rem; color: var(--text2); margin: 3px 0 2px; }
+.prayer-name { font-size: 0.69rem; color: var(--text2); margin: 3px 0 2px; }  /* v1.5: was 0.62rem */
 .prayer-pages { font-size: 0.9rem; font-weight: 700; color: var(--gold2); }
-.prayer-pages span { font-size: 0.62rem; color: var(--text3); font-weight: 400; }
+.prayer-pages span { font-size: 0.69rem; color: var(--text3); font-weight: 400; } /* v1.5: was 0.62rem */
 
 /* ─── LOG ENTRY ─── */
 .log-entry {
@@ -663,19 +684,19 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   border: 1px solid var(--border);
   border-radius: var(--r-sm);
   margin-bottom: 6px;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
 }
 .log-icon { font-size: 1.1rem; flex-shrink: 0; }
 .log-main { flex: 1; min-width: 0; }
 .log-prayer { font-weight: 600; color: var(--text); }
-.log-pos { font-size: 0.69rem; color: var(--text3); margin-top: 1px; }
+.log-pos { font-size: 0.75rem; color: var(--text3); margin-top: 1px; }  /* v1.5: was 0.69rem */
 .log-right { display: flex; align-items: center; gap: 6px; }
-.log-pages { color: var(--blue); font-weight: 700; font-size: 0.82rem; }
-.log-time { font-size: 0.65rem; color: var(--text3); }
+.log-pages { color: var(--blue); font-weight: 700; font-size: 0.84rem; }
+.log-time { font-size: 0.69rem; color: var(--text3); }
 .log-del {
   background: none; border: none; color: var(--text3);
   cursor: pointer; padding: 4px 6px; border-radius: 6px;
-  font-size: 0.85rem; transition: all 0.15s;
+  font-size: 0.9rem; transition: all 0.15s;
 }
 .log-del:hover { color: var(--red); background: var(--red-dim); }
 
@@ -702,7 +723,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   margin-bottom: 7px;
 }
 .insight-icon { font-size: 1.1rem; flex-shrink: 0; }
-.insight-text { font-size: 0.78rem; color: var(--text2); line-height: 1.5; flex: 1; }
+.insight-text { font-size: 0.82rem; color: var(--text2); line-height: 1.5; flex: 1; }
 .insight-text strong { color: var(--text); }
 
 /* ─── CHART ─── */
@@ -717,7 +738,6 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   width: 100%; border-radius: 4px 4px 0 0;
   min-height: 3px;
   transition: height 0.5s cubic-bezier(.4,0,.2,1);
-  position: relative;
 }
 .bar-fill.ahead { background: linear-gradient(180deg, var(--green), #15803d); }
 .bar-fill.on-track { background: linear-gradient(180deg, var(--blue), #1d4ed8); }
@@ -733,8 +753,101 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   margin-bottom: 8px;
 }
 .week-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.week-label { font-size: 0.72rem; font-weight: 700; color: var(--gold); }
-.week-total { font-size: 0.72rem; color: var(--text2); }
+.week-label { font-size: 0.75rem; font-weight: 700; color: var(--gold); }  /* v1.5: was 0.72rem */
+.week-total { font-size: 0.75rem; color: var(--text2); }
+
+/* ─── TREND CHART ─── */
+.trend-wrap { position: relative; padding-bottom: 4px; }
+.trend-cols {
+  display: flex; align-items: flex-end; gap: 8px;
+  height: 100px; padding: 0 4px;
+}
+.trend-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 0; }
+.trend-bar {
+  width: 100%; border-radius: 5px 5px 0 0; min-height: 4px;
+  transition: height 0.5s cubic-bezier(.4,0,.2,1);
+}
+.trend-bar.up   { background: linear-gradient(180deg, var(--green), #15803d); }
+.trend-bar.down { background: linear-gradient(180deg, var(--red), #991b1b); }
+.trend-bar.flat { background: linear-gradient(180deg, var(--blue), #1d4ed8); }
+.trend-bar.empty{ background: var(--surface3); opacity: 0.35; }
+.trend-lbl-bottom { font-size: 0.62rem; color: var(--text3); margin-top: 2px; } /* v1.5: was 0.56rem */
+.trend-lbl-top { font-size: 0.65rem; color: var(--text2); font-weight: 600; margin-bottom: 2px; } /* v1.5: was 0.6rem */
+.trend-target-line {
+  position: absolute; left: 4px; right: 4px;
+  height: 1px; background: rgba(232,184,75,0.45);
+  pointer-events: none;
+}
+.trend-legend {
+  font-size: 0.69rem; color: var(--text3); text-align: center;
+  margin-top: 8px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+}
+.trend-legend span { display: flex; align-items: center; gap: 4px; }
+.tl-dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; }
+
+/* ─── CARD ACTION BUTTON ─── */
+.card-action-btn {
+  margin-left: auto; flex-shrink: 0;
+  background: none; border: 1px solid var(--border2);
+  border-radius: 20px; padding: 3px 11px;
+  font-size: 0.72rem; color: var(--text2);
+  cursor: pointer; transition: all 0.15s; font-family: var(--font-body);
+}
+.card-action-btn:hover { color: var(--gold2); border-color: var(--gold); background: var(--gold-dim); }
+
+/* ─── BREAKDOWN MANUAL EDIT ─── */
+.bk-grid {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 8px;
+  margin-bottom: 12px;
+}
+.bk-item {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 10px 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.bk-emoji { font-size: 1.2rem; flex-shrink: 0; }
+.bk-name  { font-size: 0.75rem; color: var(--text2); flex: 1; min-width: 0; }  /* v1.5: was 0.72rem */
+.bk-item input[type=number] {
+  width: 52px; text-align: center; font-size: 0.9rem; font-weight: 700;
+  color: var(--gold2); background: var(--surface3);
+  border: 1px solid var(--border2); border-radius: 6px; padding: 4px 2px;
+  -moz-appearance: textfield;
+}
+.bk-item input[type=number]::-webkit-inner-spin-button,
+.bk-item input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+.bk-total-row {
+  background: var(--gold-dim); border: 1px solid rgba(232,184,75,0.25);
+  border-radius: var(--r-sm); padding: 8px 12px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.82rem; margin-bottom: 8px;
+}
+.bk-total-lbl { color: var(--text2); }
+.bk-total-num { font-weight: 700; color: var(--gold2); }
+.bk-total-num.warn { color: var(--amber); }
+.bk-total-num.ok   { color: var(--green); }
+.bk-note { font-size: 0.69rem; color: var(--text3); text-align: center; margin-top: 4px; }
+
+/* ─── AUTOCOMPLETE DROPDOWN ─── */
+.autocomplete-wrap { position: relative; }
+.autocomplete-dropdown {
+  position: absolute; z-index: 200;
+  left: 0; right: 0; top: 100%;
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  max-height: 180px; overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  display: none;
+}
+.autocomplete-dropdown.open { display: block; }
+.ac-item {
+  padding: 10px 12px; font-size: 0.82rem; color: var(--text);  /* v1.5: was 0.78rem */
+  cursor: pointer; border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.ac-item:last-child { border-bottom: none; }
+.ac-item:hover, .ac-item.focused { background: var(--gold-dim); color: var(--gold2); }
+.ac-item .ac-surah { font-weight: 600; }
+.ac-item .ac-juz  { font-size: 0.69rem; color: var(--text3); margin-left: 6px; }
 
 /* ─── BADGES ─── */
 .badge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -745,12 +858,13 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   padding: 12px 8px;
   text-align: center;
   transition: all 0.2s;
+  cursor: pointer;  /* v1.5: clickable for tooltip */
 }
 .badge-item.earned { border-color: rgba(232,184,75,0.4); background: var(--gold-dim); }
 .badge-item.locked-badge { opacity: 0.4; filter: grayscale(1); }
 .badge-emoji { font-size: 1.8rem; display: block; margin-bottom: 4px; }
-.badge-name { font-size: 0.62rem; color: var(--text2); font-weight: 600; }
-.badge-desc { font-size: 0.58rem; color: var(--text3); margin-top: 2px; }
+.badge-name { font-size: 0.66rem; color: var(--text2); font-weight: 600; }  /* v1.5: was 0.62rem */
+.badge-desc { font-size: 0.62rem; color: var(--text3); margin-top: 2px; }   /* v1.5: was 0.58rem */
 
 /* ─── YEAR HISTORY ─── */
 .year-card {
@@ -763,8 +877,8 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
 }
 .year-icon { font-size: 2rem; flex-shrink: 0; }
 .year-info { flex: 1; }
-.year-label { font-size: 0.78rem; font-weight: 700; color: var(--gold2); }
-.year-data { font-size: 0.72rem; color: var(--text2); margin-top: 2px; }
+.year-label { font-size: 0.82rem; font-weight: 700; color: var(--gold2); }
+.year-data { font-size: 0.75rem; color: var(--text2); margin-top: 2px; }  /* v1.5: was 0.72rem */
 
 /* ─── SHARE CARD ─── */
 #shareCanvas {
@@ -807,7 +921,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   margin: 0 auto 16px;
 }
 .modal-title { font-size: 1rem; font-weight: 700; color: var(--gold2); margin-bottom: 8px; }
-.modal-body { font-size: 0.82rem; color: var(--text2); margin-bottom: 16px; line-height: 1.65; }
+.modal-body { font-size: 0.84rem; color: var(--text2); margin-bottom: 16px; line-height: 1.65; }
 .modal-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .modal-actions .btn { flex: 1; margin: 0; }
 
@@ -843,12 +957,14 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
 }
 .share-option:active { background: var(--surface3); border-color: var(--border2); }
 .share-option-icon { font-size: 1.6rem; }
-.share-option-label { font-size: 0.62rem; color: var(--text2); text-align: center; line-height: 1.3; }
+.share-option-label { font-size: 0.66rem; color: var(--text2); text-align: center; line-height: 1.3; }
 .share-cancel {
   width: 100%; padding: 14px; background: var(--surface2);
   border: 1px solid var(--border); border-radius: var(--r-sm);
   color: var(--text2); font-size: 0.88rem; cursor: pointer;
+  font-family: var(--font-body);
 }
+
 /* ─── BACKFILL BANNER ─── */
 .backfill-banner {
   background: linear-gradient(135deg, rgba(74,144,232,0.15), rgba(74,144,232,0.08));
@@ -860,22 +976,23 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
 }
 .backfill-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
 .backfill-content { flex: 1; }
-.backfill-title { font-size: 0.84rem; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
-.backfill-text { font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+.backfill-title { font-size: 0.86rem; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+.backfill-text { font-size: 0.8rem; color: var(--text2); line-height: 1.5; }
 .backfill-btn {
   margin-top: 10px; padding: 8px 14px;
   background: rgba(74,144,232,0.2); border: 1px solid rgba(74,144,232,0.5);
-  border-radius: 8px; color: var(--blue); font-size: 0.76rem;
-  cursor: pointer; font-weight: 600;
+  border-radius: 8px; color: var(--blue); font-size: 0.78rem;
+  cursor: pointer; font-weight: 600; font-family: var(--font-body);
 }
 
-
+/* ─── TOAST ─── */
+#toast {
   position: fixed; bottom: 90px; left: 50%;
   transform: translateX(-50%) translateY(20px);
   background: var(--surface3);
   border: 1px solid var(--border2);
   border-radius: 24px; padding: 10px 20px;
-  font-size: 0.82rem; color: var(--text);
+  font-size: 0.84rem; color: var(--text);
   z-index: 1000;
   transition: all 0.3s cubic-bezier(.4,0,.2,1);
   white-space: nowrap;
@@ -885,7 +1002,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
 }
 #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-/* ─── INPUT SHEET (Catat Tilawah) ─── */
+/* ─── INPUT SHEET ─── */
 #inputSheet {
   position: fixed; inset: 0;
   z-index: 300;
@@ -898,254 +1015,78 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7); cur
   border: 1px solid var(--border2);
   border-bottom: none;
   padding: 0 0 30px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
+  width: 100%; max-width: 480px; margin: 0 auto;
   animation: slideModal 0.3s cubic-bezier(.4,0,.2,1);
+  max-height: 85vh; overflow-y: auto;
 }
 .sheet-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 18px 14px;
+  padding: 16px 20px 12px;
   border-bottom: 1px solid var(--border);
-  position: sticky; top: 0; z-index: 10;
-  background: var(--surface);
+  position: sticky; top: 0;
+  background: var(--surface); z-index: 1;
 }
-.sheet-title { font-size: 0.95rem; font-weight: 700; color: var(--gold2); }
+.sheet-title { font-size: 0.92rem; font-weight: 700; color: var(--gold2); }
 .sheet-close {
-  background: none; border: 1px solid var(--border);
-  border-radius: 50%; width: 30px; height: 30px;
-  color: var(--text2); font-size: 0.85rem;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-.sheet-close:hover { border-color: var(--red); color: var(--red); }
-.sheet-body { padding: 16px 18px; }
-
-/* ─── CONFIRM CHECK ANIM ─── */
-.confirm-check {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 4rem;
-  z-index: 2000;
-  pointer-events: none;
-  animation: checkAnim 1s ease forwards;
-}
-@keyframes checkAnim {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-  30% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
-  70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-}
-
-/* ─── CELEBRATION ─── */
-#celebrationOverlay {
-  position: fixed; inset: 0; z-index: 2000;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.85);
-  animation: fadeIn 0.3s ease;
-}
-.celebration-content {
-  text-align: center; padding: 24px;
-  animation: slideUp 0.4s cubic-bezier(.4,0,.2,1);
-}
-.celebration-emoji { font-size: 5rem; margin-bottom: 12px; display: block; }
-.celebration-title {
-  font-family: var(--font-display);
-  font-size: 2rem; color: var(--gold2);
-  text-shadow: 0 0 40px var(--gold-glow);
-  margin-bottom: 8px;
-}
-.celebration-sub { font-size: 0.88rem; color: var(--text2); margin-bottom: 24px; }
-.confetti-dot {
-  position: absolute; width: 8px; height: 8px;
-  border-radius: 2px;
-  animation: confettiFall linear forwards;
-}
-@keyframes confettiFall {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
-
-/* ─── REMINDER TOGGLE ─── */
-.reminder-item {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--r-sm); padding: 11px 13px; margin-bottom: 7px;
-}
-.reminder-item.active { border-color: rgba(232,184,75,0.4); }
-.reminder-time { font-size: 1rem; font-weight: 700; color: var(--gold2); min-width: 44px; }
-.reminder-label { flex: 1; font-size: 0.78rem; color: var(--text2); line-height: 1.4; }
-.toggle-wrap { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
-.reminder-del-btn {
   background: none; border: none; color: var(--text3);
-  cursor: pointer; padding: 4px 6px; border-radius: 6px;
-  font-size: 0.9rem; transition: all 0.15s; flex-shrink: 0;
-  line-height: 1;
+  font-size: 1.1rem; cursor: pointer; padding: 4px 8px;
+  border-radius: 8px; transition: color 0.15s; font-family: var(--font-body);
 }
-.reminder-del-btn:hover { color: var(--red); background: var(--red-dim); }
+.sheet-close:hover { color: var(--text); }
+.sheet-body { padding: 16px 20px; }
 
+/* v1.5 - Date picker in sheet */
+.sheet-date-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 8px 12px;
+  margin-bottom: 14px;
+  font-size: 0.82rem; color: var(--text2);
+}
+.sheet-date-val { color: var(--gold2); font-weight: 600; }
+
+/* ─── REMINDER ─── */
+.reminder-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); margin-bottom: 8px;
+  transition: border-color 0.2s;
+}
+.reminder-item.active { border-color: rgba(232,184,75,0.4); background: var(--gold-dim); }
+.reminder-time { font-size: 1rem; font-weight: 700; color: var(--gold2); min-width: 48px; }
+.reminder-label { font-size: 0.8rem; color: var(--text2); flex: 1; }  /* v1.5: was 0.75rem */
+.reminder-del-btn { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 1rem; }
+.reminder-del-btn:hover { color: var(--red); }
+
+/* v1.5 - Reminder status badge */
+.reminder-status-bar {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 10px 14px;
+  margin-bottom: 12px; font-size: 0.8rem; color: var(--text2);
+  display: flex; align-items: center; gap: 8px;
+}
+.reminder-status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.reminder-status-dot.granted { background: var(--green); }
+.reminder-status-dot.denied { background: var(--red); }
+.reminder-status-dot.default { background: var(--amber); }
+
+/* Toggle switch */
+.toggle-wrap { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
+.toggle-wrap input { opacity: 0; width: 0; height: 0; }
 .toggle-slider {
-  position: absolute; inset: 0;
-  background: var(--surface3); border-radius: 22px;
-  cursor: pointer; transition: all 0.2s; border: 1px solid var(--border);
+  position: absolute; cursor: pointer; inset: 0;
+  background: var(--border2); border-radius: 22px;
+  transition: .3s;
 }
-.toggle-slider::before {
-  content: ''; position: absolute;
-  width: 16px; height: 16px; left: 2px; top: 2px;
+.toggle-slider:before {
+  content: ""; position: absolute;
+  height: 16px; width: 16px; left: 3px; bottom: 3px;
   background: var(--text3); border-radius: 50%;
-  transition: all 0.2s;
+  transition: .3s;
 }
-input:checked + .toggle-slider { background: var(--gold-dim); border-color: var(--gold); }
-input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--gold2); }
-
-/* ─── VS MANUAL ─── */
-.vs-row {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
-.vs-row:last-child { border-bottom: none; }
-.vs-icon { font-size: 1rem; flex-shrink: 0; width: 28px; text-align: center; }
-.vs-aspect { font-size: 0.76rem; font-weight: 600; color: var(--text); flex: 1; }
-.vs-manual { font-size: 0.72rem; color: var(--text3); text-align: center; flex: 1; }
-.vs-app { font-size: 0.72rem; color: var(--green); font-weight: 500; text-align: center; flex: 1; }
-
-/* ─── FONT SIZE TOGGLE ─── */
-/* Level 1: Besar */
-body.font-md { font-size: 1.1rem; }
-body.font-md .nav-item .nav-label { font-size: 0.68rem; }
-body.font-md .card-title { font-size: 0.82rem; }
-body.font-md .btn { font-size: 0.95rem; padding: 13px; }
-body.font-md .stat-val { font-size: 1.5rem; }
-body.font-md .stat-lbl { font-size: 0.74rem; }
-body.font-md .s-dot { width: 18px; height: 18px; }
-/* Label & deskripsi */
-body.font-md label { font-size: 0.86rem; }
-body.font-md .chip { font-size: 0.76rem; }
-body.font-md .today-label { font-size: 0.74rem; }
-body.font-md .today-value { font-size: 0.96rem; }
-body.font-md .card-badge { font-size: 0.74rem; }
-body.font-md .benefit-text strong { font-size: 0.98rem; }
-body.font-md .benefit-text span { font-size: 0.86rem; }
-body.font-md .welcome-sub { font-size: 1rem; }
-body.font-md .insight-text { font-size: 0.88rem; }
-body.font-md .log-entry { font-size: 0.88rem; }
-body.font-md .log-prayer { font-size: 0.88rem; }
-body.font-md .log-pos { font-size: 0.78rem; }
-body.font-md .log-pages { font-size: 0.92rem; }
-body.font-md .log-time { font-size: 0.74rem; }
-body.font-md .prayer-name { font-size: 0.72rem; }
-body.font-md .prayer-pages { font-size: 1rem; }
-body.font-md .badge-name { font-size: 0.72rem; }
-body.font-md .badge-desc { font-size: 0.68rem; }
-body.font-md .week-label { font-size: 0.82rem; }
-body.font-md .week-total { font-size: 0.82rem; }
-body.font-md .status-banner .status-msg { font-size: 0.9rem; }
-body.font-md .status-banner .status-title { font-size: 1.02rem; }
-body.font-md .history-day-header { font-size: 0.82rem; }
-body.font-md .reminder-label { font-size: 0.88rem; }
-body.font-md .reminder-time { font-size: 1.1rem; }
-body.font-md .wizard-desc { font-size: 0.94rem; }
-body.font-md .wizard-step-label { font-size: 0.82rem; }
-body.font-md .ring-pct { font-size: 2rem; }
-body.font-md .ring-sub { font-size: 0.72rem; }
-body.font-md .empty-state { font-size: 0.9rem; }
-body.font-md .bar-lbl { font-size: 0.58rem; }
-body.font-md .vs-aspect { font-size: 0.86rem; }
-body.font-md .vs-manual, body.font-md .vs-app { font-size: 0.82rem; }
-body.font-md .year-label { font-size: 0.88rem; }
-body.font-md .year-data { font-size: 0.82rem; }
-body.font-md .today-pct { font-size: 1.55rem; }
-
-/* Level 2: Sangat Besar */
-body.font-lg { font-size: 1.2rem; }
-body.font-lg .nav-item .nav-label { font-size: 0.74rem; }
-body.font-lg .card-title { font-size: 0.9rem; }
-body.font-lg .btn { font-size: 1.05rem; padding: 15px; }
-body.font-lg .stat-val { font-size: 1.8rem; }
-body.font-lg .stat-lbl { font-size: 0.82rem; }
-body.font-lg .s-dot { width: 22px; height: 22px; }
-/* Label & deskripsi */
-body.font-lg label { font-size: 0.94rem; }
-body.font-lg .chip { font-size: 0.82rem; }
-body.font-lg .today-label { font-size: 0.8rem; }
-body.font-lg .today-value { font-size: 1.04rem; }
-body.font-lg .card-badge { font-size: 0.8rem; }
-body.font-lg .benefit-text strong { font-size: 1.06rem; }
-body.font-lg .benefit-text span { font-size: 0.94rem; }
-body.font-lg .welcome-sub { font-size: 1.08rem; }
-body.font-lg .insight-text { font-size: 0.96rem; }
-body.font-lg .log-entry { font-size: 0.96rem; }
-body.font-lg .log-prayer { font-size: 0.96rem; }
-body.font-lg .log-pos { font-size: 0.84rem; }
-body.font-lg .log-pages { font-size: 1rem; }
-body.font-lg .log-time { font-size: 0.8rem; }
-body.font-lg .prayer-name { font-size: 0.78rem; }
-body.font-lg .prayer-pages { font-size: 1.08rem; }
-body.font-lg .badge-name { font-size: 0.78rem; }
-body.font-lg .badge-desc { font-size: 0.72rem; }
-body.font-lg .week-label { font-size: 0.9rem; }
-body.font-lg .week-total { font-size: 0.9rem; }
-body.font-lg .status-banner .status-msg { font-size: 0.98rem; }
-body.font-lg .status-banner .status-title { font-size: 1.1rem; }
-body.font-lg .history-day-header { font-size: 0.9rem; }
-body.font-lg .reminder-label { font-size: 0.96rem; }
-body.font-lg .reminder-time { font-size: 1.2rem; }
-body.font-lg .wizard-desc { font-size: 1.02rem; }
-body.font-lg .wizard-step-label { font-size: 0.88rem; }
-body.font-lg .ring-pct { font-size: 2.2rem; }
-body.font-lg .ring-sub { font-size: 0.78rem; }
-body.font-lg .empty-state { font-size: 0.98rem; }
-body.font-lg .bar-lbl { font-size: 0.62rem; }
-body.font-lg .vs-aspect { font-size: 0.94rem; }
-body.font-lg .vs-manual, body.font-lg .vs-app { font-size: 0.9rem; }
-body.font-lg .year-label { font-size: 0.96rem; }
-body.font-lg .year-data { font-size: 0.9rem; }
-body.font-lg .today-pct { font-size: 1.7rem; }
-
-/* ─── FONT SIZE: Inline-style elements via parent context ─── */
-/* Ini mencakup teks dengan inline style yang tidak bisa di-override via class biasa */
-/* Besar (font-md) */
-body.font-md #section-input .form-group [style*="font-size"] { font-size: 0.82rem; }
-body.font-md .streak-info-text { font-size: 0.88rem !important; }
-body.font-md #section-settings .card > div[style*="font-size:0.7"],
-body.font-md #section-settings .card > div[style*="font-size:0.8"] { font-size: 0.88rem; }
-body.font-md [id="prayerHint"] { font-size: 0.82rem !important; }
-body.font-md [id="appLinkDisplay"] { font-size: 0.86rem !important; }
-body.font-md [id="calcAdvice"] { font-size: 0.86rem !important; }
-body.font-md .reminder-del-btn { font-size: 1rem; }
-
-/* Sangat Besar (font-lg) */
-body.font-lg #section-input .form-group [style*="font-size"] { font-size: 0.9rem; }
-body.font-lg [id="prayerHint"] { font-size: 0.9rem !important; }
-body.font-lg [id="appLinkDisplay"] { font-size: 0.94rem !important; }
-body.font-lg [id="calcAdvice"] { font-size: 0.92rem !important; }
-body.font-lg .reminder-del-btn { font-size: 1.1rem; }
-
-/* ─── CATATAN FONT ─── */
-/* Beberapa elemen menggunakan inline style yang tidak dapat di-override CSS class biasa.
-   Elemen-elemen ini sengaja tidak di-scale berlebihan untuk menjaga proposi visual:
-   - .welcome-logo (emoji besar 72px)
-   - .khatam-num-big (angka khatam display)
-   - .celebration-emoji, .celebration-title
-   - .calc-result .calc-num (kalkulasi kejar setoran)
-   - icon emoji di card-header, nav-icon
-   Proporsi elemen display besar yang dijaga demi keseimbangan visual. */
-
-/* ─── EMPTY STATE ─── */
-.empty-state { text-align: center; padding: 28px 16px; color: var(--text3); font-size: 0.8rem; }
-.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
-
-/* ─── HISTORY LOG HEADER ─── */
-.history-day-header {
-  font-size: 0.72rem; font-weight: 700; color: var(--gold);
-  text-transform: uppercase; letter-spacing: 1px;
-  padding: 6px 0; border-bottom: 1px solid var(--border);
-  margin-bottom: 8px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.history-day-total { color: var(--text2); font-weight: 400; text-transform: none; letter-spacing: 0; }
+input:checked + .toggle-slider { background: var(--gold-dim); border: 1px solid var(--gold); }
+input:checked + .toggle-slider:before { transform: translateX(18px); background: var(--gold); }
 
 /* ─── CALCULATOR ─── */
 .calc-result {
@@ -1157,12 +1098,152 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
   text-align: center;
 }
 .calc-result .calc-num { font-size: 2rem; font-weight: 700; color: var(--gold2); }
-.calc-result .calc-label { font-size: 0.76rem; color: var(--text2); margin-top: 3px; }
+.calc-result .calc-label { font-size: 0.8rem; color: var(--text2); margin-top: 3px; }
 
+/* ─── EMPTY STATE ─── */
+.empty-state { text-align: center; padding: 28px 16px; color: var(--text3); font-size: 0.84rem; }
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+
+/* ─── HISTORY ─── */
+.history-day-header {
+  font-size: 0.75rem; font-weight: 700; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.history-day-total { color: var(--text2); font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+/* ─── CELEBRATION ─── */
+#celebrationOverlay {
+  position: fixed; inset: 0;
+  z-index: 2000;
+  background: rgba(10,14,26,0.92);
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.4s ease;
+}
+.celebration-content {
+  text-align: center; padding: 32px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 24px;
+  box-shadow: 0 0 60px var(--gold-glow);
+  position: relative; z-index: 1;
+  max-width: 320px; width: 90%;
+}
+.celebration-emoji { font-size: 3.5rem; display: block; margin-bottom: 12px; }
+.celebration-title { font-family: var(--font-display); font-size: 2rem; color: var(--gold2); margin-bottom: 8px; }
+.confetti-dot {
+  position: absolute; width: 8px; height: 8px;
+  border-radius: 50%;
+  animation: confettiFall linear infinite;
+  top: -20px;
+}
+@keyframes confettiFall {
+  to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+.confirm-check {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 3rem;
+  z-index: 9999;
+  animation: checkPop 0.8s ease forwards;
+  pointer-events: none;
+}
+@keyframes checkPop {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.3); }
+  80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0; }
+}
+
+/* ─── VS TABLE (wizard) ─── */
+.vs-row {
+  display: grid; grid-template-columns: auto 1fr 1fr 1fr;
+  align-items: center; gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+}
+.vs-row:last-child { border-bottom: none; }
+.vs-icon { font-size: 1rem; }
+.vs-aspect { color: var(--text2); font-weight: 600; }
+.vs-manual { color: var(--text3); font-size: 0.69rem; }
+.vs-app { color: var(--green); font-size: 0.69rem; }
+
+/* ─── FONT SCALING ─── */
+body.font-md { --fs-base: 15px; --fs-label: 13px; }
+body.font-lg { --fs-base: 16px; --fs-label: 14px; }
+body.font-md .nav-label { font-size: 0.75rem; }
+body.font-lg .nav-label { font-size: 0.8rem; }
+body.font-md .badge-name { font-size: 0.72rem; }
+body.font-lg .badge-name { font-size: 0.78rem; }
+body.font-md .card-title { font-size: 0.78rem; }
+body.font-lg .card-title { font-size: 0.82rem; }
+body.font-md .ac-item { font-size: 0.88rem; }
+body.font-lg .ac-item { font-size: 0.94rem; }
+
+/* ─── SMART PRAYER SUGGESTION (v1.5) ─── */
+.prayer-suggest-badge {
+  display: inline-block;
+  background: var(--green-dim); border: 1px solid rgba(61,214,140,0.4);
+  color: var(--green); border-radius: 12px;
+  padding: 2px 10px; font-size: 0.69rem; font-weight: 600;
+  margin-left: 8px;
+}
+
+/* ─── ONBOARDING TOUR (v1.5 - simplified highlight) ─── */
+.tour-highlight {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: var(--r-sm);
+  animation: tourPulse 1s ease infinite alternate;
+}
+@keyframes tourPulse {
+  from { outline-color: var(--gold); }
+  to { outline-color: var(--gold2); }
+}
+
+/* ─── PIE CHART PLACEHOLDER (v1.5) ─── */
+.prayer-pie-wrap {
+  display: flex; gap: 12px; align-items: center;
+  flex-wrap: wrap; margin-top: 8px;
+}
+.pie-legend { flex: 1; min-width: 140px; }
+.pie-legend-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.75rem; color: var(--text2);
+  margin-bottom: 5px;
+}
+.pie-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ─── LOCKED NAV TOOLTIP (v1.5 new) ─── */
+.nav-locked-hint {
+  position: fixed; bottom: 80px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 0.84rem; color: var(--text);
+  z-index: 200;
+  box-shadow: 0 4px 24px rgba(232,184,75,0.2);
+  animation: slideUp 0.3s ease;
+  display: flex; align-items: center; gap: 10px;
+  min-width: 220px;
+  pointer-events: none;
+}
+.locked-hint-btn {
+  background: var(--gold); color: #0a0e1a;
+  border: none; border-radius: 8px;
+  padding: 6px 12px; font-size: 0.75rem; font-weight: 700;
+  cursor: pointer; font-family: var(--font-body);
+  pointer-events: all; white-space: nowrap;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
-
 <!-- ═══════════════════════════════════════
      WELCOME SCREEN
 ═══════════════════════════════════════ -->
@@ -1176,28 +1257,28 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
       <span class="benefit-icon">🧮</span>
       <div class="benefit-text">
         <strong>Kalkulasi Otomatis</strong>
-        <span>Target harian, per sholat, dan proyeksi khatam dihitung otomatis setiap saat</span>
+        <span>Target harian dan per sholat dihitung otomatis — kamu tinggal baca!</span>
       </div>
     </div>
     <div class="benefit-item">
       <span class="benefit-icon">📊</span>
       <div class="benefit-text">
         <strong>Insight Personal</strong>
-        <span>Waktu terbanyak membaca Quran, hari terkonsisten, dan tren bacaan kamu teranalisis otomatis</span>
+        <span>Tren bacaan, waktu terkonsisten, dan proyeksi khatam teranalisis otomatis</span>
       </div>
     </div>
     <div class="benefit-item">
       <span class="benefit-icon">🔥</span>
       <div class="benefit-text">
         <strong>Motivasi Adaptif</strong>
-        <span>Dorongan dan saran kejar setoran disesuaikan langsung dengan progres kamu hari ini</span>
+        <span>Dorongan dan saran kejar setoran disesuaikan dengan progres hari ini</span>
       </div>
     </div>
   </div>
 
   <button class="btn-welcome" onclick="startOnboarding()">✨ Mulai Penyusunan Target</button>
-  <p style="margin-top:14px;font-size:0.7rem;color:var(--text3);">Gratis selamanya • Offline • Data tidak dikirim ke mana pun</p>
-  <button onclick="toggleFontSize()" style="margin-top:12px;background:none;border:1px solid var(--border);border-radius:20px;padding:7px 18px;color:var(--text2);font-family:var(--font-body);font-size:0.78rem;cursor:pointer;">🔡 Perbesar Huruf</button>
+  <p style="margin-top:14px;font-size:0.75rem;color:var(--text3);">Gratis selamanya • Offline • Data tidak dikirim ke mana pun</p>
+  <button onclick="toggleFontSize()" style="margin-top:12px;background:none;border:1px solid var(--border);border-radius:20px;padding:7px 18px;color:var(--text2);font-family:var(--font-body);font-size:0.82rem;cursor:pointer;">🔡 Perbesar Huruf</button>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -1206,8 +1287,8 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
 <div id="setupWizard" style="display:none;">
   <div class="wizard-header">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <span style="font-size:0.72rem;color:var(--text3);">Setup Target Tilawah</span>
-      <button onclick="toggleFontSize()" style="background:none;border:1px solid var(--border);border-radius:20px;padding:4px 12px;color:var(--text2);font-family:var(--font-body);font-size:0.72rem;cursor:pointer;">🔡 Huruf</button>
+      <span style="font-size:0.78rem;color:var(--text3);">Setup Target Tilawah</span>
+      <button onclick="toggleFontSize()" style="background:none;border:1px solid var(--border);border-radius:20px;padding:4px 12px;color:var(--text2);font-family:var(--font-body);font-size:0.75rem;cursor:pointer;">🔡 Huruf</button>
     </div>
     <div class="wizard-step-indicator" id="stepIndicator">
       <div class="step-dot active" id="step-dot-1"></div>
@@ -1222,10 +1303,11 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
     <div id="wizardStep1">
       <h2 class="wizard-title">Halo! 👋</h2>
       <p class="wizard-desc">Mari kita siapkan target tilawah Ramadhan kamu. Hanya butuh 1 menit!</p>
-
       <div class="form-group">
-        <label>Nama Panggilan</label>
-        <input type="text" id="wiz_name" placeholder="Nama kamu..." maxlength="30">
+        <label>Nama Panggilan <span style="color:var(--red);font-size:0.9em;">*</span></label>
+        <input type="text" id="wiz_name" placeholder="Nama kamu..." maxlength="30"
+          style="font-size:1rem;" oninput="wizValidateName()">
+        <div id="nameError" style="color:var(--red);font-size:0.75rem;margin-top:4px;display:none;">Masukkan nama minimal 1 karakter</div>
       </div>
       <div class="form-group">
         <label id="wiz_start_label">Tanggal 1 Ramadhan</label>
@@ -1236,18 +1318,23 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
     <!-- Step 2 -->
     <div id="wizardStep2" style="display:none;">
       <h2 class="wizard-title">Target Khatam 🎯</h2>
-      <p class="wizard-desc">Berapa kali kamu ingin khatam Al-Qur'an di Ramadhan ini? Pilih sesuai kemampuan.</p>
+      <p class="wizard-desc">Berapa kali kamu ingin menyelesaikan Al-Qur'an di Ramadhan ini?</p>
+
+      <!-- v1.5: khatam explanation box -->
+      <div class="khatam-info-box">
+        📖 <strong>Apa itu Khatam?</strong><br>
+        Khatam artinya membaca Al-Qur'an dari awal (Al-Fatihah) hingga akhir (An-Nas) — seluruhnya <strong>604 halaman</strong> atau <strong>30 juz</strong>. Target 1 khatam = membaca semua halaman selama Ramadhan 30 hari.
+      </div>
 
       <div class="card" style="margin-bottom:14px;">
         <div class="khatam-row">
-          <button class="khatam-btn" onclick="wizKhatam(-1)">−</button>
+          <button class="khatam-btn" onclick="wizKhatam(-1)" aria-label="Kurangi target khatam">−</button>
           <div class="khatam-num-big" id="wiz_khatam_num">1</div>
-          <button class="khatam-btn" onclick="wizKhatam(1)">+</button>
+          <button class="khatam-btn" onclick="wizKhatam(1)" aria-label="Tambah target khatam">+</button>
         </div>
-        <div style="text-align:center;font-size:0.75rem;color:var(--text3);margin-top:4px;">khatam selama Ramadhan</div>
+        <div style="text-align:center;font-size:0.78rem;color:var(--text3);margin-top:4px;">khatam selama Ramadhan</div>
       </div>
 
-      <!-- Live preview -->
       <div class="card" style="background:var(--surface2);">
         <div class="card-header"><span class="card-icon">📋</span><span class="card-title">Preview Target Kamu</span></div>
         <div class="stat-grid" style="margin-bottom:12px;">
@@ -1256,6 +1343,7 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
           <div class="stat-card"><div class="stat-val" id="wiz_juz">1.0</div><div class="stat-lbl">Juz/Hari</div></div>
           <div class="stat-card"><div class="stat-val" id="wiz_total_juz">30</div><div class="stat-lbl">Total Juz</div></div>
         </div>
+        <div id="wiz_equiv" style="text-align:center;font-size:0.8rem;color:var(--text2);margin-bottom:10px;padding:8px;background:var(--surface);border-radius:8px;"></div>
         <div class="prayer-grid" id="wiz_prayer_preview"></div>
       </div>
     </div>
@@ -1263,7 +1351,7 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
     <!-- Step 3 -->
     <div id="wizardStep3" style="display:none;">
       <h2 class="wizard-title">Siap Memulai! 🌙</h2>
-      <p class="wizard-desc">Ini rencana tilawah kamu. Aplikasi ini akan melacak progres dan memberi tahu kamu kapan harus mengejar target.</p>
+      <p class="wizard-desc">Ini rencana tilawah kamu. Aplikasi akan melacak progres dan memberi tahu kapan perlu mengejar target.</p>
 
       <div class="card">
         <div id="wiz_summary_content"></div>
@@ -1317,8 +1405,8 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
         </div>
       </div>
       <div style="display:flex;gap:6px;">
-        <button class="header-btn" onclick="toggleFontSize()" title="Ukuran huruf">Aa</button>
-        <button class="header-btn" onclick="showSection('settings')" title="Pengaturan">⚙️</button>
+        <button class="header-btn" onclick="toggleFontSize()" title="Ukuran huruf" aria-label="Ubah ukuran huruf">Aa</button>
+        <button class="header-btn" onclick="showSection('settings')" title="Pengaturan" aria-label="Pengaturan">⚙️</button>
       </div>
     </div>
 
@@ -1340,8 +1428,10 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
   </header>
 
   <!-- SECTIONS -->
+  <!-- ─── BERANDA ─── -->
   <div id="section-home" class="section active">
-    <!-- Status Banner -->
+
+    <!-- Status Banner (always visible — above fold) -->
     <div id="statusBanner" class="status-banner on-track" style="margin-top:0">
       <div class="status-icon" id="statusIcon">📖</div>
       <div class="status-title" id="statusTitle">Bismillah, mulai tilawah hari ini!</div>
@@ -1349,11 +1439,11 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
       <div class="status-action" id="statusAction"></div>
     </div>
 
-    <!-- Progress Ring -->
+    <!-- Progress Ring (always visible) -->
     <div class="card">
       <div class="card-header"><span class="card-icon">🏆</span><span class="card-title">Progres Keseluruhan</span><span class="card-badge" id="khatamBadge">0× Khatam</span></div>
       <div class="progress-ring-wrap">
-        <svg width="150" height="150" viewBox="0 0 150 150">
+        <svg width="150" height="150" viewBox="0 0 150 150" aria-label="Progress ring">
           <circle cx="75" cy="75" r="63" fill="none" stroke="var(--surface2)" stroke-width="9"/>
           <circle id="progressRingCircle" cx="75" cy="75" r="63" fill="none" stroke="url(#pgGrad)" stroke-width="9"
             stroke-linecap="round" stroke-dasharray="395.84" stroke-dashoffset="395.84"
@@ -1371,80 +1461,122 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
         </div>
       </div>
       <div class="stat-grid">
-        <div class="stat-card"><div class="stat-val" id="totalRead">0</div><div class="stat-lbl">Dibaca<br><span style="color:var(--text3);font-size:0.58rem;" id="totalReadJuz">0.0 Juz</span></div></div>
-        <div class="stat-card"><div class="stat-val" id="remaining">0</div><div class="stat-lbl">Tersisa<br><span style="color:var(--text3);font-size:0.58rem;" id="remainingJuz">0.0 Juz</span></div></div>
+        <div class="stat-card"><div class="stat-val" id="totalRead">0</div><div class="stat-lbl">Dibaca<br><span style="color:var(--text3);font-size:0.62rem;" id="totalReadJuz">0.0 Juz</span></div></div>
+        <div class="stat-card"><div class="stat-val" id="remaining">0</div><div class="stat-lbl">Tersisa<br><span style="color:var(--text3);font-size:0.62rem;" id="remainingJuz">0.0 Juz</span></div></div>
         <div class="stat-card"><div class="stat-val" id="projDate">—</div><div class="stat-lbl">Estimasi<br>Khatam</div></div>
         <div class="stat-card"><div class="stat-val" id="avgDaily">0</div><div class="stat-lbl">Rata-rata<br>Hal/Hari</div></div>
       </div>
     </div>
 
-    <!-- Insights -->
-    <div class="card" id="insightCard">
-      <div class="card-header"><span class="card-icon">💡</span><span class="card-title">Insight Hari Ini</span></div>
-      <div id="insightContent">
-        <div class="empty-state"><span class="empty-icon">📊</span>Insight tersedia setelah beberapa hari input data</div>
+    <!-- v1.5: CTA Quick Record button -->
+    <button class="btn btn-primary" onclick="openInputSheet()" style="margin-bottom:12px;border-radius:50px;font-size:1rem;">
+      ✏️ Catat Tilawah Sekarang
+    </button>
+
+    <!-- v1.5: Progressive Disclosure — secondary content collapsed by default -->
+    <button class="collapse-toggle" id="homeToggleBtn" onclick="toggleHomeDetails()" aria-expanded="false">
+      <span>📊 Lihat Statistik Lengkap</span>
+      <span class="toggle-arrow">▼</span>
+    </button>
+
+    <div class="collapsible-section" id="homeDetails">
+      <!-- Insights -->
+      <div class="card" id="insightCard">
+        <div class="card-header"><span class="card-icon">💡</span><span class="card-title">Insight Harian</span></div>
+        <div id="insightContent">
+          <div class="empty-state"><span class="empty-icon">📊</span>Insight tersedia setelah beberapa hari input data</div>
+        </div>
       </div>
-    </div>
 
-    <!-- Streak -->
-    <div class="card">
-      <div class="card-header"><span class="card-icon">🔥</span><span class="card-title">Streak Harian</span><span class="card-badge" id="streakBadge">0 hari</span></div>
-      <div id="streakInfo" style="text-align:center;font-size:0.78rem;color:var(--text2);margin-bottom:8px;"></div>
-      <div class="streak-bar" id="streakBar"></div>
-      <div style="display:flex;gap:8px;justify-content:center;margin-top:6px;font-size:0.6rem;color:var(--text3);flex-wrap:wrap;">
-        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:3px;"></span>Di atas target</span>
-        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue);margin-right:3px;"></span>Tepat target</span>
-        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber);margin-right:3px;"></span>Di bawah target</span>
+      <!-- Streak -->
+      <div class="card">
+        <div class="card-header"><span class="card-icon">🔥</span><span class="card-title">Streak Harian</span><span class="card-badge" id="streakBadge">0 hari</span></div>
+        <div id="streakInfo" style="text-align:center;font-size:0.82rem;color:var(--text2);margin-bottom:10px;"></div>
+        <!-- v1.5: calendar-style streak grid -->
+        <div class="streak-bar" id="streakBar"></div>
+        <div class="streak-legend">
+          <span><span class="sl-dot" style="background:var(--green);"></span>Di atas target</span>
+          <span><span class="sl-dot" style="background:var(--blue);border:1.5px solid var(--blue);"></span>Tepat/partial</span>
+          <span><span class="sl-dot" style="background:var(--amber-dim);border:1.5px solid rgba(240,160,48,0.4);"></span>Di bawah target</span>
+          <span><span class="sl-dot" style="background:var(--surface);border:1.5px dashed var(--border);"></span>Belum dimulai</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Target per sholat -->
-    <div class="card">
-      <div class="card-header"><span class="card-icon">⏰</span><span class="card-title">Target Per Waktu Sholat</span></div>
-      <div class="prayer-grid" id="prayerBreakdown"></div>
-    </div>
+      <!-- Target per sholat -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">⏰</span>
+          <span class="card-title">Target Per Waktu Sholat</span>
+          <button class="card-action-btn" onclick="showEditBreakdown()">✏️ Ubah</button>
+        </div>
+        <div class="prayer-grid" id="prayerBreakdown"></div>
+        <div id="breakdownModeNote" style="font-size:0.69rem;color:var(--text3);text-align:center;margin-top:6px;">Otomatis dihitung berdasarkan bobot</div>
+      </div>
 
-    <!-- Badges -->
-    <div class="card">
-      <div class="card-header"><span class="card-icon">🏅</span><span class="card-title">Pencapaian</span></div>
-      <div class="badge-grid" id="badgeGrid"></div>
+      <!-- Prayer Pie Chart (v1.5 new) -->
+      <div class="card" id="prayerPieCard" style="display:none;">
+        <div class="card-header"><span class="card-icon">🥧</span><span class="card-title">Distribusi Tilawah per Sholat</span></div>
+        <div class="prayer-pie-wrap">
+          <canvas id="pieCanvas" width="120" height="120"></canvas>
+          <div class="pie-legend" id="pieLegend"></div>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="card">
+        <div class="card-header"><span class="card-icon">🏅</span><span class="card-title">Pencapaian</span></div>
+        <div class="badge-grid" id="badgeGrid"></div>
+        <div style="font-size:0.75rem;color:var(--text3);text-align:center;margin-top:8px;">Ketuk badge untuk melihat syarat 🔍</div>
+      </div>
     </div>
   </div>
 
-  <!-- ─── SECTION: INPUT ─── -->
+  <!-- ─── SECTION: CATAT ─── -->
   <div id="section-input" class="section">
-    <!-- Today summary -->
+    <!-- Today summary card -->
     <div class="card" style="margin-top:0;">
       <div class="card-header"><span class="card-icon">📅</span><span class="card-title" id="inputCardTitle">Hari Ini</span></div>
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
         <div style="flex:1;">
-          <div style="font-size:0.72rem;color:var(--text2);margin-bottom:3px;">Total dibaca hari ini</div>
+          <div style="font-size:0.78rem;color:var(--text2);margin-bottom:3px;">Total dibaca</div>
           <div style="font-size:1.6rem;font-weight:700;color:var(--gold2);" id="inputTodayTotal">0</div>
-          <div style="font-size:0.7rem;color:var(--text2);">dari <span id="inputDailyTarget">20</span> halaman target</div>
+          <div style="font-size:0.75rem;color:var(--text2);">dari <span id="inputDailyTarget">20</span> halaman target</div>
           <div class="prog-bar-wrap" style="margin-top:6px;">
             <div class="prog-bar-fill on-track" id="inputTodayBar" style="width:0%"></div>
           </div>
         </div>
         <div style="text-align:right;">
-          <div style="font-size:0.65rem;color:var(--text2);">Sisa</div>
-          <div style="font-size:1.3rem;font-weight:700;color:var(--text);" id="inputTodayRemain">20</div>
-          <div style="font-size:0.63rem;color:var(--text3);">halaman</div>
+          <div style="font-size:0.75rem;color:var(--text2);margin-bottom:3px;">Sisa hari ini</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--amber);" id="inputTodayRemain">20</div>
+          <div style="font-size:0.69rem;color:var(--text3);">halaman lagi</div>
         </div>
+      </div>
+
+      <!-- Date picker -->
+      <div style="margin-top:4px;">
+        <label>Catat untuk Tanggal</label>
+        <input type="date" id="logDate" onchange="onLogDateChange()" style="margin-bottom:0;">
       </div>
     </div>
 
-    <!-- Quick input card -->
-    <div class="card">
-      <div class="card-header"><span class="card-icon">✏️</span><span class="card-title">Catat Tilawah</span></div>
-
-      <div class="form-group">
-        <label>📅 Tanggal</label>
-        <input type="date" id="logDate" onchange="onLogDateChange()">
+    <!-- Backfill Banner -->
+    <div class="backfill-banner" id="backfillBanner" style="display:none;">
+      <span class="backfill-icon">📝</span>
+      <div class="backfill-content">
+        <div class="backfill-title">Ada hari yang belum tercatat</div>
+        <div class="backfill-text" id="backfillText"></div>
+        <button class="backfill-btn" onclick="openBackfillGuide()">📖 Cara Isi Hari Sebelumnya</button>
+        <button onclick="dismissBackfill()" style="background:none;border:none;color:var(--text3);font-size:0.75rem;cursor:pointer;margin-left:8px;font-family:var(--font-body);">Tutup</button>
       </div>
+    </div>
+
+    <!-- Input Form -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">✏️</span><span class="card-title">Tambah Tilawah</span></div>
 
       <div class="form-row" style="margin-bottom:12px;">
         <div>
-          <label>Waktu Sholat</label>
+          <label>Waktu Sholat <span id="smartSuggestionBadge" class="prayer-suggest-badge" style="display:none;">Otomatis</span></label>
           <select id="prayerSelect" onchange="updatePrayerHint()">
             <option value="Subuh">🌅 Subuh</option>
             <option value="Dhuha">☀️ Dhuha</option>
@@ -1453,6 +1585,7 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
             <option value="Maghrib">🌇 Maghrib</option>
             <option value="Tarawih">🌙 Tarawih</option>
           </select>
+          <div id="prayerHint" style="font-size:0.75rem;color:var(--text3);margin-top:3px;"></div>
         </div>
         <div>
           <label>Jumlah Halaman</label>
@@ -1461,8 +1594,8 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
         </div>
       </div>
 
-      <label style="margin-bottom:4px;">⚡ Pilih Jumlah Halaman</label>
-      <div style="font-size:0.72rem;color:var(--text2);margin-bottom:8px;">Ketuk untuk langsung mengisi kolom halaman</div>
+      <label style="margin-bottom:4px;">⚡ Pilih Cepat</label>
+      <div style="font-size:0.75rem;color:var(--text2);margin-bottom:8px;">Ketuk untuk langsung mengisi kolom halaman</div>
       <div class="quick-btns">
         <button class="quick-btn" onclick="quickInput(2)">2 hal</button>
         <button class="quick-btn" onclick="quickInput(4)">4 hal</button>
@@ -1471,122 +1604,126 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
       </div>
 
       <div class="form-group">
-        <label>📌 Posisi Baca <span style="color:var(--text3);font-size:0.68rem;">(opsional)</span></label>
-        <input type="text" id="lastPosInput" placeholder="Cth: Al-Baqarah 255 atau Hal. 32">
+        <label>Posisi Baca (opsional)</label>
+        <div class="autocomplete-wrap">
+          <input type="text" id="lastPosInput" placeholder="Cth: Al-Baqarah, Al-Kahfi..." autocomplete="off"
+            oninput="onPosInput(this)" onkeydown="onPosKey(event)" onblur="hidePosDropdown(event)">
+          <div class="autocomplete-dropdown" id="posDropdown"></div>
+        </div>
       </div>
 
-      <div id="prayerHint" style="font-size:0.7rem;color:var(--text3);margin-bottom:10px;min-height:1em;"></div>
-
-      <button class="btn btn-primary" onclick="addLog()" id="addLogBtn">+ Tambah Tilawah</button>
+      <button class="btn btn-primary" onclick="addLog()" aria-label="Simpan catatan tilawah">+ Tambah Tilawah</button>
     </div>
 
-    <!-- Today log -->
+    <!-- Today's Log -->
     <div class="card">
-      <div class="card-header"><span class="card-icon">📋</span><span class="card-title" id="logCardTitle">Log Hari Ini</span></div>
-      <div id="backfillBanner" style="display:none;" class="backfill-banner">
-        <div class="backfill-icon">📅</div>
-        <div class="backfill-content">
-          <div class="backfill-title">Baru mulai pakai aplikasi?</div>
-          <div class="backfill-text" id="backfillText">Kamu bisa memasukkan catatan tilawah dari hari-hari sebelumnya agar data progresmu lengkap dan akurat.</div>
-          <button class="backfill-btn" onclick="openBackfillGuide()">📝 Isi Data Hari Sebelumnya</button>
-        </div>
-        <button onclick="dismissBackfill()" style="background:none;border:none;color:var(--text3);font-size:1rem;cursor:pointer;padding:0;flex-shrink:0;">✕</button>
+      <div class="card-header">
+        <span class="card-icon">📋</span>
+        <span class="card-title" id="logCardTitle">Log Hari Ini</span>
+        <span style="font-size:0.82rem;font-weight:700;color:var(--blue);" id="todayTotalBottom">0 Halaman</span>
       </div>
-      <div id="todayLog"><div class="empty-state"><span class="empty-icon">📖</span>Belum ada tilawah hari ini</div></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border);margin-top:4px;">
-        <span style="font-size:0.76rem;color:var(--text2);">Total hari ini:</span>
-        <span style="font-size:0.96rem;font-weight:700;color:var(--gold2);" id="todayTotalBottom">0 Halaman</span>
-      </div>
+      <div id="todayLog"></div>
     </div>
   </div>
 
-  <!-- ─── SECTION: HISTORY ─── -->
+  <!-- ─── SECTION: RIWAYAT ─── -->
   <div id="section-history" class="section">
+    <!-- Daily Bar Chart -->
     <div class="card" style="margin-top:0;">
       <div class="card-header"><span class="card-icon">📈</span><span class="card-title">Grafik Harian</span></div>
-      <div class="chart-wrap"><div class="chart-bars" id="dailyChart"></div></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header"><span class="card-icon">📆</span><span class="card-title">Ringkasan Mingguan</span></div>
-      <div id="weeklySummary"><div class="empty-state">Belum ada data</div></div>
-    </div>
-
-    <div class="card">
-      <div class="card-header"><span class="card-icon">🔍</span><span class="card-title">Detail Harian</span></div>
-      <div class="form-group">
-        <label>Pilih Tanggal</label>
-        <select id="historyDateSelect" onchange="renderHistoryDetail()"></select>
+      <div class="chart-wrap">
+        <div class="chart-bars" id="dailyChart"></div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-        <button class="btn btn-secondary btn-sm" onclick="navHistory(-1)" style="margin:0;">← Sebelumnya</button>
-        <button class="btn btn-secondary btn-sm" onclick="navHistory(1)" style="margin:0;">Berikutnya →</button>
-      </div>
-      <div id="historyDetail"><div class="empty-state">Pilih tanggal</div></div>
     </div>
 
-    <!-- Riwayat Multi-Tahun (Fase 3) -->
+    <!-- Weekly Summary -->
     <div class="card">
-      <div class="card-header"><span class="card-icon">📚</span><span class="card-title">Riwayat Ramadhan</span></div>
+      <div class="card-header"><span class="card-icon">📅</span><span class="card-title">Ringkasan Mingguan</span></div>
+      <div id="weeklySummary"></div>
+    </div>
+
+    <!-- Trend Mingguan -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">📉</span><span class="card-title">Tren Mingguan</span></div>
+      <div class="trend-wrap">
+        <div class="trend-cols" id="trendCols"></div>
+        <div class="trend-target-line" id="trendTargetLine" style="display:none;"></div>
+      </div>
+      <div class="trend-legend" id="trendLegend"></div>
+    </div>
+
+    <!-- Detail Log -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🔍</span>
+        <span class="card-title">Detail Per Hari</span>
+        <div style="display:flex;gap:4px;margin-left:auto;">
+          <button onclick="navHistory(-1)" style="background:none;border:1px solid var(--border);border-radius:6px;padding:2px 8px;color:var(--text2);cursor:pointer;font-family:var(--font-body);font-size:0.8rem;">‹</button>
+          <button onclick="navHistory(1)" style="background:none;border:1px solid var(--border);border-radius:6px;padding:2px 8px;color:var(--text2);cursor:pointer;font-family:var(--font-body);font-size:0.8rem;">›</button>
+        </div>
+      </div>
+      <select id="historyDateSelect" onchange="renderHistoryDetail()" style="margin-bottom:12px;"></select>
+      <div id="historyDetail"></div>
+    </div>
+
+    <!-- Riwayat Tahun -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🌙</span><span class="card-title">Riwayat Ramadhan</span></div>
       <div id="yearHistory"></div>
-      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showModal('📚 Riwayat Ramadhan','Riwayat khatam dari tahun-tahun sebelumnya tersimpan di sini secara otomatis setiap Ramadhan berakhir. Mulai tahun depan, kamu bisa lihat perbandingannya!','Tutup','closeModal()')">ℹ️ Tentang Fitur Ini</button>
     </div>
   </div>
 
-  <!-- ─── SECTION: SHARE ─── -->
+  <!-- ─── SECTION: BAGIKAN ─── -->
   <div id="section-share" class="section">
-    <!-- Kartu Progres -->
+    <!-- Share Card Canvas -->
     <div class="card" style="margin-top:0;">
-      <div class="card-header"><span class="card-icon">🎨</span><span class="card-title">Kartu Progres</span></div>
-      <canvas id="shareCanvas" width="700" height="440" style="width:100%;border-radius:var(--r-sm);"></canvas>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
-        <button class="btn btn-primary" style="margin:0;" onclick="shareProgressCard()">🖼️ Bagikan Kartu</button>
-        <button class="btn btn-secondary" style="margin:0;" onclick="downloadCanvas()">⬇️ Simpan PNG</button>
+      <div class="card-header"><span class="card-icon">🖼️</span><span class="card-title">Kartu Progres</span></div>
+      <canvas id="shareCanvas" width="700" height="440" style="border-radius:var(--r);max-width:100%;display:block;margin:0 auto;"></canvas>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
+        <button class="btn btn-primary" style="margin:0;" onclick="shareProgressCard()">📤 Bagikan</button>
+        <button class="btn btn-secondary" style="margin:0;" onclick="downloadCanvas()">📥 Simpan</button>
       </div>
     </div>
 
-    <!-- Bagikan Aplikasi -->
+    <!-- Share App -->
     <div class="card">
       <div class="card-header"><span class="card-icon">🔗</span><span class="card-title">Bagikan Aplikasi</span></div>
-      <div style="font-size:0.82rem;color:var(--text2);margin-bottom:14px;line-height:1.6;">
-        Ajak teman &amp; keluarga untuk ikut melacak tilawah Ramadhan mereka.
-        Aplikasi ini gratis, online, dan tidak perlu instalasi.
+      <div style="font-size:0.84rem;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+        Ajak teman &amp; keluarga untuk ikut melacak tilawah Ramadhan mereka. Gratis dan tidak perlu instalasi.
       </div>
       <div style="background:var(--surface2);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
         <span style="font-size:1.2rem;">🌐</span>
         <div style="flex:1;min-width:0;">
-          <div style="font-size:0.68rem;color:var(--text3);margin-bottom:2px;">Link Aplikasi</div>
-          <div style="font-size:0.78rem;color:var(--gold2);word-break:break-all;font-weight:600;" id="appLinkDisplay">https://mitrawashlaundry-code.github.io/tilawah-ramadhan/</div>
+          <div style="font-size:0.72rem;color:var(--text3);margin-bottom:2px;">Link Aplikasi</div>
+          <div style="font-size:0.82rem;color:var(--gold2);word-break:break-all;font-weight:600;" id="appLinkDisplay">https://mitrawashlaundry-code.github.io/tilawah-ramadhan/</div>
         </div>
-        <button onclick="copyAppLink()" style="background:var(--gold-dim);border:1px solid var(--gold);color:var(--gold2);border-radius:8px;padding:6px 10px;font-size:0.72rem;white-space:nowrap;cursor:pointer;">📋 Salin</button>
+        <button onclick="copyAppLink()" style="background:var(--gold-dim);border:1px solid var(--gold);color:var(--gold2);border-radius:8px;padding:6px 10px;font-size:0.75rem;white-space:nowrap;cursor:pointer;font-family:var(--font-body);">📋 Salin</button>
       </div>
       <button class="btn btn-primary" onclick="shareAppLink()">🚀 Bagikan ke...</button>
     </div>
 
-    <!-- Backup & Restore -->
+    <!-- Export CSV -->
     <div class="card">
-      <div class="card-header"><span class="card-icon">☁️</span><span class="card-title">Backup &amp; Restore Data</span></div>
-      <div style="font-size:0.8rem;color:var(--text2);margin-bottom:14px;line-height:1.6;">
-        Simpan data tilawah kamu ke file, lalu pulihkan di HP atau tablet lain.
-        File backup bisa disimpan di <strong style="color:var(--text);">Google Drive, WhatsApp, email</strong>, dll.
+      <div class="card-header"><span class="card-icon">📊</span><span class="card-title">Export Data ke CSV</span></div>
+      <div style="font-size:0.84rem;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+        Unduh riwayat tilawah sebagai file yang bisa dibuka di <strong style="color:var(--text);">Excel, Google Sheets</strong>, atau aplikasi tabel lainnya.
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <button class="btn btn-blue" style="margin:0;" onclick="backupData()">⬆️ Backup Data</button>
-        <button class="btn btn-secondary" style="margin:0;" onclick="triggerRestoreData()">⬇️ Restore Data</button>
+        <button class="btn btn-blue" style="margin:0;" onclick="exportCSV('detail')">📋 Export Detail</button>
+        <button class="btn btn-secondary" style="margin:0;" onclick="exportCSV('summary')">📅 Export Harian</button>
       </div>
-      <input type="file" id="restoreFileInput" accept=".json" style="display:none;" onchange="restoreData(event)">
-      <div style="font-size:0.68rem;color:var(--text3);margin-top:10px;line-height:1.5;">
-        💡 <strong>Tips:</strong> Backup dulu sebelum ganti HP. Untuk pindah ke HP lain: Backup → kirim file via WA/Drive → buka app di HP baru → Restore.
+      <div style="font-size:0.72rem;color:var(--text3);margin-top:10px;line-height:1.5;">
+        💡 <strong>Detail:</strong> tiap sesi baca satu baris. &nbsp;<strong>Harian:</strong> satu baris per hari selama 30 hari.
       </div>
     </div>
   </div>
 
-  <!-- ─── SECTION: SETTINGS ─── -->
+  <!-- ─── SECTION: PENGATURAN ─── -->
   <div id="section-settings" class="section">
     <!-- Setup info -->
     <div class="card" style="margin-top:0;" id="setupInfoCard">
       <div class="card-header"><span class="card-icon">⚙️</span><span class="card-title">Pengaturan Target</span></div>
-      <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px;">
+      <div style="font-size:0.84rem;color:var(--text2);margin-bottom:12px;line-height:1.8;">
         Nama: <strong style="color:var(--text);" id="settingNameDisplay">—</strong><br>
         Target: <strong style="color:var(--gold2);" id="settingKhatamDisplay">1 khatam</strong><br>
         Mulai Ramadhan: <strong style="color:var(--text);" id="settingStartDisplay">—</strong>
@@ -1594,10 +1731,10 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
       <button class="btn btn-ghost btn-sm" onclick="showEditSetup()">✏️ Ubah Pengaturan</button>
     </div>
 
-    <!-- Kalkulator Kejar Setoran (Fase 2) -->
+    <!-- Kalkulator Kejar Setoran -->
     <div class="card">
       <div class="card-header"><span class="card-icon">🏃</span><span class="card-title">Kalkulator Kejar Setoran</span></div>
-      <div style="font-size:0.78rem;color:var(--text2);margin-bottom:12px;">Hitung berapa halaman yang perlu dibaca per hari untuk mengejar target.</div>
+      <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px;line-height:1.6;">Hitung berapa halaman per hari yang perlu dibaca untuk mengejar target khatam.</div>
       <div class="form-group">
         <label>Sisa hari Ramadhan</label>
         <input type="number" id="calcDays" placeholder="Cth: 15" min="1" max="30" inputmode="numeric" onchange="calcCatchUp()">
@@ -1607,40 +1744,76 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
           <div class="calc-num" id="calcNum">0</div>
           <div class="calc-label" id="calcLabel">halaman/hari yang dibutuhkan</div>
         </div>
-        <div id="calcAdvice" style="font-size:0.76rem;color:var(--text2);margin-top:8px;line-height:1.5;"></div>
+        <div id="calcAdvice" style="font-size:0.82rem;color:var(--text2);margin-top:8px;line-height:1.5;"></div>
       </div>
     </div>
 
-    <!-- Perbandingan vs Manual (Fase 2) -->
+    <!-- Statistik -->
     <div class="card">
       <div class="card-header"><span class="card-icon">📊</span><span class="card-title">Statistik Penggunaan</span></div>
       <div id="usageStats">
         <div class="insight-row"><span class="insight-icon">✏️</span><span class="insight-text">Total log yang dicatat: <strong id="statTotalLogs">0</strong></span></div>
-        <div class="insight-row"><span class="insight-icon">🧮</span><span class="insight-text" id="statCalcSaved">Kalkulasi otomatis yang ditangani: <strong>0</strong></span></div>
-        <div class="insight-row"><span class="insight-icon">🌙</span><span class="insight-text">Waktu terbanyak membaca Quran: <strong id="statBestPrayer">—</strong></span></div>
+        <div class="insight-row"><span class="insight-icon">🧮</span><span class="insight-text" id="statCalcSaved">Kalkulasi otomatis: <strong>0</strong></span></div>
+        <div class="insight-row"><span class="insight-icon">🌙</span><span class="insight-text">Waktu terbanyak membaca: <strong id="statBestPrayer">—</strong></span></div>
         <div class="insight-row"><span class="insight-icon">📅</span><span class="insight-text">Hari terkonsisten: <strong id="statBestDay">—</strong></span></div>
       </div>
     </div>
 
-    <!-- Reminder -->
+    <!-- Backup & Restore (v1.5: moved from share tab) -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">☁️</span><span class="card-title">Simpan &amp; Pulihkan Data</span></div>
+      <div style="font-size:0.84rem;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+        Simpan data tilawah ke file agar aman, lalu pulihkan di HP atau tablet lain.
+        <br><strong style="color:var(--amber);">💡 Tips:</strong> Simpan sebelum ganti HP.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button class="btn btn-blue" style="margin:0;" onclick="backupData()">⬆️ Simpan Data</button>
+        <button class="btn btn-secondary" style="margin:0;" onclick="triggerRestoreData()">⬇️ Pulihkan Data</button>
+      </div>
+      <input type="file" id="restoreFileInput" accept=".json" style="display:none;" onchange="restoreData(event)">
+      <div style="font-size:0.72rem;color:var(--text3);margin-top:10px;line-height:1.5;">
+        Untuk pindah HP: Simpan → kirim file via WA/Drive → buka app di HP baru → Pulihkan.
+      </div>
+    </div>
+
+    <!-- Reminder (v1.5: with status) -->
     <div class="card">
       <div class="card-header"><span class="card-icon">🔔</span><span class="card-title">Pengingat Tilawah</span></div>
-      <div style="font-size:0.74rem;color:var(--text2);margin-bottom:12px;line-height:1.6;">Aktifkan pengingat agar tidak lupa membaca. <span style="color:var(--text3);">⚠ Izinkan notifikasi browser saat diminta.</span></div>
+      <!-- v1.5: Notification status display -->
+      <div class="reminder-status-bar" id="reminderStatusBar">
+        <div class="reminder-status-dot default" id="reminderStatusDot"></div>
+        <span id="reminderStatusText" style="flex:1;">Status notifikasi: Belum diminta</span>
+        <button onclick="requestNotifPermission()" id="notifPermBtn" style="background:var(--gold-dim);border:1px solid var(--gold);color:var(--gold2);border-radius:8px;padding:4px 10px;font-size:0.72rem;cursor:pointer;font-family:var(--font-body);">Izinkan</button>
+      </div>
+      <!-- Reminder hint for non-PWA -->
+      <div id="reminderPwaTip" style="display:none;font-size:0.78rem;color:var(--text2);background:var(--amber-dim);border:1px solid rgba(240,160,48,0.3);border-radius:var(--r-sm);padding:10px 12px;margin-bottom:10px;line-height:1.6;">
+        ⚠️ <strong>Catatan:</strong> Notifikasi di browser biasa terbatas. Untuk notifikasi yang lebih andal, pasang aplikasi ini di homescreen kamu.
+      </div>
       <div id="reminderList"></div>
       <button class="btn btn-ghost btn-sm" onclick="addReminder()" style="margin-top:6px;">+ Tambah Pengingat</button>
     </div>
 
-    <!-- Install Guide -->
+    <!-- Install Homescreen -->
     <div class="card">
       <div class="card-header"><span class="card-icon">📲</span><span class="card-title">Pasang di Homescreen</span></div>
-      <div style="font-size:0.76rem;color:var(--text2);line-height:1.7;margin-bottom:10px;">
+      <div style="font-size:0.8rem;color:var(--text2);line-height:1.8;margin-bottom:10px;">
         <div><strong style="color:var(--gold2);">Android Chrome:</strong> Menu ⋮ → Tambahkan ke layar utama</div>
         <div><strong style="color:var(--gold2);">iPhone Safari:</strong> Bagikan ⬆ → Tambahkan ke Layar Utama</div>
         <div style="margin-top:8px;padding:8px 10px;background:var(--gold-dim);border:1px solid rgba(232,184,75,0.25);border-radius:var(--r-sm);">
-          🌙 <strong style="color:var(--gold2);">Ikon Aplikasi:</strong> Setelah dipasang, ikon bulan sabit emas akan muncul di homescreen kamu. Ikon ini sudah tertanam di dalam aplikasi, tidak perlu file gambar terpisah.
+          🌙 Setelah dipasang, ikon bulan sabit emas akan muncul di homescreen.
         </div>
       </div>
       <button class="btn btn-blue btn-sm" id="installBtn" onclick="triggerInstall()" style="display:none;">📲 Pasang Sekarang</button>
+    </div>
+
+    <!-- Font Size -->
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🔡</span><span class="card-title">Ukuran Huruf</span></div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-secondary btn-sm" style="margin:0;flex:1;" onclick="setFontLevel(0)">Normal</button>
+        <button class="btn btn-secondary btn-sm" style="margin:0;flex:1;" onclick="setFontLevel(1)">Besar</button>
+        <button class="btn btn-secondary btn-sm" style="margin:0;flex:1;" onclick="setFontLevel(2)">Sangat Besar</button>
+      </div>
     </div>
 
     <!-- Reset -->
@@ -1652,51 +1825,39 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
       </div>
     </div>
 
-    <div style="text-align:center;padding:16px 0;font-size:0.65rem;color:var(--text3);">
-      Target Tilawah Ramadhan v1.3<br>Semua data tersimpan di perangkat Anda
+    <div style="text-align:center;padding:16px 0;font-size:0.72rem;color:var(--text3);">
+      Target Tilawah Ramadhan v1.5.0<br>Semua data tersimpan di perangkat Anda
     </div>
   </div>
 
 </div><!-- end mainApp -->
 
 <!-- BOTTOM NAV -->
-<nav class="bottom-nav" id="bottomNav">
-  <button class="nav-item active" id="nav-home" onclick="showSection('home')">
+<nav class="bottom-nav" id="bottomNav" style="display:none;">
+  <button class="nav-item active" id="nav-home" onclick="showSection('home')" aria-label="Beranda">
     <span class="nav-icon">🏠</span>
     <span class="nav-label">Beranda</span>
   </button>
-  <button class="nav-item locked" id="nav-input" onclick="navGuard('input')">
+  <button class="nav-item locked" id="nav-input" onclick="navGuard('input')" aria-label="Catat tilawah">
     <span class="nav-icon">✏️</span>
     <span class="nav-label">Catat</span>
   </button>
-  <button class="nav-item locked" id="nav-history" onclick="navGuard('history')">
+  <button class="nav-item locked" id="nav-history" onclick="navGuard('history')" aria-label="Riwayat">
     <span class="nav-icon">📈</span>
     <span class="nav-label">Riwayat</span>
   </button>
-  <button class="nav-item locked" id="nav-share" onclick="navGuard('share')">
+  <button class="nav-item locked" id="nav-share" onclick="navGuard('share')" aria-label="Bagikan">
     <span class="nav-icon">📲</span>
     <span class="nav-label">Bagikan</span>
   </button>
-  <button class="nav-item" id="nav-settings" onclick="showSection('settings')">
+  <button class="nav-item" id="nav-settings" onclick="showSection('settings')" aria-label="Pengaturan">
     <span class="nav-icon">⚙️</span>
     <span class="nav-label">Pengaturan</span>
   </button>
 </nav>
 
 <!-- FAB -->
-<button class="fab" id="fabBtn" onclick="openInputSheet()" title="Catat Tilawah" style="display:none;">✏️</button>
-
-<!-- INPUT SHEET -->
-<!-- SHARE ACTION SHEET -->
-<div id="shareSheet" style="display:none;" onclick="closeShareSheetBg(event)">
-  <div class="share-sheet-inner">
-    <div class="share-sheet-title" id="shareSheetTitle">Bagikan ke</div>
-    <div class="share-options" id="shareOptions">
-      <!-- filled by JS -->
-    </div>
-    <button class="share-cancel" onclick="closeShareSheet()">Batal</button>
-  </div>
-</div>
+<button class="fab" id="fabBtn" onclick="openInputSheet()" title="Catat Tilawah" aria-label="Catat tilawah" style="display:none;">✏️</button>
 
 <!-- INPUT SHEET (FAB) -->
 <div id="inputSheet" style="display:none;" onclick="closeSheetBg(event)">
@@ -1706,9 +1867,15 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
       <button class="sheet-close" onclick="closeInputSheet()">✕</button>
     </div>
     <div class="sheet-body">
+      <!-- v1.5: date picker in sheet -->
+      <div class="sheet-date-row">
+        <span>📅 Tanggal:</span>
+        <input type="date" id="sheetDate" style="background:none;border:none;color:var(--gold2);font-family:var(--font-body);font-size:0.84rem;font-weight:600;outline:none;width:auto;padding:0;cursor:pointer;" onchange="onSheetDateChange()">
+      </div>
+
       <div class="form-row" style="margin-bottom:12px;">
         <div>
-          <label>Waktu Sholat</label>
+          <label>Waktu Sholat <span id="sheetSuggestBadge" class="prayer-suggest-badge" style="display:none;">Otomatis</span></label>
           <select id="sheetPrayer">
             <option value="Subuh">🌅 Subuh</option>
             <option value="Dhuha">☀️ Dhuha</option>
@@ -1725,8 +1892,7 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
         </div>
       </div>
 
-      <label style="margin-bottom:4px;">⚡ Pilih Jumlah Halaman</label>
-      <div style="font-size:0.72rem;color:var(--text2);margin-bottom:8px;">Ketuk untuk langsung mengisi kolom halaman</div>
+      <label style="margin-bottom:4px;">⚡ Pilih Cepat</label>
       <div class="quick-btns">
         <button class="quick-btn" onclick="sheetQuickInput(2)">2 hal</button>
         <button class="quick-btn" onclick="sheetQuickInput(4)">4 hal</button>
@@ -1736,11 +1902,24 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
 
       <div class="form-group">
         <label>Posisi Baca (opsional)</label>
-        <input type="text" id="sheetPos" placeholder="Cth: Al-Baqarah 255">
+        <div class="autocomplete-wrap">
+          <input type="text" id="sheetPos" placeholder="Cth: Al-Baqarah, Al-Kahfi..." autocomplete="off"
+            oninput="onPosInput(this)" onkeydown="onPosKey(event)" onblur="hidePosDropdown(event)">
+          <div class="autocomplete-dropdown" id="posDropdownSheet"></div>
+        </div>
       </div>
 
       <button class="btn btn-primary" onclick="addLogFromSheet()">+ Simpan Tilawah</button>
     </div>
+  </div>
+</div>
+
+<!-- SHARE ACTION SHEET -->
+<div id="shareSheet" style="display:none;" onclick="closeShareSheetBg(event)">
+  <div class="share-sheet-inner">
+    <div class="share-sheet-title" id="shareSheetTitle">Bagikan ke</div>
+    <div class="share-options" id="shareOptions"></div>
+    <button class="share-cancel" onclick="closeShareSheet()">Batal</button>
   </div>
 </div>
 
@@ -1754,12 +1933,21 @@ body.font-lg .reminder-del-btn { font-size: 1.1rem; }
   </div>
 </div>
 
+<!-- Locked Nav Hint (v1.5 new) -->
+<div id="lockedNavHint" style="display:none;" class="nav-locked-hint">
+  <span style="flex:1;font-size:0.84rem;">⚙️ Selesaikan setup dulu untuk akses fitur ini</span>
+  <button class="locked-hint-btn" onclick="goToSetup()">Mulai Setup →</button>
+</div>
+
 <div id="toast"></div>
 
 <script>
 // ═══════════════════════════════════════
-// CONSTANTS
+// CONSTANTS — v1.5.0
 // ═══════════════════════════════════════
+const APP_VERSION = '1.5.0';
+const APP_LINK = 'https://mitrawashlaundry-code.github.io/tilawah-ramadhan/';
+
 const PRAYERS = [
   {name:'Subuh',emoji:'🌅'},{name:'Dhuha',emoji:'☀️'},{name:'Dzuhur',emoji:'🌤️'},
   {name:'Ashar',emoji:'🌆'},{name:'Maghrib',emoji:'🌇'},{name:'Tarawih',emoji:'🌙'}
@@ -1773,13 +1961,19 @@ const HIJRI_LOOKUP = [
   {masehi:'2028-01-29',hijri:1449},{masehi:'2029-01-17',hijri:1450},
 ];
 const BADGES = [
-  {id:'first_log',emoji:'📖',name:'Langkah Pertama',desc:'Input tilawah pertama'},
-  {id:'streak3',emoji:'🔥',name:'Konsisten 3 Hari',desc:'3 hari berturut-turut'},
-  {id:'streak7',emoji:'💫',name:'Seminggu Penuh',desc:'7 hari berturut-turut'},
-  {id:'half_khatam',emoji:'🌙',name:'Setengah Jalan',desc:'Baca 50% target'},
-  {id:'first_khatam',emoji:'🏆',name:'Khatam Pertama',desc:'Selesaikan 1 khatam'},
-  {id:'on_track_5',emoji:'🎯',name:'On Track',desc:'5 hari tepat target'},
+  {id:'first_log',emoji:'📖',name:'Langkah Pertama',desc:'Input tilawah pertama',criterion:'Simpan 1 catatan tilawah'},
+  {id:'streak3',emoji:'🔥',name:'Konsisten 3 Hari',desc:'3 hari berturut-turut',criterion:'Capai target 3 hari berturut-turut'},
+  {id:'streak7',emoji:'💫',name:'Seminggu Penuh',desc:'7 hari berturut-turut',criterion:'Capai target 7 hari berturut-turut'},
+  {id:'half_khatam',emoji:'🌙',name:'Setengah Jalan',desc:'Baca 50% target',criterion:'Baca 50% dari total target halaman'},
+  {id:'first_khatam',emoji:'🏆',name:'Khatam Pertama',desc:'Selesaikan 1 khatam',criterion:'Baca 604 halaman (1 khatam penuh)'},
+  {id:'on_track_5',emoji:'🎯',name:'On Track',desc:'5 hari tepat target',criterion:'Capai minimal 90% target di 5 hari berbeda'},
 ];
+
+// Prayer colors for pie chart
+const PRAYER_COLORS = {
+  Subuh:'#4a90e8', Dhuha:'#f5d06e', Dzuhur:'#3dd68c',
+  Ashar:'#f0a030', Maghrib:'#e85454', Tarawih:'#a78bfa'
+};
 
 // ═══════════════════════════════════════
 // STATE
@@ -1789,28 +1983,21 @@ let S = {
   totalTarget: PAGES_PER_KHATAM, dailyTarget: 20,
   totalRead: 0, currentKhatam: 0,
   dailyLogs: {}, reminders: [], earnedBadges: [],
-  yearHistory: [], modeSet: false, breakdown: {}
+  yearHistory: [], modeSet: false, breakdown: {},
+  customBreakdown: null
 };
 
 let wizStep = 1, wizKhatamVal = 1;
 let deferredInstall = null;
 let _shareCanvasDirty = true;
-
-// ── Active date for input tab (single source of truth) ──
-let _activeInputDate = null; // set on launchMainApp, always valid
-
-function getActiveInputDate() {
-  return _activeInputDate || localDate();
-}
-function setActiveInputDate(d) {
-  _activeInputDate = d || localDate();
-  // Sync the DOM input too
-  const el = document.getElementById('logDate');
-  if (el) el.value = _activeInputDate;
-}
+let _activeInputDate = null;
+let _backfillDismissed = false;
+let _homeDetailsOpen = false;
+let _lockedHintTimer = null;
+let _lastSheetPrayer = 'Subuh'; // v1.5: remember last prayer
 
 // ═══════════════════════════════════════
-// FONT SIZE (apply immediately on load)
+// FONT SIZE
 // ═══════════════════════════════════════
 let fontLevel = parseInt(localStorage.getItem('tilawah_fontLevel') || '0');
 (function applyFontLevel() {
@@ -1818,14 +2005,18 @@ let fontLevel = parseInt(localStorage.getItem('tilawah_fontLevel') || '0');
   if (fontLevel === 1) document.body.classList.add('font-md');
   if (fontLevel === 2) document.body.classList.add('font-lg');
 })();
-function toggleFontSize() {
-  fontLevel = (fontLevel + 1) % 3;
+
+function setFontLevel(level) {
+  fontLevel = level;
   localStorage.setItem('tilawah_fontLevel', fontLevel);
   document.body.className = document.body.className.replace(/font-\w+/g,'').trim();
   if (fontLevel === 1) document.body.classList.add('font-md');
   if (fontLevel === 2) document.body.classList.add('font-lg');
   const labels = ['Normal', 'Besar', 'Sangat Besar'];
   showToast('Huruf: ' + labels[fontLevel]);
+}
+function toggleFontSize() {
+  setFontLevel((fontLevel + 1) % 3);
 }
 
 // ═══════════════════════════════════════
@@ -1837,7 +2028,9 @@ function localDate(d) {
 function getHijriYear(d) {
   const t = new Date(d).getTime();
   let best = HIJRI_LOOKUP[0];
-  for (const e of HIJRI_LOOKUP) if (Math.abs(new Date(e.masehi)-t) < Math.abs(new Date(best.masehi)-t)) best = e;
+  for (const e of HIJRI_LOOKUP) {
+    if (Math.abs(new Date(e.masehi) - t) < Math.abs(new Date(best.masehi) - t)) best = e;
+  }
   return best.hijri + Math.round((t - new Date(best.masehi).getTime()) / 86400000 / 354.367);
 }
 function getRamLabel() { return 'Ramadhan ' + getHijriYear(S.startDate) + 'H'; }
@@ -1861,7 +2054,7 @@ function load() {
   try {
     const d = localStorage.getItem('tilawahV3');
     if (d) S = { ...S, ...JSON.parse(d) };
-  } catch(e) {}
+  } catch(e) { /* silent — corrupt data protection */ }
 }
 
 // ═══════════════════════════════════════
@@ -1870,7 +2063,6 @@ function load() {
 function el(id) { return document.getElementById(id); }
 function setText(id, val) { const e = el(id); if (e) e.textContent = val; }
 function setHTML(id, val) { const e = el(id); if (e) e.innerHTML = val; }
-function setWidth(id, pct) { const e = el(id); if (e) e.style.width = pct + '%'; }
 function getTodayPages(dateStr) {
   return (S.dailyLogs[dateStr] || []).reduce((s,l) => s + l.pages, 0);
 }
@@ -1879,29 +2071,78 @@ function getStatusClass(read, target) {
   if (read >= target * 0.8) return 'on-track';
   return 'behind';
 }
+
+// ─── calcBreakdown (fixed rounding) ───
 function calcBreakdown(daily) {
-  const MAGHRIB_MAX = 6; // Waktu Maghrib pendek (berbuka puasa), maks 6 halaman
+  const MAGHRIB_MAX = 6;
   const totalW = Object.values(PRAYER_WEIGHTS).reduce((a,b) => a+b, 0);
   const bd = {};
   let assigned = 0;
-
-  // First pass: hitung normal tanpa cap
   PRAYERS.forEach((p, i) => {
-    const pg = (i === PRAYERS.length-1)
-      ? (daily - assigned)
-      : Math.round((PRAYER_WEIGHTS[p.name]/totalW)*daily);
-    bd[p.name] = Math.max(0, pg);
-    assigned += bd[p.name];
+    let pg;
+    if (i === PRAYERS.length - 1) {
+      pg = Math.max(0, daily - assigned); // remainder goes to Tarawih
+    } else {
+      pg = Math.max(0, Math.round((PRAYER_WEIGHTS[p.name] / totalW) * daily));
+    }
+    bd[p.name] = pg;
+    assigned += pg;
   });
-
-  // Cap Maghrib dan redistribusi sisa ke Tarawih
+  // Cap Maghrib & redistribution
   if (bd['Maghrib'] > MAGHRIB_MAX) {
     const excess = bd['Maghrib'] - MAGHRIB_MAX;
     bd['Maghrib'] = MAGHRIB_MAX;
-    bd['Tarawih'] = (bd['Tarawih'] || 0) + excess;
+    bd['Tarawih'] = Math.max(0, (bd['Tarawih'] || 0) + excess);
   }
-
   return bd;
+}
+
+// ─── Unified streak helper (BUG-003 fix) ───
+// mode: 'above' = only count days at/above target, 'any' = count days with any reading
+function getStreakCount(mode) {
+  const todayStr = localDate();
+  let streak = 0, cur = 0;
+  for (let i = 0; i < DAYS_RAMADHAN; i++) {
+    const dt = new Date(S.startDate + 'T00:00:00');
+    dt.setDate(dt.getDate() + i);
+    const ds = dt.toLocaleDateString('en-CA');
+    if (ds > todayStr) break;
+    const pages = getTodayPages(ds);
+    const qualifies = mode === 'above' ? pages >= S.dailyTarget : pages > 0;
+    if (qualifies) { cur++; streak = Math.max(streak, cur); }
+    else { cur = 0; }
+  }
+  return streak;
+}
+
+// ─── Smart prayer suggestion (v1.5 new) ───
+function getSuggestedPrayer() {
+  const h = new Date().getHours();
+  if (h >= 3 && h < 7) return 'Subuh';
+  if (h >= 7 && h < 11) return 'Dhuha';
+  if (h >= 11 && h < 15) return 'Dzuhur';
+  if (h >= 15 && h < 18) return 'Ashar';
+  if (h >= 18 && h < 20) return 'Maghrib';
+  return 'Tarawih';
+}
+
+// ─── CSV escape helper (BUG-004 fix) ───
+function csvEscape(val) {
+  const str = String(val == null ? '' : val);
+  if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+    return '"' + str.replace(/"/g, '""') + '"';
+  }
+  return str;
+}
+
+// ═══════════════════════════════════════
+// ACTIVE INPUT DATE
+// ═══════════════════════════════════════
+function getActiveInputDate() { return _activeInputDate || localDate(); }
+function setActiveInputDate(d) {
+  _activeInputDate = d || localDate();
+  const logDateEl = el('logDate');
+  if (logDateEl) logDateEl.value = _activeInputDate;
 }
 
 // ═══════════════════════════════════════
@@ -1914,9 +2155,14 @@ function startOnboarding() {
   updateWizStartLabel();
 }
 function updateWizStartLabel() {
-  const d = el('wiz_start').value || S.startDate;
+  const d = el('wiz_start')?.value || S.startDate;
   const lbl = el('wiz_start_label');
   if (lbl) lbl.textContent = 'Tanggal 1 Ramadhan ' + getHijriYear(d) + 'H';
+}
+function wizValidateName() {
+  const name = el('wiz_name')?.value.trim();
+  const err = el('nameError');
+  if (err) err.style.display = name ? 'none' : 'block';
 }
 function wizKhatam(delta) {
   wizKhatamVal = Math.max(1, Math.min(5, wizKhatamVal + delta));
@@ -1933,13 +2179,20 @@ function wizUpdatePreview() {
     setText('wiz_total', total);
     setText('wiz_juz', juzDay);
     setText('wiz_total_juz', wizKhatamVal * 30);
+    // v1.5: plain language equivalent
+    const equiv = el('wiz_equiv');
+    if (equiv) {
+      const minsPerPage = 3;
+      const minsDaily = daily * minsPerPage;
+      equiv.textContent = `≈ ${minsDaily} menit baca per hari (${Math.round(minsDaily/60*10)/10} jam), dibagi ke 6 waktu sholat`;
+    }
     renderPrayerPreview('wiz_prayer_preview', daily);
   }
 }
 function renderPrayerPreview(containerId, daily) {
   const container = el(containerId);
   if (!container) return;
-  const bd = calcBreakdown(daily); // Gunakan calcBreakdown agar cap Maghrib berlaku
+  const bd = calcBreakdown(daily);
   container.innerHTML = PRAYERS.map(p => {
     const pg = bd[p.name] || 0;
     return `<div class="prayer-item">
@@ -1951,8 +2204,13 @@ function renderPrayerPreview(containerId, daily) {
 }
 function wizNext() {
   if (wizStep === 1) {
-    const name = el('wiz_name').value.trim();
-    if (!name) { showToast('⚠️ Masukkan nama kamu dulu!'); return; }
+    const name = el('wiz_name')?.value.trim();
+    if (!name) {
+      el('nameError').style.display = 'block';
+      el('wiz_name').focus();
+      showToast('⚠️ Masukkan nama kamu dulu!');
+      return;
+    }
     wizStep = 2;
     el('wizardStep1').style.display = 'none';
     el('wizardStep2').style.display = '';
@@ -1993,12 +2251,12 @@ function updateWizHeader() {
   el('wizBackBtn').style.display = wizStep > 1 ? '' : 'none';
 }
 function renderWizSummary() {
-  const name = el('wiz_name').value.trim();
-  const start = el('wiz_start').value;
+  const name = el('wiz_name')?.value.trim();
+  const start = el('wiz_start')?.value;
   const total = wizKhatamVal * PAGES_PER_KHATAM;
   const daily = Math.ceil(total / DAYS_RAMADHAN);
   setHTML('wiz_summary_content', `
-    <div style="font-size:0.82rem;color:var(--text2);line-height:2;">
+    <div style="font-size:0.86rem;color:var(--text2);line-height:2.1;">
       👤 <strong style="color:var(--text);">${name}</strong><br>
       🌙 Ramadhan mulai: <strong style="color:var(--gold2);">${start}</strong><br>
       🎯 Target: <strong style="color:var(--gold2);">${wizKhatamVal}× khatam</strong> (${total} halaman)<br>
@@ -2006,12 +2264,13 @@ function renderWizSummary() {
     </div>`);
 }
 function finalizeSetup() {
-  S.userName = el('wiz_name').value.trim();
-  S.startDate = el('wiz_start').value;
+  S.userName = el('wiz_name')?.value.trim();
+  S.startDate = el('wiz_start')?.value;
   S.khatamTarget = wizKhatamVal;
   S.totalTarget = wizKhatamVal * PAGES_PER_KHATAM;
   S.dailyTarget = Math.ceil(S.totalTarget / DAYS_RAMADHAN);
   S.modeSet = true;
+  S.customBreakdown = null; // always reset on setup
   S.breakdown = calcBreakdown(S.dailyTarget);
   save();
   el('setupWizard').style.display = 'none';
@@ -2026,12 +2285,12 @@ function launchMainApp() {
   el('mainApp').style.display = 'block';
   el('bottomNav').style.display = 'flex';
   unlockNav();
-  // Initialize active date to today
   setActiveInputDate(localDate());
   updateAllUI();
   initReminders();
   renderBadges();
   renderYearHistory();
+  updateNotifStatusBar();
 }
 function unlockNav() {
   ['input','history','share'].forEach(id => {
@@ -2040,9 +2299,26 @@ function unlockNav() {
   });
   el('fabBtn').style.display = 'flex';
 }
+
+// v1.5: improved navGuard with tooltip
 function navGuard(section) {
-  if (!S.modeSet) { showToast('⚙️ Selesaikan pengaturan terlebih dahulu'); return; }
+  if (!S.modeSet) {
+    showLockedHint();
+    return;
+  }
   showSection(section);
+}
+
+function showLockedHint() {
+  const hint = el('lockedNavHint');
+  if (!hint) return;
+  hint.style.display = 'flex';
+  clearTimeout(_lockedHintTimer);
+  _lockedHintTimer = setTimeout(() => { hint.style.display = 'none'; }, 3500);
+}
+function goToSetup() {
+  el('lockedNavHint').style.display = 'none';
+  el('welcomeScreen').style.display = 'flex';
 }
 
 // ═══════════════════════════════════════
@@ -2057,7 +2333,6 @@ function showSection(id) {
   if (nav) nav.classList.add('active');
 
   if (id === 'input') {
-    // Reset to today when entering input tab
     setActiveInputDate(localDate());
     updateInputSection();
   }
@@ -2066,14 +2341,43 @@ function showSection(id) {
   if (id === 'settings') renderSettings();
 }
 
+// ─── Progressive Disclosure (v1.5) ───
+function toggleHomeDetails() {
+  _homeDetailsOpen = !_homeDetailsOpen;
+  const details = el('homeDetails');
+  const btn = el('homeToggleBtn');
+  if (details) {
+    details.classList.toggle('expanded', _homeDetailsOpen);
+  }
+  if (btn) {
+    btn.classList.toggle('open', _homeDetailsOpen);
+    btn.setAttribute('aria-expanded', _homeDetailsOpen);
+    const label = btn.querySelector('span:first-child');
+    if (label) label.textContent = _homeDetailsOpen ? '📊 Sembunyikan Statistik' : '📊 Lihat Statistik Lengkap';
+  }
+  if (_homeDetailsOpen) {
+    updateInsights();
+    renderStreakBar();
+    renderPrayerBreakdown();
+    renderBadges();
+    renderPrayerPie();
+  }
+}
+
 // ═══════════════════════════════════════
 // MASTER UI UPDATE
-// All updates are safe (null-guarded via setText/setHTML helpers)
 // ═══════════════════════════════════════
 function updateAllUI() {
   updateHeader();
   updateHomeSection();
-  updateInputSection(); // always refresh input section
+  updateInputSection();
+  if (_homeDetailsOpen) {
+    updateInsights();
+    renderStreakBar();
+    renderPrayerBreakdown();
+    renderBadges();
+    renderPrayerPie();
+  }
 }
 
 // ═══════════════════════════════════════
@@ -2081,7 +2385,7 @@ function updateAllUI() {
 // ═══════════════════════════════════════
 function updateHeader() {
   const elDate = el('headerDate');
-  if (!elDate) return; // mainApp not visible yet
+  if (!elDate) return;
 
   const today = new Date();
   elDate.textContent = today.toLocaleDateString('id-ID', {weekday:'short', day:'numeric', month:'short'});
@@ -2113,44 +2417,26 @@ function updateHeader() {
 // ═══════════════════════════════════════
 function updateHomeSection() {
   if (!S.modeSet) return;
-
   const daysGone = getDaysGone();
-  const daysLeft = getDaysLeft();
-
-  // ── Progress ring: progress vs TOTAL TARGET (keseluruhan khatam Ramadhan)
-  // Tapi tampilkan juga "hari ke-N" agar kontekstual
-  const overallPct = S.totalTarget > 0 ? Math.min(100, (S.totalRead / S.totalTarget) * 100) : 0;
-
-  // Warna ring berdasarkan perbandingan dengan ekspektasi harian
   const expectedSoFar = daysGone * S.dailyTarget;
-  const onTrackPct = expectedSoFar > 0 ? Math.min(100, (S.totalRead / expectedSoFar) * 100) : 0;
-  // Ring menampilkan on-track % (lebih bermakna untuk user harian)
-  // 100% = tepat sesuai jadwal, >100% = di atas, <100% = tertinggal
-  const ringPct = expectedSoFar > 0 ? Math.min(150, onTrackPct) : overallPct;
+  const onTrackPct = expectedSoFar > 0 ? Math.min(150, (S.totalRead / expectedSoFar) * 100) : 0;
+  const overallPct = S.totalTarget > 0 ? Math.min(100, (S.totalRead / S.totalTarget) * 100) : 0;
+  const ringPct = expectedSoFar > 0 ? Math.min(100, onTrackPct) : overallPct;
   const ringDisplay = expectedSoFar > 0 ? Math.min(100, Math.round(onTrackPct)) : Math.round(overallPct);
 
   const circum = 395.84;
   const ring = el('progressRingCircle');
   if (ring) {
-    // Cap visual ring at 100% fill
-    const fillPct = Math.min(100, ringPct);
-    ring.style.strokeDashoffset = circum - (fillPct/100) * circum;
-    // Warna ring sesuai status on-track
+    ring.style.strokeDashoffset = circum - (ringPct/100) * circum;
     const g1 = el('pgG1'), g2 = el('pgG2');
     if (onTrackPct >= 100) { if(g1) g1.setAttribute('stop-color','#3dd68c'); if(g2) g2.setAttribute('stop-color','#4ade80'); }
     else if (onTrackPct >= 80) { if(g1) g1.setAttribute('stop-color','#4a90e8'); if(g2) g2.setAttribute('stop-color','#60a5fa'); }
     else { if(g1) g1.setAttribute('stop-color','#f0a030'); if(g2) g2.setAttribute('stop-color','#fbbf24'); }
   }
   setText('progressPct', ringDisplay + '%');
-  // Sub-label: tunjukkan % total target + status
-  if (overallPct >= 100) {
-    setText('progressSub', 'Khatam! 🎉');
-  } else if (daysGone <= 0) {
-    setText('progressSub', 'Belum mulai');
-  } else {
-    // Tampilkan konteks: ini % kejar target harian
-    setText('progressSub', Math.round(overallPct) + '% total target');
-  }
+  if (overallPct >= 100) setText('progressSub', 'Khatam! 🎉');
+  else if (daysGone <= 0) setText('progressSub', 'Belum mulai');
+  else setText('progressSub', Math.round(overallPct) + '% total target');
   setText('khatamBadge', `${S.currentKhatam}× Khatam`);
 
   setText('totalRead', S.totalRead);
@@ -2159,50 +2445,31 @@ function updateHomeSection() {
   setText('remaining', rem);
   setText('remainingJuz', (rem / (PAGES_PER_KHATAM/30)).toFixed(1) + ' Juz');
 
-  // ── Rata-rata & Proyeksi
-  // Gunakan rata-rata 3 hari terakhir jika tersedia (lebih akurat dari hari ke-1)
   const avgD = daysGone > 0 ? (S.totalRead / daysGone) : 0;
   setText('avgDaily', Math.round(avgD));
 
+  // Projection
+  const daysLeft = getDaysLeft();
   if (rem <= 0) {
     setText('projDate', '✅');
-    // Update label
-    const lbl = document.querySelector('#projDate')?.closest('.stat-card')?.querySelector('.stat-lbl');
-    if (lbl) lbl.innerHTML = 'Estimasi<br>Khatam';
   } else if (avgD > 0) {
     const daysNeeded = Math.ceil(rem / avgD);
     const ramEndDate = new Date(S.startDate + 'T00:00:00');
     ramEndDate.setDate(ramEndDate.getDate() + DAYS_RAMADHAN - 1);
     const projDate = new Date();
     projDate.setDate(projDate.getDate() + daysNeeded);
-    const pastRam = projDate > ramEndDate;
-    const projLbl = document.querySelector('#projDate')?.closest('.stat-card')?.querySelector('.stat-lbl');
-    if (!pastRam || daysNeeded <= daysLeft + 3) {
-      // Dalam Ramadhan, atau mepet (≤3 hari lewat) — tampilkan estimasi tanggal
+    if (!((projDate > ramEndDate) && daysNeeded > daysLeft + 3)) {
       setText('projDate', projDate.toLocaleDateString('id-ID', {day:'numeric',month:'short'}));
-      if (projLbl) projLbl.innerHTML = 'Estimasi<br>Khatam';
+    } else if (daysLeft > 0) {
+      setText('projDate', Math.ceil(rem / daysLeft) + '/hr');
     } else {
-      // Melewati Ramadhan — tampilkan sisa halaman/hari yang dibutuhkan agar selesai dalam Ramadhan
-      if (daysLeft > 0) {
-        const neededPerDay = Math.ceil(rem / daysLeft);
-        setText('projDate', neededPerDay + ' hal/hr');
-        if (projLbl) projLbl.innerHTML = 'Kejar<br>Khatam';
-      } else {
-        setText('projDate', '—');
-        if (projLbl) projLbl.innerHTML = 'Estimasi<br>Khatam';
-      }
+      setText('projDate', '—');
     }
   } else {
     setText('projDate', '—');
-    const projLbl = document.querySelector('#projDate')?.closest('.stat-card')?.querySelector('.stat-lbl');
-    if (projLbl) projLbl.innerHTML = 'Estimasi<br>Khatam';
   }
 
   updateStatusBanner();
-  renderStreakBar();
-  renderPrayerBreakdown();
-  updateInsights();
-  renderBadges();
 }
 
 function updateStatusBanner() {
@@ -2250,11 +2517,14 @@ function updateStatusBanner() {
   }
 }
 
+// ─── v1.5: Streak bar (larger dots, no label inside) ───
 function renderStreakBar() {
   const bar = el('streakBar');
   if (!bar) return;
   const todayStr = localDate();
-  let streak = 0, cur = 0;
+
+  // Unified streak logic — counts consecutive days AT OR ABOVE target
+  let maxStreak = getStreakCount('above');
   let dots = '';
   for (let i = 0; i < DAYS_RAMADHAN; i++) {
     const d = new Date(S.startDate + 'T00:00:00');
@@ -2263,17 +2533,19 @@ function renderStreakBar() {
     const pages = getTodayPages(ds);
     const isFuture = ds > todayStr;
     const isToday = ds === todayStr;
-    let cls, label;
-    if (isFuture) { cls='empty'; label=i+1; }
-    else if (pages >= S.dailyTarget) { cls='over'; label='✓'; cur++; streak=Math.max(streak,cur); }
-    else if (pages > 0) { cls='on'; label='~'; cur++; }
-    else if (isToday) { cls='today'; label='▶'; cur++; }
-    else { cls='miss'; label='✗'; cur=0; }
-    dots += `<div class="s-dot ${cls}" title="Hari ${i+1}: ${pages} hal">${label}</div>`;
+    let cls;
+    if (isFuture) { cls = 'empty'; }
+    else if (pages >= S.dailyTarget) { cls = 'over'; }
+    else if (pages > 0) { cls = 'on'; }
+    else if (isToday) { cls = 'today'; }
+    else { cls = 'miss'; }
+    dots += `<div class="streak-dot-wrap" title="Hari ${i+1}: ${pages} hal">
+      <div class="s-dot ${cls}"></div>
+    </div>`;
   }
   bar.innerHTML = dots;
-  setText('streakBadge', `${streak} hari 🔥`);
-  setText('streakInfo', streak > 0 ? `${streak} hari berturut-turut di atas target` : 'Mulai streak hari ini!');
+  setText('streakBadge', `${maxStreak} hari 🔥`);
+  setText('streakInfo', maxStreak > 0 ? `${maxStreak} hari berturut-turut di atas target 🎯` : 'Mulai streak hari ini!');
 }
 
 function renderPrayerBreakdown() {
@@ -2282,22 +2554,31 @@ function renderPrayerBreakdown() {
   const allLogs = Object.values(S.dailyLogs).flat();
   container.innerHTML = PRAYERS.map(p => {
     const target = S.breakdown[p.name] || 0;
-    const actual = allLogs.filter(l=>l.prayer===p.name).reduce((s,l)=>s+l.pages,0);
+    const actual = allLogs.filter(l => l.prayer === p.name).reduce((s,l) => s+l.pages, 0);
     const color = actual > 0 ? 'var(--blue)' : 'var(--text3)';
     return `<div class="prayer-item">
       <span class="prayer-emoji">${p.emoji}</span>
       <div class="prayer-name">${p.name}</div>
       <div class="prayer-pages">${target}<span> hal</span></div>
-      <div style="font-size:0.55rem;color:${color};margin-top:2px;">${actual} total</div>
+      <div style="font-size:0.62rem;color:${color};margin-top:2px;">${actual} total</div>
     </div>`;
   }).join('');
+  const noteEl = el('breakdownModeNote');
+  if (noteEl) {
+    if (S.customBreakdown) {
+      noteEl.innerHTML = '⚙️ <span style="color:var(--amber);">Target diubah manual</span> · <button onclick="resetBreakdownToAuto()" style="background:none;border:none;color:var(--gold);font-size:0.66rem;cursor:pointer;text-decoration:underline;padding:0;font-family:var(--font-body);">Reset ke otomatis</button>';
+    } else {
+      noteEl.textContent = 'Otomatis dihitung berdasarkan bobot waktu';
+      noteEl.style.color = 'var(--text3)';
+    }
+  }
 }
 
 function updateInsights() {
   const insightEl = el('insightContent');
   if (!insightEl) return;
   const dates = Object.keys(S.dailyLogs).sort();
-  if (dates.length < 3) {
+  if (dates.length < 2) {
     insightEl.innerHTML = '<div class="empty-state"><span class="empty-icon">📊</span>Insight tersedia setelah beberapa hari input data</div>';
     return;
   }
@@ -2312,28 +2593,59 @@ function updateInsights() {
   const bestDay = Object.entries(dayTotals).sort((a,b)=>b[1]-a[1])[0];
   const daysGone = getDaysGone();
   const avgD = daysGone > 0 ? Math.round(S.totalRead / daysGone) : 0;
-  const rem = Math.max(0, S.totalTarget - S.totalRead);
   const daysLeft = getDaysLeft();
-  const neededPerDay = daysLeft > 0 ? Math.ceil(rem / daysLeft) : 0;
+  const rem = Math.max(0, S.totalTarget - S.totalRead);
+
   let html = '';
-  if (bestPrayer) html += `<div class="insight-row"><span class="insight-icon">⭐</span><span class="insight-text">Waktu terbanyak membaca Quranmu: <strong>${bestPrayer[0]}</strong> (${bestPrayer[1]} hal total)</span></div>`;
+  if (bestPrayer) html += `<div class="insight-row"><span class="insight-icon">⭐</span><span class="insight-text">Waktu terbanyak membaca: <strong>${bestPrayer[0]}</strong> (${bestPrayer[1]} hal)</span></div>`;
   if (bestDay) html += `<div class="insight-row"><span class="insight-icon">📅</span><span class="insight-text">Hari terkonsisten: <strong>${bestDay[0]}</strong></span></div>`;
-  html += `<div class="insight-row"><span class="insight-icon">📈</span><span class="insight-text">Rata-rata kamu: <strong>${avgD} hal/hari</strong> (target: ${S.dailyTarget})</span></div>`;
+  html += `<div class="insight-row"><span class="insight-icon">📈</span><span class="insight-text">Rata-rata: <strong>${avgD} hal/hari</strong> (target: ${S.dailyTarget})</span></div>`;
   if (rem > 0 && daysLeft > 0) {
     const neededPerDay = Math.ceil(rem / daysLeft);
-    // Check if achievable in Ramadhan
-    const ramEndDate = new Date(S.startDate + 'T00:00:00');
-    ramEndDate.setDate(ramEndDate.getDate() + DAYS_RAMADHAN - 1);
-    const projDate2 = new Date();
-    const daysNeeded2 = avgD > 0 ? Math.ceil(rem / avgD) : Infinity;
-    projDate2.setDate(projDate2.getDate() + daysNeeded2);
-    if (projDate2 <= ramEndDate) {
-      html += `<div class="insight-row"><span class="insight-icon">🏁</span><span class="insight-text">Perlu baca <strong>${neededPerDay} hal/hari</strong> untuk ${daysLeft} hari ke depan agar khatam dalam Ramadhan.</span></div>`;
-    } else {
-      html += `<div class="insight-row"><span class="insight-icon">⚡</span><span class="insight-text">Perlu <strong>${neededPerDay} hal/hari</strong> untuk kejar khatam dalam sisa ${daysLeft} hari Ramadhan.</span></div>`;
-    }
+    html += `<div class="insight-row"><span class="insight-icon">🏁</span><span class="insight-text">Perlu <strong>${neededPerDay} hal/hari</strong> untuk ${daysLeft} hari ke depan agar khatam dalam Ramadhan.</span></div>`;
   }
-  insightEl.innerHTML = html;
+  insightEl.innerHTML = html || '<div class="empty-state">Terus mencatat untuk mendapatkan insight lebih dalam! 📖</div>';
+}
+
+// ─── v1.5: Prayer Pie Chart ───
+function renderPrayerPie() {
+  const allLogs = Object.values(S.dailyLogs).flat();
+  const prayerTotals = {};
+  allLogs.forEach(l => { prayerTotals[l.prayer] = (prayerTotals[l.prayer]||0) + l.pages; });
+  const total = Object.values(prayerTotals).reduce((a,b)=>a+b, 0);
+
+  const card = el('prayerPieCard');
+  const canvas = el('pieCanvas');
+  const legend = el('pieLegend');
+  if (!canvas || !legend || total === 0) { if(card) card.style.display = 'none'; return; }
+  if (card) card.style.display = '';
+
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, 120, 120);
+  let startAngle = -Math.PI / 2;
+  PRAYERS.forEach(p => {
+    const pages = prayerTotals[p.name] || 0;
+    if (pages === 0) return;
+    const slice = (pages / total) * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(60, 60);
+    ctx.arc(60, 60, 55, startAngle, startAngle + slice);
+    ctx.closePath();
+    ctx.fillStyle = PRAYER_COLORS[p.name] || '#888';
+    ctx.fill();
+    startAngle += slice;
+  });
+
+  legend.innerHTML = PRAYERS.map(p => {
+    const pages = prayerTotals[p.name] || 0;
+    if (pages === 0) return '';
+    const pct = Math.round((pages / total) * 100);
+    return `<div class="pie-legend-row">
+      <div class="pie-dot" style="background:${PRAYER_COLORS[p.name]};"></div>
+      <span>${p.emoji} ${p.name}</span>
+      <span style="margin-left:auto;font-weight:700;color:var(--text);">${pct}%</span>
+    </div>`;
+  }).join('');
 }
 
 // ═══════════════════════════════════════
@@ -2347,15 +2659,9 @@ function updateInputSection() {
   const pct = Math.min(100, Math.round((todayPages / S.dailyTarget) * 100));
   const isToday = dateStr === localDate();
 
-  // Update card title
   const cardTitle = el('inputCardTitle');
   if (cardTitle) {
-    if (isToday) {
-      cardTitle.textContent = 'Hari Ini';
-    } else {
-      const d = new Date(dateStr + 'T00:00:00');
-      cardTitle.textContent = d.toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'short'});
-    }
+    cardTitle.textContent = isToday ? 'Hari Ini' : new Date(dateStr + 'T00:00:00').toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'short'});
   }
 
   setText('inputTodayTotal', todayPages);
@@ -2368,9 +2674,23 @@ function updateInputSection() {
     barEl.className = 'prog-bar-fill ' + getStatusClass(todayPages, S.dailyTarget);
   }
 
+  // v1.5: smart prayer suggestion
+  applySuggestedPrayer();
+
   renderTodayLog(dateStr);
   updatePrayerHint();
   checkBackfillBanner();
+}
+
+function applySuggestedPrayer() {
+  const suggested = getSuggestedPrayer();
+  const badge = el('smartSuggestionBadge');
+  const selectEl = el('prayerSelect');
+  if (selectEl && badge) {
+    selectEl.value = suggested;
+    badge.style.display = 'inline-block';
+    badge.textContent = `Saran: ${suggested}`;
+  }
 }
 
 function updatePrayerHint() {
@@ -2388,7 +2708,6 @@ function renderTodayLog(dateStr) {
   const total = logs.reduce((s,l) => s + l.pages, 0);
   setText('todayTotalBottom', total + ' Halaman');
 
-  // Update log card title
   const logCardTitle = el('logCardTitle');
   if (logCardTitle) {
     logCardTitle.textContent = dateStr === localDate() ? 'Log Hari Ini' : `Log: ${dateStr}`;
@@ -2409,20 +2728,15 @@ function renderTodayLog(dateStr) {
       <div class="log-right">
         <span class="log-pages">+${l.pages} hal</span>
         <span class="log-time">${l.time||''}</span>
-        <button class="log-del" onclick="confirmDeleteLog('${dateStr}',${l.id})" title="Hapus log ini">🗑</button>
+        <button class="log-del" onclick="confirmDeleteLog('${dateStr}',${l.id})" title="Hapus log ini" aria-label="Hapus catatan ini">🗑</button>
       </div>
     </div>`;
   }).join('');
 }
 
-// ═══════════════════════════════════════
-// LOG DATE CHANGE (from input in tab Catat)
-// ═══════════════════════════════════════
 function onLogDateChange() {
   const logDateEl = el('logDate');
-  if (logDateEl && logDateEl.value) {
-    setActiveInputDate(logDateEl.value);
-  }
+  if (logDateEl?.value) setActiveInputDate(logDateEl.value);
   updateInputSection();
 }
 
@@ -2436,20 +2750,22 @@ function addLog() {
   const pos = el('lastPosInput')?.value.trim() || '';
   if (!prayer) { showToast('⚠️ Pilih waktu sholat!'); return; }
   if (pages < 1) { showToast('⚠️ Masukkan jumlah halaman!'); return; }
-
   doAddLog(date, prayer, pages, pos);
-
   if (el('pagesInput')) el('pagesInput').value = '';
   if (el('lastPosInput')) el('lastPosInput').value = '';
   if (el('pagesInput')) el('pagesInput').focus();
 }
 
 function addLogFromSheet() {
-  const date = localDate(); // FAB sheet always logs for today
+  // v1.5: use sheetDate instead of hardcoded today
+  const sheetDateEl = el('sheetDate');
+  const date = sheetDateEl?.value || localDate();
   const prayer = el('sheetPrayer')?.value;
   const pages = parseInt(el('sheetPages')?.value) || 0;
   const pos = el('sheetPos')?.value.trim() || '';
   if (pages < 1) { showToast('⚠️ Masukkan jumlah halaman dulu!'); return; }
+
+  _lastSheetPrayer = prayer; // remember for next time
 
   const saveBtn = document.querySelector('#inputSheet .btn-primary');
   if (saveBtn) {
@@ -2457,11 +2773,9 @@ function addLogFromSheet() {
     saveBtn.textContent = '✅ Tersimpan!';
     saveBtn.style.background = 'var(--green)';
   }
-
   doAddLog(date, prayer, pages, pos);
   if (el('sheetPages')) el('sheetPages').value = '';
   if (el('sheetPos')) el('sheetPos').value = '';
-
   setTimeout(() => closeInputSheet(), 900);
 }
 
@@ -2491,7 +2805,6 @@ function quickInput(n) {
   inp.style.background = 'rgba(61,214,140,0.18)';
   setTimeout(() => { inp.style.background = ''; }, 500);
 }
-
 function sheetQuickInput(n) {
   const inp = el('sheetPages');
   if (!inp) return;
@@ -2502,7 +2815,7 @@ function sheetQuickInput(n) {
 }
 
 // ═══════════════════════════════════════
-// DELETE LOG
+// DELETE LOG (BUG-005: inline confirm without new Function)
 // ═══════════════════════════════════════
 function confirmDeleteLog(date, id) {
   const entry = el('log-' + id);
@@ -2519,7 +2832,7 @@ function confirmDeleteLog(date, id) {
   delBtn.style.padding = '3px 7px';
   delBtn.style.border = '1px solid rgba(232,84,84,0.4)';
   delBtn.style.borderRadius = '6px';
-  delBtn.style.fontSize = '0.68rem';
+  delBtn.style.fontSize = '0.72rem';
   setTimeout(() => {
     if (delBtn.dataset.confirming === '1') {
       delBtn.dataset.confirming = '0';
@@ -2546,6 +2859,7 @@ function deleteLog(date, id) {
 // ═══════════════════════════════════════
 function renderHistory() {
   renderWeekly();
+  renderTrendChart();
   populateHistorySelect();
 }
 function renderWeekly() {
@@ -2583,7 +2897,6 @@ function renderWeekly() {
 function renderChart() {
   const container = el('dailyChart');
   if (!container) return;
-  const todayStr = localDate();
   let maxPages = S.dailyTarget;
   const bars = [];
   for (let i = 0; i < DAYS_RAMADHAN; i++) {
@@ -2646,7 +2959,7 @@ function renderYearHistory() {
   if (!container) return;
   const currentYear = {year: getRamLabel(), khatam: S.currentKhatam, read: S.totalRead, target: S.khatamTarget};
   const all = [currentYear, ...(S.yearHistory||[]).filter(y => y.year !== currentYear.year)];
-  if (all.length === 0 || (all.length === 1 && all[0].khatam === 0)) {
+  if (all.length === 0 || (all.length === 1 && all[0].khatam === 0 && all[0].read === 0)) {
     container.innerHTML = '<div class="insight-row"><span class="insight-icon">🌙</span><span class="insight-text">Riwayat Ramadhan dari tahun-tahun sebelumnya akan tampil di sini.</span></div>';
     return;
   }
@@ -2660,75 +2973,75 @@ function renderYearHistory() {
     </div>`).join('');
 }
 
-// ═══════════════════════════════════════
-// SETTINGS
-// ═══════════════════════════════════════
-function renderSettings() {
-  if (!S.modeSet) return;
-  setText('settingNameDisplay', S.userName);
-  setText('settingKhatamDisplay', `${S.khatamTarget}× khatam (${S.totalTarget} halaman)`);
-  setText('settingStartDisplay', S.startDate);
-  const totalLogs = Object.values(S.dailyLogs).flat().length;
-  setText('statTotalLogs', totalLogs);
-  setHTML('statCalcSaved', `Kalkulasi otomatis yang ditangani: <strong>${totalLogs * 5}+</strong>`);
-  const prayerTotals = {};
-  Object.values(S.dailyLogs).flat().forEach(l => { prayerTotals[l.prayer] = (prayerTotals[l.prayer]||0) + l.pages; });
-  const bp = Object.entries(prayerTotals).sort((a,b)=>b[1]-a[1])[0];
-  setText('statBestPrayer', bp ? `${bp[0]} (${bp[1]} hal)` : '—');
-  const dayTotals = {};
-  Object.entries(S.dailyLogs).forEach(([d,logs]) => {
-    const day = new Date(d+'T00:00:00').toLocaleDateString('id-ID',{weekday:'long'});
-    dayTotals[day] = (dayTotals[day]||0) + logs.reduce((s,l)=>s+l.pages,0);
-  });
-  const bd = Object.entries(dayTotals).sort((a,b)=>b[1]-a[1])[0];
-  setText('statBestDay', bd ? bd[0] : '—');
-  calcCatchUp();
-}
-function calcCatchUp() {
-  if (!S.modeSet) return;
-  const daysEl = el('calcDays');
-  const resultEl = el('calcResult');
-  if (!daysEl || !resultEl) return;
-  const days = parseInt(daysEl.value) || 0;
-  if (days < 1) { resultEl.style.display = 'none'; return; }
-  const rem = Math.max(0, S.totalTarget - S.totalRead);
-  const needed = Math.ceil(rem / days);
-  setText('calcNum', needed);
-  setText('calcLabel', `halaman/hari untuk ${days} hari ke depan`);
-  const advice = el('calcAdvice');
-  if (advice) {
-    if (needed <= S.dailyTarget) advice.innerHTML = `<span style="color:var(--green);">✅ Lebih rendah dari target harianmu (${S.dailyTarget} hal). Sangat bisa dicapai!</span>`;
-    else if (needed <= S.dailyTarget * 1.5) advice.innerHTML = `<span style="color:var(--amber);">⚡ Sedikit lebih dari target harian. Tambah bacaan setelah Tarawih!</span>`;
-    else advice.innerHTML = `<span style="color:var(--red);">💪 Cukup berat, tapi tidak mustahil. Manfaatkan semua waktu sholat secara konsisten.</span>`;
+// ─── Trend Chart ───
+function renderTrendChart() {
+  const colsEl = el('trendCols');
+  const legendEl = el('trendLegend');
+  const targetLineEl = el('trendTargetLine');
+  if (!colsEl) return;
+
+  const weeks = [];
+  for (let w = 0; w < 5; w++) {
+    let total = 0, totalDays = 0;
+    for (let d = 0; d < 7; d++) {
+      const idx = w*7+d;
+      if (idx >= DAYS_RAMADHAN) break;
+      const dt = new Date(S.startDate+'T00:00:00');
+      dt.setDate(dt.getDate() + idx);
+      const ds = dt.toLocaleDateString('en-CA');
+      total += getTodayPages(ds);
+      totalDays++;
+    }
+    if (totalDays > 0) weeks.push({ label:`Mg ${w+1}`, avg: totalDays>0 ? Math.round(total/totalDays) : 0 });
   }
-  resultEl.style.display = '';
-}
-function showEditSetup() {
-  showModal('✏️ Ubah Pengaturan',
-    `<div class="form-group"><label>Nama</label><input id="editName" type="text" value="${S.userName}" maxlength="30"></div>
-     <div class="form-group"><label>Target Khatam</label><input id="editKhatam" type="number" value="${S.khatamTarget}" min="1" max="10"></div>
-     <div class="form-group"><label>Mulai Ramadhan</label><input id="editStart" type="date" value="${S.startDate}"></div>`,
-    'Simpan', 'applyEditSetup()', 'Batal', 'closeModal()'
-  );
-}
-function applyEditSetup() {
-  const name = el('editName')?.value.trim();
-  const khatam = parseInt(el('editKhatam')?.value) || 1;
-  const start = el('editStart')?.value;
-  if (!name) { showToast('⚠️ Masukkan nama!'); return; }
-  S.userName = name;
-  S.khatamTarget = khatam;
-  S.startDate = start;
-  S.totalTarget = khatam * PAGES_PER_KHATAM;
-  S.dailyTarget = Math.ceil(S.totalTarget / DAYS_RAMADHAN);
-  S.breakdown = calcBreakdown(S.dailyTarget);
-  _shareCanvasDirty = true;
-  save(); closeModal(); updateAllUI(); renderSettings();
-  showToast('✅ Pengaturan disimpan!');
+
+  const hasData = weeks.some(w => w.avg > 0);
+  if (!hasData) {
+    colsEl.innerHTML = '<div class="empty-state" style="height:100px;padding:24px 0;">Belum ada data minggu ini</div>';
+    if (legendEl) legendEl.innerHTML = '';
+    if (targetLineEl) targetLineEl.style.display = 'none';
+    return;
+  }
+
+  const maxAvg = Math.max(...weeks.map(w=>w.avg), S.dailyTarget, 1);
+  const CHART_H = 100;
+
+  colsEl.innerHTML = weeks.map((w, i) => {
+    const barH = Math.max(4, Math.round((w.avg/maxAvg)*CHART_H));
+    const prev = i > 0 ? weeks[i-1].avg : null;
+    let cls = 'flat';
+    if (!w.avg) cls = 'empty';
+    else if (prev !== null) {
+      if (w.avg > prev*1.05) cls = 'up';
+      else if (w.avg < prev*0.95) cls = 'down';
+    }
+    const arrow = cls==='up'?' ↑':cls==='down'?' ↓':'';
+    return `<div class="trend-col">
+      <div class="trend-lbl-top">${w.avg>0?w.avg+arrow:'—'}</div>
+      <div class="trend-bar ${cls}" style="height:${w.avg>0?barH:4}px;"></div>
+      <div class="trend-lbl-bottom">${w.label}</div>
+    </div>`;
+  }).join('');
+
+  if (targetLineEl && maxAvg > 0) {
+    const targetH = Math.round((S.dailyTarget/maxAvg)*CHART_H);
+    targetLineEl.style.display = '';
+    targetLineEl.style.bottom = (targetH + 18) + 'px';
+  }
+
+  if (legendEl) {
+    const valid = weeks.filter(w=>w.avg>0);
+    const avg = valid.length > 0 ? Math.round(valid.reduce((s,w)=>s+w.avg,0)/valid.length) : 0;
+    legendEl.innerHTML =
+      `<span><span class="tl-dot" style="background:var(--green);"></span>Naik</span>
+       <span><span class="tl-dot" style="background:var(--red);"></span>Turun</span>
+       <span><span class="tl-dot" style="background:var(--blue);"></span>Stabil</span>
+       <span style="color:var(--text2);">Rata-rata: <strong style="color:var(--text);">${avg} hal/hari</strong> · Target: ${S.dailyTarget}</span>`;
+  }
 }
 
 // ═══════════════════════════════════════
-// BADGES
+// BADGES (BUG-003 fix: unified streak)
 // ═══════════════════════════════════════
 function checkBadges() {
   const totalLogs = Object.values(S.dailyLogs).flat().length;
@@ -2736,18 +3049,14 @@ function checkBadges() {
   if (totalLogs >= 1 && !earned.includes('first_log')) earned.push('first_log');
   if (S.currentKhatam >= 1 && !earned.includes('first_khatam')) earned.push('first_khatam');
   if (S.totalRead >= S.totalTarget * 0.5 && !earned.includes('half_khatam')) earned.push('half_khatam');
-  const todayStr = localDate();
-  let streak = 0;
-  for (let i = 0; i < DAYS_RAMADHAN; i++) {
-    const dt = new Date(S.startDate + 'T00:00:00');
-    dt.setDate(dt.getDate() + i);
-    const ds = dt.toLocaleDateString('en-CA');
-    if (ds > todayStr) break;
-    if (getTodayPages(ds) >= S.dailyTarget) streak++;
-    else streak = 0;
-  }
+
+  // Unified streak using helper
+  const streak = getStreakCount('above');
   if (streak >= 3 && !earned.includes('streak3')) earned.push('streak3');
   if (streak >= 7 && !earned.includes('streak7')) earned.push('streak7');
+
+  // On-track badge
+  const todayStr = localDate();
   let onTrack = 0;
   for (let i = 0; i < DAYS_RAMADHAN; i++) {
     const dt = new Date(S.startDate + 'T00:00:00');
@@ -2757,6 +3066,7 @@ function checkBadges() {
     if (getTodayPages(ds) >= S.dailyTarget * 0.9) onTrack++;
   }
   if (onTrack >= 5 && !earned.includes('on_track_5')) earned.push('on_track_5');
+
   const newBadges = earned.filter(b => !(S.earnedBadges||[]).includes(b));
   S.earnedBadges = earned;
   if (newBadges.length) {
@@ -2764,12 +3074,14 @@ function checkBadges() {
     if (badge) showToast(`🏅 Badge baru: ${badge.emoji} ${badge.name}!`);
   }
 }
+
+// v1.5: Badges show criteria on tap
 function renderBadges() {
   const container = el('badgeGrid');
   if (!container) return;
   container.innerHTML = BADGES.map(b => {
     const earned = (S.earnedBadges||[]).includes(b.id);
-    return `<div class="badge-item ${earned ? 'earned' : 'locked-badge'}">
+    return `<div class="badge-item ${earned?'earned':'locked-badge'}" onclick="showBadgeInfo('${b.id}')">
       <span class="badge-emoji">${b.emoji}</span>
       <div class="badge-name">${b.name}</div>
       <div class="badge-desc">${b.desc}</div>
@@ -2777,8 +3089,29 @@ function renderBadges() {
   }).join('');
 }
 
+function showBadgeInfo(id) {
+  const badge = BADGES.find(b => b.id === id);
+  if (!badge) return;
+  const earned = (S.earnedBadges||[]).includes(id);
+  showModal(
+    `${badge.emoji} ${badge.name}`,
+    `<div style="text-align:center;line-height:1.8;font-size:0.86rem;">
+      <div style="font-size:3rem;margin-bottom:8px;">${badge.emoji}</div>
+      <div style="color:var(--text2);">${badge.desc}</div>
+      <div style="margin-top:12px;padding:10px;background:var(--surface2);border-radius:8px;">
+        <div style="font-size:0.72rem;color:var(--text3);margin-bottom:4px;">SYARAT</div>
+        <div style="color:var(--text);font-weight:600;">${badge.criterion}</div>
+      </div>
+      <div style="margin-top:10px;font-size:0.84rem;color:${earned?'var(--green)':'var(--amber)'};">
+        ${earned ? '✅ Sudah diraih!' : '🔒 Belum diraih'}
+      </div>
+    </div>`,
+    'Tutup', null, null, null
+  );
+}
+
 // ═══════════════════════════════════════
-// CELEBRATION
+// CELEBRATION (BUG-011: auto close)
 // ═══════════════════════════════════════
 function showCelebration(n) {
   const overlay = document.createElement('div');
@@ -2786,7 +3119,7 @@ function showCelebration(n) {
   const colors = ['#e8b84b','#3dd68c','#4a90e8','#f0a030','#fff'];
   let confetti = '';
   for (let i = 0; i < 40; i++) {
-    const x = Math.random() * 100, delay = Math.random() * 2, dur = 2 + Math.random() * 2;
+    const x = Math.random()*100, delay = Math.random()*2, dur = 2+Math.random()*2;
     const color = colors[Math.floor(Math.random()*colors.length)];
     confetti += `<div class="confetti-dot" style="left:${x}%;background:${color};animation-duration:${dur}s;animation-delay:${delay}s;"></div>`;
   }
@@ -2794,22 +3127,37 @@ function showCelebration(n) {
     <div class="celebration-content">
       <span class="celebration-emoji">🏆</span>
       <h2 class="celebration-title">Khatam ke-${n}!</h2>
-      <p class="celebration-sub" style="color:var(--text2);">Alhamdulillah! Kamu telah menyelesaikan<br>${n}× khatam Al-Qur'an di Ramadhan ini!</p>
+      <p style="color:var(--text2);font-size:0.9rem;margin-bottom:20px;">Alhamdulillah! Kamu telah menyelesaikan<br>${n}× khatam Al-Qur'an di Ramadhan ini!</p>
       <button class="btn btn-primary" style="width:auto;padding:12px 32px;" onclick="closeCelebration()">✨ Syukur, Lanjutkan!</button>
     </div>`;
   document.body.appendChild(overlay);
   showToast(`🎉 MasyaAllah! Khatam ke-${n}!`);
+  // v1.5: auto-close after 12 seconds
+  setTimeout(() => { if (el('celebrationOverlay')) closeCelebration(); }, 12000);
 }
 function closeCelebration() { el('celebrationOverlay')?.remove(); }
 
 // ═══════════════════════════════════════
-// INPUT SHEET (FAB)
+// INPUT SHEET (FAB) — v1.5: with date picker
 // ═══════════════════════════════════════
 function openInputSheet() {
   if (el('sheetPages')) el('sheetPages').value = '';
   if (el('sheetPos')) el('sheetPos').value = '';
+
+  // v1.5: set date picker to activeInputDate
+  const sheetDateEl = el('sheetDate');
+  if (sheetDateEl) sheetDateEl.value = getActiveInputDate();
+
+  // v1.5: smart prayer suggestion
+  const suggested = getSuggestedPrayer();
   const prayerEl = el('sheetPrayer');
-  if (prayerEl) prayerEl.selectedIndex = 0;
+  if (prayerEl) {
+    prayerEl.value = suggested;
+    const badge = el('sheetSuggestBadge');
+    if (badge) { badge.style.display = 'inline-block'; badge.textContent = `Otomatis: ${suggested}`; }
+  }
+
+  // Reset save button
   const saveBtn = document.querySelector('#inputSheet .btn-primary');
   if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '+ Simpan Tilawah'; saveBtn.style.background = ''; }
   el('inputSheet').style.display = 'flex';
@@ -2820,8 +3168,11 @@ function closeInputSheet() {
   const saveBtn = document.querySelector('#inputSheet .btn-primary');
   if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '+ Simpan Tilawah'; saveBtn.style.background = ''; }
 }
-function closeSheetBg(e) {
-  if (e.target === el('inputSheet')) closeInputSheet();
+function closeSheetBg(e) { if (e.target === el('inputSheet')) closeInputSheet(); }
+
+function onSheetDateChange() {
+  const sheetDateEl = el('sheetDate');
+  if (sheetDateEl?.value) setActiveInputDate(sheetDateEl.value);
 }
 
 // ═══════════════════════════════════════
@@ -2855,7 +3206,7 @@ function renderShareCanvas() {
     ['🎯', S.dailyTarget + ' hal/hari', 'Target Harian'],
   ];
   stats.forEach((s, i) => {
-    const x = 100 + i * 200 + 50;
+    const x = 100 + i*200 + 50;
     ctx.font = '22px sans-serif'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
     ctx.fillText(s[0], x, 240);
     ctx.font = 'bold 18px sans-serif'; ctx.fillStyle = '#f5d06e'; ctx.fillText(s[1], x, 268);
@@ -2869,35 +3220,26 @@ function renderShareCanvas() {
   ctx.fillText(APP_LINK, W/2, 380);
   ctx.fillStyle = '#e8b84b'; ctx.fillRect(60, 395, W-120, 1);
 }
-// ═══════════════════════════════════════
-// SHARE — KARTU PROGRES
-// ═══════════════════════════════════════
-const APP_LINK = 'https://mitrawashlaundry-code.github.io/tilawah-ramadhan/';
 
 function shareProgressCard() {
   if (!S.modeSet) return;
   _shareCanvasDirty = true; renderShareCanvas();
   const pct = S.totalTarget > 0 ? Math.min(100, Math.round((S.totalRead/S.totalTarget)*100)) : 0;
-  const text = `📖 *Tilawah ${getRamLabel()}* — ${S.userName}\n\n` +
-    `Hari ke-${getRamadhanDay()} • ${pct}% target tercapai\n` +
-    `📚 ${S.totalRead} halaman dibaca • 🏆 ${S.currentKhatam}× khatam\n\n` +
-    `Lacak tilawahmu juga di: ${APP_LINK}`;
+  const text = `📖 *Tilawah ${getRamLabel()}* — ${S.userName}\n\nHari ke-${getRamadhanDay()} • ${pct}% target tercapai\n📚 ${S.totalRead} halaman dibaca • 🏆 ${S.currentKhatam}× khatam\n\nLacak tilawahmu juga di: ${APP_LINK}`;
   const canvas = el('shareCanvas');
   canvas.toBlob(blob => {
     const file = new File([blob], 'tilawah-progres.png', {type:'image/png'});
     if (navigator.canShare?.({files:[file]})) {
-      // Native share sheet (Android/iOS) — user bisa pilih app sendiri
       navigator.share({files:[file], text}).catch(()=>{});
     } else {
-      // Fallback: download + open share sheet
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'tilawah-progres.png'; a.click();
+      URL.revokeObjectURL(a.href); // v1.5: prevent memory leak
       setTimeout(() => showShareSheet('card', text), 500);
     }
   });
 }
-
 function downloadCanvas() {
   _shareCanvasDirty = true; renderShareCanvas();
   const a = document.createElement('a');
@@ -2906,14 +3248,9 @@ function downloadCanvas() {
   showToast('📥 Kartu progres tersimpan!');
 }
 
-// ═══════════════════════════════════════
-// SHARE — LINK APLIKASI
-// ═══════════════════════════════════════
+// ─── Share Link ───
 function copyAppLink() {
-  navigator.clipboard?.writeText(APP_LINK).then(() => {
-    showToast('✅ Link disalin ke clipboard!');
-  }).catch(() => {
-    // Fallback untuk browser lama
+  navigator.clipboard?.writeText(APP_LINK).then(() => showToast('✅ Link disalin!')).catch(() => {
     const t = document.createElement('textarea');
     t.value = APP_LINK; document.body.appendChild(t);
     t.select(); document.execCommand('copy');
@@ -2921,9 +3258,8 @@ function copyAppLink() {
     showToast('✅ Link disalin!');
   });
 }
-
 function shareAppLink() {
-  const text = `📖 *Target Tilawah Ramadhan* — Gratis, Online, Tanpa Install!\n\nYuk lacak target khatam Al-Qur'an kamu di Ramadhan ini 🌙\n\n👉 ${APP_LINK}\n\nCatat tilawah per waktu sholat, pantau progres, kejar khatam!`;
+  const text = `📖 *Target Tilawah Ramadhan* — Gratis, Online, Tanpa Install!\n\nYuk lacak target khatam Al-Qur'an kamu di Ramadhan ini 🌙\n\n👉 ${APP_LINK}`;
   if (navigator.share) {
     navigator.share({ title: 'Target Tilawah Ramadhan', text, url: APP_LINK }).catch(()=>{});
   } else {
@@ -2931,87 +3267,76 @@ function shareAppLink() {
   }
 }
 
-// ─── Share Action Sheet ───
 function showShareSheet(type, text) {
   const encoded = encodeURIComponent(text);
   const encodedLink = encodeURIComponent(APP_LINK);
   const options = [
-    { icon:'💬', label:'WhatsApp', action: `window.open('https://wa.me/?text=${encoded}','_blank')` },
-    { icon:'📘', label:'Facebook', action: `window.open('https://www.facebook.com/sharer/sharer.php?u=${encodedLink}','_blank')` },
-    { icon:'🐦', label:'Twitter/X', action: `window.open('https://twitter.com/intent/tweet?text=${encoded}','_blank')` },
-    { icon:'✉️', label:'Email', action: `window.open('mailto:?subject=Aplikasi%20Tilawah%20Ramadhan&body=${encoded}','_blank')` },
-    { icon:'📋', label:'Salin Teks', action: `copyShareText('${text.replace(/'/g,"\\'")}')` },
-    { icon:'🔗', label:'Salin Link', action: `copyShareText('${APP_LINK}')` },
-    { icon:'📤', label:'Telegram', action: `window.open('https://t.me/share/url?url=${encodedLink}&text=${encoded}','_blank')` },
-    { icon:'📱', label:'SMS', action: `window.open('sms:?body=${encoded}','_blank')` },
+    { icon:'💬', label:'WhatsApp', action: () => window.open('https://wa.me/?text='+encoded,'_blank') },
+    { icon:'📘', label:'Facebook', action: () => window.open('https://www.facebook.com/sharer/sharer.php?u='+encodedLink,'_blank') },
+    { icon:'🐦', label:'Twitter/X', action: () => window.open('https://twitter.com/intent/tweet?text='+encoded,'_blank') },
+    { icon:'✉️', label:'Email', action: () => window.open('mailto:?subject=Aplikasi%20Tilawah%20Ramadhan&body='+encoded,'_blank') },
+    { icon:'📋', label:'Salin Teks', action: () => copyShareText(text) },
+    { icon:'🔗', label:'Salin Link', action: () => copyShareText(APP_LINK) },
+    { icon:'📤', label:'Telegram', action: () => window.open('https://t.me/share/url?url='+encodedLink+'&text='+encoded,'_blank') },
+    { icon:'📱', label:'SMS', action: () => window.open('sms:?body='+encoded,'_blank') },
   ];
-  const title = type === 'card' ? 'Bagikan Kartu Progres' : 'Bagikan Aplikasi';
-  setText('shareSheetTitle', title);
-  el('shareOptions').innerHTML = options.map(o =>
-    `<div class="share-option" onclick="${o.action};closeShareSheet()">
+  setText('shareSheetTitle', type==='card'?'Bagikan Kartu Progres':'Bagikan Aplikasi');
+  // BUG-001 fix: use addEventListener instead of inline onclick strings
+  el('shareOptions').innerHTML = options.map((o,i) =>
+    `<div class="share-option" data-idx="${i}">
       <span class="share-option-icon">${o.icon}</span>
       <span class="share-option-label">${o.label}</span>
     </div>`
   ).join('');
+  el('shareOptions').querySelectorAll('.share-option').forEach((el, i) => {
+    el.addEventListener('click', () => { options[i].action(); closeShareSheet(); });
+  });
   el('shareSheet').style.display = 'flex';
 }
-
 function copyShareText(text) {
-  navigator.clipboard?.writeText(text).then(() => showToast('✅ Disalin!')).catch(() => {
+  navigator.clipboard?.writeText(text).then(()=>showToast('✅ Disalin!')).catch(()=>{
     const t = document.createElement('textarea');
-    t.value = text; document.body.appendChild(t); t.select();
+    t.value=text; document.body.appendChild(t); t.select();
     document.execCommand('copy'); document.body.removeChild(t);
     showToast('✅ Disalin!');
   });
 }
-
 function closeShareSheet() { el('shareSheet').style.display = 'none'; }
-function closeShareSheetBg(e) { if (e.target === el('shareSheet')) closeShareSheet(); }
+function closeShareSheetBg(e) { if (e.target===el('shareSheet')) closeShareSheet(); }
 
 // ═══════════════════════════════════════
-// BACKUP & RESTORE DATA
+// BACKUP & RESTORE (v1.5: relabeled)
 // ═══════════════════════════════════════
 function backupData() {
-  const backup = {
-    version: '1.0',
-    exportedAt: new Date().toISOString(),
-    appName: 'Tilawah Ramadhan',
-    data: S
-  };
+  const backup = { version:'1.5', exportedAt: new Date().toISOString(), appName:'Tilawah Ramadhan', data: S };
   const blob = new Blob([JSON.stringify(backup, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
+  a.href = url;
   a.download = `tilawah-backup-${localDate()}.json`;
   a.click();
-  URL.revokeObjectURL(a.href);
   setTimeout(() => {
+    URL.revokeObjectURL(url); // v1.5: BUG-005 fix
     showToast('📦 File backup diunduh!');
-    // Tawarkan share ke Google Drive / WA
-    const text = `Ini file backup data tilawah Ramadhanku — ${localDate()}`;
     if (navigator.share) {
-      const file = new File([JSON.stringify(backup, null, 2)], a.download, {type:'application/json'});
+      const file = new File([JSON.stringify(backup,null,2)], a.download, {type:'application/json'});
       if (navigator.canShare?.({files:[file]})) {
-        navigator.share({files:[file], text}).catch(()=>{});
+        navigator.share({files:[file], text:`Backup data tilawah Ramadhanku — ${localDate()}`}).catch(()=>{});
       }
     }
   }, 400);
 }
-
 function triggerRestoreData() {
-  showModal('⬇️ Restore Data',
-    `<div style="font-size:0.82rem;color:var(--text2);line-height:1.7;">
-      <strong style="color:var(--amber);">⚠️ Perhatian:</strong> Restore akan <strong>mengganti semua data saat ini</strong> dengan data dari file backup.<br><br>
-      Pastikan kamu memilih file <strong style="color:var(--gold2);">.json</strong> hasil backup dari aplikasi ini.
+  showModal('⬇️ Pulihkan Data',
+    `<div style="font-size:0.84rem;color:var(--text2);line-height:1.8;">
+      <strong style="color:var(--amber);">⚠️ Perhatian:</strong> Memulihkan data akan <strong>mengganti semua data saat ini</strong>.<br><br>
+      Pilih file <strong style="color:var(--gold2);">.json</strong> hasil backup dari aplikasi ini.
     </div>`,
-    'Pilih File Backup', 'doTriggerRestore()', 'Batal', 'closeModal()'
+    'Pilih File Backup', () => { closeModal(); el('restoreFileInput').click(); },
+    'Batal', closeModal
   );
 }
-
-function doTriggerRestore() {
-  closeModal();
-  el('restoreFileInput').click();
-}
-
+function doTriggerRestore() { closeModal(); el('restoreFileInput').click(); }
 function restoreData(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -3019,79 +3344,63 @@ function restoreData(event) {
   reader.onload = function(e) {
     try {
       const backup = JSON.parse(e.target.result);
-      // Validasi format
       if (!backup.data || !backup.appName || backup.appName !== 'Tilawah Ramadhan') {
         showToast('❌ File tidak valid. Pastikan pilih file backup dari aplikasi ini.');
         return;
       }
-      // Restore
       S = { ...S, ...backup.data };
-      save();
-      updateAllUI();
+      save(); updateAllUI();
       showToast('✅ Data berhasil dipulihkan!');
-      showModal('✅ Restore Berhasil!',
-        `<div style="font-size:0.84rem;color:var(--text2);line-height:1.7;">
+      showModal('✅ Pemulihan Berhasil!',
+        `<div style="font-size:0.86rem;color:var(--text2);line-height:1.8;">
           Data tilawah <strong style="color:var(--gold2);">${S.userName}</strong> berhasil dipulihkan.<br>
           Total: <strong style="color:var(--green);">${S.totalRead} halaman</strong> dari ${Object.keys(S.dailyLogs||{}).length} hari.
         </div>`,
-        'Lanjutkan', 'closeModal()'
+        'Lanjutkan', closeModal, null, null
       );
-    } catch(err) {
-      showToast('❌ File rusak atau format tidak dikenal.');
-    }
-    event.target.value = ''; // reset input
+    } catch(err) { showToast('❌ File rusak atau format tidak dikenal.'); }
+    event.target.value = '';
   };
   reader.readAsText(file);
 }
 
 // ═══════════════════════════════════════
-// BACKFILL — SARAN ISI DATA HARI LALU
+// BACKFILL BANNER
 // ═══════════════════════════════════════
-let _backfillDismissed = false;
-
 function checkBackfillBanner() {
-  if (!S.modeSet) return;
-  if (_backfillDismissed) return;
+  if (!S.modeSet || _backfillDismissed) return;
   if (localStorage.getItem('tilawah_backfillDismissed') === '1') {
     _backfillDismissed = true; return;
   }
   const banner = el('backfillBanner');
   if (!banner) return;
-
-  const daysGone = getDaysGone(); // berapa hari sudah berlalu
+  const daysGone = getDaysGone();
   const loggedDays = Object.keys(S.dailyLogs || {}).length;
-
-  // Tampilkan jika: sudah lewat ≥2 hari Ramadhan, tapi log < 50% dari hari yang sudah lewat
   if (daysGone >= 2 && loggedDays < Math.ceil(daysGone * 0.5)) {
     const missingDays = daysGone - loggedDays;
     const textEl = el('backfillText');
-    if (textEl) {
-      textEl.textContent = `Ramadhan sudah berjalan ${daysGone} hari, tapi baru ada ${loggedDays} hari data. ` +
-        `Kamu bisa mengisi catatan tilawah untuk ${missingDays} hari yang belum tercatat agar progres terlihat akurat.`;
-    }
+    if (textEl) textEl.textContent = `Ramadhan sudah berjalan ${daysGone} hari, tapi baru ada ${loggedDays} hari data. Kamu bisa mengisi catatan untuk ${missingDays} hari yang belum tercatat.`;
     banner.style.display = 'flex';
   } else {
     banner.style.display = 'none';
   }
 }
-
 function openBackfillGuide() {
-  const daysGone = getDaysGone();
   showModal('📝 Cara Isi Data Hari Sebelumnya',
-    `<div style="font-size:0.82rem;color:var(--text2);line-height:1.9;">
+    `<div style="font-size:0.84rem;color:var(--text2);line-height:2;">
       <strong style="color:var(--gold2);">Langkah mudah:</strong><br>
-      1️⃣ Di tab <strong>Catat</strong>, ubah tanggal ke hari yang ingin diisi<br>
+      1️⃣ Di bawah, ubah tanggal ke hari yang ingin diisi<br>
       2️⃣ Pilih waktu sholat dan masukkan jumlah halaman<br>
       3️⃣ Klik <strong>Tambah Tilawah</strong><br>
       4️⃣ Ulangi untuk setiap sesi baca di hari itu<br><br>
-      <div style="background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:0.78rem;color:var(--text3);">
+      <div style="background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:0.8rem;color:var(--text3);">
         💡 Tidak ingat jumlah pasti? Masukkan <em>perkiraan</em> saja — yang penting konsisten mencatat mulai hari ini.
       </div>
     </div>`,
-    'Ke Tab Catat', "showSection('input');closeModal();", 'Nanti Dulu', 'closeModal()'
+    'Ke Tab Catat', () => { showSection('input'); closeModal(); },
+    'Nanti Dulu', closeModal
   );
 }
-
 function dismissBackfill() {
   _backfillDismissed = true;
   localStorage.setItem('tilawah_backfillDismissed', '1');
@@ -3099,11 +3408,47 @@ function dismissBackfill() {
   if (banner) banner.style.display = 'none';
 }
 
-
-
 // ═══════════════════════════════════════
-// REMINDERS
+// REMINDERS (v1.5: with status display)
 // ═══════════════════════════════════════
+function updateNotifStatusBar() {
+  const dot = el('reminderStatusDot');
+  const text = el('reminderStatusText');
+  const btn = el('notifPermBtn');
+  const tip = el('reminderPwaTip');
+  if (!dot || !text) return;
+
+  const perm = typeof Notification !== 'undefined' ? Notification.permission : 'unsupported';
+  dot.className = 'reminder-status-dot ' + (perm === 'granted' ? 'granted' : perm === 'denied' ? 'denied' : 'default');
+
+  const isPWA = window.matchMedia?.('(display-mode: standalone)').matches || window.navigator.standalone;
+
+  if (perm === 'unsupported') {
+    text.textContent = 'Notifikasi tidak didukung di browser ini';
+    if (btn) btn.style.display = 'none';
+    if (tip) tip.style.display = '';
+  } else if (perm === 'granted') {
+    text.textContent = '✅ Izin notifikasi diberikan';
+    if (btn) btn.style.display = 'none';
+    if (tip) tip.style.display = 'none';
+  } else if (perm === 'denied') {
+    text.textContent = '❌ Notifikasi diblokir — buka Pengaturan browser';
+    if (btn) btn.style.display = 'none';
+    if (tip) tip.style.display = '';
+  } else {
+    text.textContent = 'Izin notifikasi belum diberikan';
+    if (btn) btn.style.display = '';
+    if (tip) tip.style.display = isPWA ? 'none' : '';
+  }
+}
+function requestNotifPermission() {
+  if (typeof Notification === 'undefined') { showToast('⚠️ Browser ini tidak mendukung notifikasi'); return; }
+  Notification.requestPermission().then(perm => {
+    updateNotifStatusBar();
+    if (perm === 'granted') showToast('✅ Izin notifikasi diberikan!');
+    else if (perm === 'denied') showToast('❌ Notifikasi diblokir');
+  });
+}
 function initReminders() {
   if (!S.reminders.length) {
     S.reminders = [
@@ -3118,11 +3463,11 @@ function initReminders() {
 function renderReminders() {
   const container = el('reminderList');
   if (!container) return;
-  if (!S.reminders || S.reminders.length === 0) {
-    container.innerHTML = '<div class="empty-state" style="padding:16px;"><span class="empty-icon">🔔</span>Belum ada pengingat. Tambah di bawah.</div>';
+  if (!S.reminders?.length) {
+    container.innerHTML = '<div class="empty-state" style="padding:16px;"><span class="empty-icon">🔔</span>Belum ada pengingat.</div>';
     return;
   }
-  container.innerHTML = (S.reminders||[]).map(r => `
+  container.innerHTML = S.reminders.map(r => `
     <div class="reminder-item ${r.active?'active':''}">
       <span class="reminder-time">${String(r.hour).padStart(2,'0')}:${String(r.minute).padStart(2,'0')}</span>
       <span class="reminder-label">${r.label}</span>
@@ -3130,71 +3475,259 @@ function renderReminders() {
         <input type="checkbox" ${r.active?'checked':''} onchange="toggleReminder(${r.id})">
         <span class="toggle-slider"></span>
       </label>
-      <button class="reminder-del-btn" onclick="confirmDeleteReminder(${r.id})" title="Hapus pengingat">🗑️</button>
+      <button class="reminder-del-btn" onclick="confirmDeleteReminder(${r.id})" title="Hapus pengingat" aria-label="Hapus pengingat">🗑️</button>
     </div>`).join('');
 }
 function toggleReminder(id) {
   const r = S.reminders.find(r=>r.id===id);
   if (!r) return;
   r.active = !r.active;
-  if (r.active) {
-    if (Notification.permission === 'default') {
-      Notification.requestPermission().then(p => {
-        if (p !== 'granted') { r.active=false; renderReminders(); }
-        else scheduleReminder(r);
-      });
-    } else if (Notification.permission === 'granted') scheduleReminder(r);
-    else { r.active=false; showToast('⚠️ Izin notifikasi ditolak'); }
+  if (r.active && typeof Notification !== 'undefined' && Notification.permission === 'default') {
+    requestNotifPermission();
   }
-  save(); renderReminders();
+  if (r.active && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+    showToast(`🔔 Pengingat "${r.label}" aktif`);
+  } else if (r.active && typeof Notification !== 'undefined' && Notification.permission !== 'granted') {
+    showToast('⚠️ Izinkan notifikasi dulu agar pengingat berfungsi');
+    r.active = false;
+  }
+  save(); renderReminders(); updateNotifStatusBar();
 }
 function confirmDeleteReminder(id) {
-  const r = S.reminders.find(r=>r.id===id);
-  if (!r) return;
-  const timeStr = `${String(r.hour).padStart(2,'0')}:${String(r.minute).padStart(2,'0')}`;
-  showModal('🗑️ Hapus Pengingat',
-    `<p style="color:var(--text2);font-size:0.86rem;line-height:1.6;">Hapus pengingat <strong style="color:var(--text);">${timeStr} — ${r.label}</strong>?<br>Tindakan ini tidak bisa dibatalkan.</p>`,
-    '🗑️ Hapus', `deleteReminder(${id})`, 'Batal', 'closeModal()'
+  showModal('🗑 Hapus Pengingat?', 'Pengingat ini akan dihapus.',
+    'Ya, Hapus', () => { deleteReminder(id); },
+    'Batal', closeModal
   );
 }
 function deleteReminder(id) {
-  S.reminders = S.reminders.filter(r => r.id !== id);
+  S.reminders = S.reminders.filter(r=>r.id!==id);
   save(); closeModal(); renderReminders();
   showToast('🗑️ Pengingat dihapus');
 }
-function scheduleReminder(r) {
-  showToast(`🔔 Pengingat ${String(r.hour).padStart(2,'0')}:${String(r.minute).padStart(2,'0')} aktif`);
-}
 function addReminder() {
-  showModal('🔔 Tambah Pengingat',
-    `<div class="form-row">
-      <div><label>Jam</label><input id="remH" type="number" value="7" min="0" max="23"></div>
-      <div><label>Menit</label><input id="remM" type="number" value="0" min="0" max="59"></div>
-    </div>
-    <div class="form-group" style="margin-top:10px;"><label>Label</label><input id="remLabel" type="text" placeholder="Cth: Setelah Ashar"></div>`,
-    'Tambah', 'doAddReminder()', 'Batal', 'closeModal()'
+  showModal('+ Tambah Pengingat',
+    `<div class="form-group"><label>Waktu</label><input id="newReminderTime" type="time" value="07:00"></div>
+     <div class="form-group"><label>Keterangan</label><input id="newReminderLabel" type="text" value="Tilawah" maxlength="40"></div>`,
+    'Tambah', () => {
+      const time = el('newReminderTime')?.value || '07:00';
+      const label = el('newReminderLabel')?.value.trim() || 'Tilawah';
+      const [h, m] = time.split(':').map(Number);
+      S.reminders.push({ id: Date.now(), hour:h, minute:m, label, active:false });
+      save(); closeModal(); renderReminders();
+      showToast('✅ Pengingat ditambahkan');
+    },
+    'Batal', closeModal
   );
 }
-function doAddReminder() {
-  const h = parseInt(el('remH')?.value) || 0;
-  const m = parseInt(el('remM')?.value) || 0;
-  const label = el('remLabel')?.value.trim() || 'Pengingat Tilawah';
-  S.reminders.push({id: Date.now(), hour: h, minute: m, label, active: false});
-  save(); closeModal(); renderReminders();
-  showToast('✅ Pengingat ditambahkan');
-}
-
 
 // ═══════════════════════════════════════
-// MODAL
+// EXPORT CSV (BUG-004: proper escaping)
+// ═══════════════════════════════════════
+function exportCSV(mode) {
+  if (!S.modeSet) { showToast('⚠️ Setup dulu sebelum export'); return; }
+  const allLogs = Object.values(S.dailyLogs).flat();
+  if (!allLogs.length) { showToast('⚠️ Belum ada data untuk di-export'); return; }
+
+  const BOM = '\uFEFF';
+  let csv, filename;
+
+  if (mode === 'detail') {
+    const header = ['Tanggal','Hari Ramadhan','Waktu Sholat','Halaman','Posisi Baca','Waktu Catat'];
+    const rows = [];
+    Object.keys(S.dailyLogs).sort().forEach(ds => {
+      const ramDay = Math.round((new Date(ds+'T00:00:00') - new Date(S.startDate+'T00:00:00')) / 86400000) + 1;
+      (S.dailyLogs[ds]||[]).forEach(l => {
+        // BUG-004 fix: escape ALL fields
+        rows.push([
+          csvEscape(ds), csvEscape(ramDay), csvEscape(l.prayer),
+          csvEscape(l.pages), csvEscape(l.pos||''), csvEscape(l.time||'')
+        ].join(','));
+      });
+    });
+    csv = BOM + header.map(csvEscape).join(',') + '\n' + rows.join('\n');
+    filename = `tilawah-detail-${localDate()}.csv`;
+    showToast(`📊 Export ${rows.length} baris berhasil!`);
+  } else {
+    const header = ['Tanggal','Hari Ramadhan','Total Halaman','Total Juz','Target Harian','Status','Jumlah Sesi'];
+    const rows = [];
+    for (let i = 0; i < DAYS_RAMADHAN; i++) {
+      const dt = new Date(S.startDate+'T00:00:00');
+      dt.setDate(dt.getDate() + i);
+      const ds = dt.toLocaleDateString('en-CA');
+      const pages = getTodayPages(ds);
+      const juz = (pages / (PAGES_PER_KHATAM / 30)).toFixed(2);
+      const sesi = (S.dailyLogs[ds]||[]).length;
+      const status = pages===0?'Kosong':pages>=S.dailyTarget?'Tercapai':pages>=S.dailyTarget*0.8?'Hampir':'Di bawah';
+      rows.push([ds, i+1, pages, juz, S.dailyTarget, status, sesi].map(csvEscape).join(','));
+    }
+    csv = BOM + header.map(csvEscape).join(',') + '\n' + rows.join('\n');
+    filename = `tilawah-harian-${localDate()}.csv`;
+    showToast(`📅 Export 30 hari berhasil!`);
+  }
+
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url); // v1.5: prevent memory leak
+}
+
+// ═══════════════════════════════════════
+// BREAKDOWN MANUAL EDIT
+// ═══════════════════════════════════════
+function showEditBreakdown() {
+  const current = S.customBreakdown || S.breakdown;
+  const isManual = !!S.customBreakdown;
+  const gridHTML = `
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:12px;line-height:1.6;">
+      Atur target halaman per waktu sholat. Total sebaiknya tepat
+      <strong style="color:var(--gold2);">${S.dailyTarget} halaman/hari</strong>.
+    </p>
+    <div class="bk-grid">
+      ${PRAYERS.map(p => `
+        <div class="bk-item">
+          <span class="bk-emoji">${p.emoji}</span>
+          <span class="bk-name">${p.name}</span>
+          <input type="number" id="bk_${p.name}" value="${current[p.name]||0}" min="0" max="${S.dailyTarget}" inputmode="numeric" oninput="updateBkTotal()">
+        </div>`).join('')}
+    </div>
+    <div class="bk-total-row">
+      <span class="bk-total-lbl">Total:</span>
+      <span class="bk-total-num" id="bkTotalNum">— / ${S.dailyTarget} hal</span>
+    </div>
+    ${isManual ? '<p class="bk-note" style="color:var(--amber);">⚙️ Target saat ini sudah diubah manual.</p>' : ''}
+  `;
+  showModal('⏰ Ubah Target per Sholat', gridHTML,
+    '💾 Simpan', applyCustomBreakdown,
+    isManual ? '🔄 Reset Otomatis' : 'Batal',
+    isManual ? resetBreakdownToAuto : closeModal
+  );
+  setTimeout(updateBkTotal, 50);
+}
+function updateBkTotal() {
+  let total = 0;
+  PRAYERS.forEach(p => { total += parseInt(el('bk_'+p.name)?.value)||0; });
+  const numEl = el('bkTotalNum');
+  if (!numEl) return;
+  numEl.textContent = `${total} / ${S.dailyTarget} hal`;
+  numEl.className = 'bk-total-num' + (total===S.dailyTarget?' ok':Math.abs(total-S.dailyTarget)<=2?'':' warn');
+}
+function applyCustomBreakdown() {
+  const bd = {};
+  let total = 0;
+  PRAYERS.forEach(p => {
+    const v = Math.max(0, parseInt(el('bk_'+p.name)?.value)||0);
+    bd[p.name] = v; total += v;
+  });
+  if (Math.abs(total - S.dailyTarget) > 3) {
+    showToast(`⚠️ Total (${total}) harus mendekati ${S.dailyTarget} halaman`);
+    return;
+  }
+  const diff = S.dailyTarget - total;
+  if (diff !== 0) bd['Tarawih'] = Math.max(0, (bd['Tarawih']||0) + diff);
+  S.customBreakdown = bd;
+  S.breakdown = bd;
+  save(); closeModal(); renderPrayerBreakdown();
+  showToast('✅ Target per sholat disimpan!');
+}
+function resetBreakdownToAuto() {
+  S.customBreakdown = null;
+  S.breakdown = calcBreakdown(S.dailyTarget);
+  save(); closeModal(); renderPrayerBreakdown();
+  showToast('🔄 Target kembali ke otomatis');
+}
+
+// ═══════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════
+function renderSettings() {
+  if (!S.modeSet) return;
+  setText('settingNameDisplay', S.userName);
+  setText('settingKhatamDisplay', `${S.khatamTarget}× khatam (${S.totalTarget} halaman)`);
+  setText('settingStartDisplay', S.startDate);
+  const totalLogs = Object.values(S.dailyLogs).flat().length;
+  setText('statTotalLogs', totalLogs);
+  setHTML('statCalcSaved', `Kalkulasi otomatis: <strong>${totalLogs * 5}+</strong>`);
+  const prayerTotals = {};
+  Object.values(S.dailyLogs).flat().forEach(l => { prayerTotals[l.prayer] = (prayerTotals[l.prayer]||0) + l.pages; });
+  const bp = Object.entries(prayerTotals).sort((a,b)=>b[1]-a[1])[0];
+  setText('statBestPrayer', bp ? `${bp[0]} (${bp[1]} hal)` : '—');
+  const dayTotals = {};
+  Object.entries(S.dailyLogs).forEach(([d,logs]) => {
+    const day = new Date(d+'T00:00:00').toLocaleDateString('id-ID',{weekday:'long'});
+    dayTotals[day] = (dayTotals[day]||0) + logs.reduce((s,l)=>s+l.pages,0);
+  });
+  const bd = Object.entries(dayTotals).sort((a,b)=>b[1]-a[1])[0];
+  setText('statBestDay', bd ? bd[0] : '—');
+  calcCatchUp();
+  updateNotifStatusBar();
+}
+function calcCatchUp() {
+  if (!S.modeSet) return;
+  const daysEl = el('calcDays');
+  const resultEl = el('calcResult');
+  if (!daysEl || !resultEl) return;
+  const days = parseInt(daysEl.value) || 0;
+  if (days < 1) { resultEl.style.display = 'none'; return; }
+  const rem = Math.max(0, S.totalTarget - S.totalRead);
+  const needed = Math.ceil(rem / days);
+  setText('calcNum', needed);
+  setText('calcLabel', `halaman/hari untuk ${days} hari ke depan`);
+  const advice = el('calcAdvice');
+  if (advice) {
+    if (needed <= S.dailyTarget) advice.innerHTML = `<span style="color:var(--green);">✅ Lebih rendah dari target harianmu (${S.dailyTarget} hal). Sangat bisa dicapai!</span>`;
+    else if (needed <= S.dailyTarget*1.5) advice.innerHTML = `<span style="color:var(--amber);">⚡ Sedikit lebih dari target harian. Tambah bacaan setelah Tarawih!</span>`;
+    else advice.innerHTML = `<span style="color:var(--red);">💪 Cukup berat, tapi tidak mustahil. Manfaatkan semua waktu sholat secara konsisten.</span>`;
+  }
+  resultEl.style.display = '';
+}
+function showEditSetup() {
+  const bodyHTML = `
+    <div class="form-group"><label>Nama <span style="color:var(--red);">*</span></label><input id="editName" type="text" value="${S.userName}" maxlength="30"></div>
+    <div class="form-group"><label>Target Khatam</label><input id="editKhatam" type="number" value="${S.khatamTarget}" min="1" max="10"></div>
+    <div class="form-group"><label>Mulai Ramadhan</label><input id="editStart" type="date" value="${S.startDate}"></div>
+  `;
+  showModal('✏️ Ubah Pengaturan', bodyHTML, 'Simpan', applyEditSetup, 'Batal', closeModal);
+}
+function applyEditSetup() {
+  const name = el('editName')?.value.trim();
+  const khatam = parseInt(el('editKhatam')?.value) || 1;
+  const start = el('editStart')?.value;
+  if (!name) { showToast('⚠️ Masukkan nama!'); return; }
+  S.userName = name;
+  S.khatamTarget = khatam;
+  S.startDate = start;
+  S.totalTarget = khatam * PAGES_PER_KHATAM;
+  S.dailyTarget = Math.ceil(S.totalTarget / DAYS_RAMADHAN);
+  S.customBreakdown = null; // BUG: reset on target change
+  S.breakdown = calcBreakdown(S.dailyTarget);
+  _shareCanvasDirty = true;
+  save(); closeModal(); updateAllUI(); renderSettings();
+  showToast('✅ Pengaturan disimpan!');
+}
+
+// ═══════════════════════════════════════
+// MODAL (BUG-001 fix: callbacks not strings)
 // ═══════════════════════════════════════
 function showModal(title, body, btn1, fn1, btn2, fn2) {
   setText('modalTitle', title);
   setHTML('modalBody', body);
   const actions = el('modalActions');
   actions.innerHTML = '';
-  if (btn1) { const b = document.createElement('button'); b.className='btn btn-primary'; b.textContent=btn1; b.onclick=new Function(fn1); actions.appendChild(b); }
-  if (btn2) { const b = document.createElement('button'); b.className='btn btn-secondary'; b.textContent=btn2; b.onclick=new Function(fn2); actions.appendChild(b); }
+  if (btn1) {
+    const b = document.createElement('button');
+    b.className = 'btn btn-primary';
+    b.textContent = btn1;
+    if (typeof fn1 === 'function') b.onclick = fn1;
+    actions.appendChild(b);
+  }
+  if (btn2) {
+    const b = document.createElement('button');
+    b.className = 'btn btn-secondary';
+    b.textContent = btn2;
+    if (typeof fn2 === 'function') b.onclick = fn2;
+    actions.appendChild(b);
+  }
   el('modalBackdrop').classList.remove('hidden');
 }
 function closeModal() { el('modalBackdrop').classList.add('hidden'); }
@@ -3212,7 +3745,7 @@ function showToast(msg, duration=2500) {
 }
 
 // ═══════════════════════════════════════
-// CHECK ANIM
+// CHECK ANIMATION
 // ═══════════════════════════════════════
 function showCheckAnim() {
   const e = document.createElement('div');
@@ -3227,7 +3760,7 @@ function showCheckAnim() {
 function confirmResetProgress() {
   showModal('🔄 Reset Data Bacaan?',
     'Ini akan menghapus semua log tilawah, tetapi mempertahankan pengaturan target kamu.',
-    'Ya, Reset', 'doResetProgress()', 'Batal', 'closeModal()'
+    'Ya, Reset', doResetProgress, 'Batal', closeModal
   );
 }
 function doResetProgress() {
@@ -3243,7 +3776,7 @@ function doResetProgress() {
 function confirmResetAll() {
   showModal('⚠️ Reset Semua?',
     'Ini akan menghapus SEMUA data termasuk pengaturan. Kamu harus setup ulang dari awal.',
-    'Ya, Hapus Semua', 'doResetAll()', 'Batal', 'closeModal()'
+    'Ya, Hapus Semua', doResetAll, 'Batal', closeModal
   );
 }
 function doResetAll() { localStorage.removeItem('tilawahV3'); location.reload(); }
@@ -3265,13 +3798,110 @@ function triggerInstall() {
     });
   } else {
     showModal('📲 Cara Pasang di HP',
-      '<div style="line-height:2;font-size:0.82rem;">' +
-      '<strong style="color:var(--gold2);">Android Chrome:</strong> Menu ⋮ → Tambahkan ke layar utama<br>' +
-      '<strong style="color:var(--gold2);">iPhone Safari:</strong> Tombol Bagikan ⬆ → Tambahkan ke Layar Utama<br>' +
-      '<strong style="color:var(--gold2);">Samsung Internet:</strong> Menu ≡ → Tambahkan halaman ke → Layar beranda</div>',
-      'Mengerti', 'closeModal()'
+      `<div style="line-height:2;font-size:0.86rem;">
+        <strong style="color:var(--gold2);">Android Chrome:</strong> Menu ⋮ → Tambahkan ke layar utama<br>
+        <strong style="color:var(--gold2);">iPhone Safari:</strong> Tombol Bagikan ⬆ → Tambahkan ke Layar Utama<br>
+        <strong style="color:var(--gold2);">Samsung Internet:</strong> Menu ≡ → Tambahkan halaman ke → Layar beranda
+      </div>`,
+      'Mengerti', closeModal, null, null
     );
   }
+}
+
+// ═══════════════════════════════════════
+// AUTOCOMPLETE SURAH
+// ═══════════════════════════════════════
+const SURAH_LIST = [
+  {n:'Al-Fatihah',j:1},{n:'Al-Baqarah',j:1},{n:'Ali Imran',j:3},{n:'An-Nisa',j:4},
+  {n:'Al-Maidah',j:6},{n:'Al-Anam',j:7},{n:'Al-Araf',j:8},{n:'Al-Anfal',j:9},
+  {n:'At-Taubah',j:10},{n:'Yunus',j:11},{n:'Hud',j:11},{n:'Yusuf',j:12},
+  {n:'Ar-Rad',j:13},{n:'Ibrahim',j:13},{n:'Al-Hijr',j:14},{n:'An-Nahl',j:14},
+  {n:'Al-Isra',j:15},{n:'Al-Kahfi',j:15},{n:'Maryam',j:16},{n:'Ta-Ha',j:16},
+  {n:'Al-Anbiya',j:17},{n:'Al-Hajj',j:17},{n:'Al-Muminun',j:18},{n:'An-Nur',j:18},
+  {n:'Al-Furqan',j:18},{n:'Asy-Syuara',j:19},{n:'An-Naml',j:19},{n:'Al-Qasas',j:20},
+  {n:'Al-Ankabut',j:20},{n:'Ar-Rum',j:21},{n:'Luqman',j:21},{n:'As-Sajdah',j:21},
+  {n:'Al-Ahzab',j:21},{n:'Saba',j:22},{n:'Fatir',j:22},{n:'Yasin',j:22},
+  {n:'As-Saffat',j:23},{n:'Sad',j:23},{n:'Az-Zumar',j:23},{n:'Ghafir',j:24},
+  {n:'Fussilat',j:24},{n:'Asy-Syura',j:25},{n:'Az-Zukhruf',j:25},{n:'Ad-Dukhan',j:25},
+  {n:'Al-Jasiyah',j:25},{n:'Al-Ahqaf',j:26},{n:'Muhammad',j:26},{n:'Al-Fath',j:26},
+  {n:'Al-Hujurat',j:26},{n:'Qaf',j:26},{n:'Az-Zariyat',j:26},{n:'At-Tur',j:27},
+  {n:'An-Najm',j:27},{n:'Al-Qamar',j:27},{n:'Ar-Rahman',j:27},{n:'Al-Waqiah',j:27},
+  {n:'Al-Hadid',j:27},{n:'Al-Mujadilah',j:28},{n:'Al-Hasyr',j:28},{n:'Al-Mumtahanah',j:28},
+  {n:'As-Saff',j:28},{n:'Al-Jumuah',j:28},{n:'Al-Munafiqun',j:28},{n:'At-Tagabun',j:28},
+  {n:'At-Talaq',j:28},{n:'At-Tahrim',j:28},{n:'Al-Mulk',j:29},{n:'Al-Qalam',j:29},
+  {n:'Al-Haqqah',j:29},{n:'Al-Maarij',j:29},{n:'Nuh',j:29},{n:'Al-Jin',j:29},
+  {n:'Al-Muzzammil',j:29},{n:'Al-Muddassir',j:29},{n:'Al-Qiyamah',j:29},{n:'Al-Insan',j:29},
+  {n:'Al-Mursalat',j:29},{n:'An-Naba',j:30},{n:'An-Naziat',j:30},{n:'Abasa',j:30},
+  {n:'At-Takwir',j:30},{n:'Al-Infitar',j:30},{n:'Al-Mutaffifin',j:30},{n:'Al-Insyiqaq',j:30},
+  {n:'Al-Buruj',j:30},{n:'At-Tariq',j:30},{n:'Al-Ala',j:30},{n:'Al-Gasyiyah',j:30},
+  {n:'Al-Fajr',j:30},{n:'Al-Balad',j:30},{n:'Asy-Syams',j:30},{n:'Al-Lail',j:30},
+  {n:'Ad-Duha',j:30},{n:'Asy-Syarh',j:30},{n:'At-Tin',j:30},{n:'Al-Alaq',j:30},
+  {n:'Al-Qadr',j:30},{n:'Al-Bayyinah',j:30},{n:'Az-Zalzalah',j:30},{n:'Al-Adiyat',j:30},
+  {n:'Al-Qariah',j:30},{n:'At-Takasur',j:30},{n:'Al-Asr',j:30},{n:'Al-Humazah',j:30},
+  {n:'Al-Fil',j:30},{n:'Quraisy',j:30},{n:'Al-Maun',j:30},{n:'Al-Kausar',j:30},
+  {n:'Al-Kafirun',j:30},{n:'An-Nasr',j:30},{n:'Al-Masad',j:30},{n:'Al-Ikhlas',j:30},
+  {n:'Al-Falaq',j:30},{n:'An-Nas',j:30}
+];
+
+let _acFocusIdx = -1;
+
+function onPosInput(input) {
+  const val = input.value.trim();
+  const dropId = input.id === 'lastPosInput' ? 'posDropdown' : 'posDropdownSheet';
+  const drop = el(dropId);
+  if (!drop) return;
+  if (val.length < 2) { drop.classList.remove('open'); return; }
+  const q = val.toLowerCase().replace(/[^a-z0-9]/g,'');
+  const results = SURAH_LIST.filter(s => s.n.toLowerCase().replace(/[^a-z]/g,'').includes(q)).slice(0, 6);
+  if (!results.length) { drop.classList.remove('open'); return; }
+  _acFocusIdx = -1;
+  // BUG-001 fix: use data attribute + event delegation instead of inline onmousedown
+  drop.innerHTML = results.map((s, i) =>
+    `<div class="ac-item" data-name="${s.n}" data-input-id="${input.id}" data-idx="${i}">
+       <span class="ac-surah">${s.n}</span>
+       <span class="ac-juz">Juz ${s.j}</span>
+     </div>`
+  ).join('');
+  drop.querySelectorAll('.ac-item').forEach(item => {
+    item.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      selectSurah(input.id, item.dataset.name, dropId);
+    });
+  });
+  drop.classList.add('open');
+}
+function onPosKey(e) {
+  const input = e.target;
+  const dropId = input.id === 'lastPosInput' ? 'posDropdown' : 'posDropdownSheet';
+  const drop = el(dropId);
+  if (!drop || !drop.classList.contains('open')) return;
+  const items = drop.querySelectorAll('.ac-item');
+  if (!items.length) return;
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    _acFocusIdx = Math.min(_acFocusIdx + 1, items.length - 1);
+    items.forEach((it, i) => it.classList.toggle('focused', i === _acFocusIdx));
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    _acFocusIdx = Math.max(_acFocusIdx - 1, -1);
+    items.forEach((it, i) => it.classList.toggle('focused', i === _acFocusIdx));
+  } else if (e.key === 'Enter' && _acFocusIdx >= 0) {
+    e.preventDefault();
+    selectSurah(input.id, items[_acFocusIdx].dataset.name, dropId);
+  } else if (e.key === 'Escape') {
+    drop.classList.remove('open');
+  }
+}
+function selectSurah(inputId, name, dropId) {
+  const inp = el(inputId);
+  if (inp) inp.value = name;
+  const drop = el(dropId || (inputId === 'lastPosInput' ? 'posDropdown' : 'posDropdownSheet'));
+  if (drop) drop.classList.remove('open');
+}
+function hidePosDropdown() {
+  setTimeout(() => {
+    ['posDropdown','posDropdownSheet'].forEach(id => { el(id)?.classList.remove('open'); });
+  }, 150);
 }
 
 // ═══════════════════════════════════════
@@ -3283,7 +3913,7 @@ function init() {
     el('welcomeScreen').style.display = 'none';
     launchMainApp();
   }
-  updateHeader(); // null-safe via helper functions
+  updateHeader();
 }
 
 init();

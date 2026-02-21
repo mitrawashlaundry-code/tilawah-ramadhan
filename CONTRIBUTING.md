@@ -1,120 +1,234 @@
-# 🤝 Panduan Kontribusi
+# Panduan Kontribusi
 
-Terima kasih telah tertarik untuk berkontribusi pada **Target Tilawah Ramadhan**!
-
-🌐 **Live:** https://mitrawashlaundry-code.github.io/tilawah-ramadhan/
+Terima kasih sudah tertarik berkontribusi pada **Target Tilawah Ramadhan**! 🌙
 
 ---
 
-## Cara Berkontribusi
+## 📋 Daftar Isi
 
-### 1. Fork & Clone
+- [Code of Conduct](#code-of-conduct)
+- [Cara Melaporkan Bug](#cara-melaporkan-bug)
+- [Cara Mengusulkan Fitur](#cara-mengusulkan-fitur)
+- [Setup Development](#setup-development)
+- [Alur Kontribusi Kode](#alur-kontribusi-kode)
+- [Konvensi Kode](#konvensi-kode)
+- [Konvensi Commit](#konvensi-commit)
+
+---
+
+## Code of Conduct
+
+Proyek ini menjaga lingkungan yang ramah dan inklusif. Semua kontributor diharapkan:
+- Bersikap hormat dan membangun dalam diskusi
+- Menerima kritik konstruktif dengan lapang dada
+- Fokus pada apa yang terbaik untuk komunitas pengguna
+
+---
+
+## Cara Melaporkan Bug
+
+1. Pastikan bug belum dilaporkan di [Issues](https://github.com/mitrawashlaundry-code/tilawah-ramadhan/issues)
+2. Buat issue baru dengan template berikut:
+
+```
+**Deskripsi Bug**
+Penjelasan singkat apa yang salah
+
+**Langkah Reproduksi**
+1. Buka ...
+2. Klik ...
+3. Lihat error di ...
+
+**Perilaku yang Diharapkan**
+Apa yang seharusnya terjadi
+
+**Perilaku Aktual**
+Apa yang benar-benar terjadi
+
+**Environment**
+- Browser: Chrome 120 / Safari 17 / Firefox 121
+- OS: Android 14 / iOS 17 / Windows 11
+- PWA: Ya / Tidak (dari browser)
+- Versi App: v1.5.0 (tertera di footer Pengaturan)
+```
+
+---
+
+## Cara Mengusulkan Fitur
+
+1. Buka [Issues](https://github.com/mitrawashlaundry-code/tilawah-ramadhan/issues) → New Issue → "Feature Request"
+2. Jelaskan:
+   - **Masalah yang diselesaikan**: "Saya selalu kesulitan karena..."
+   - **Solusi yang diusulkan**: "Akan lebih baik jika..."
+   - **Alternatif yang dipertimbangkan** (jika ada)
+
+### Prioritas Fitur
+Fitur akan diprioritaskan berdasarkan:
+- Jumlah user yang membutuhkan (upvote di issue)
+- Kesesuaian dengan misi aplikasi (sederhana & efektif untuk non-teknis)
+- Kompleksitas implementasi tanpa merusak single-file architecture
+
+---
+
+## Setup Development
+
+### Requirements
+- Browser modern (Chrome/Firefox/Safari)
+- Text editor (VS Code, Sublime, dll.)
+- Git
+
+### Langkah Setup
+
 ```bash
-git clone https://github.com/USERNAME_KAMU/tilawah-ramadhan.git
+# 1. Fork dan clone repository
+git clone https://github.com/YOUR_USERNAME/tilawah-ramadhan.git
 cd tilawah-ramadhan
+
+# 2. Jalankan server lokal (pilih salah satu)
+python3 -m http.server 8080
+# atau
+npx serve .
+# atau cukup buka index.html di browser
+
+# 3. Buka di browser
+# http://localhost:8080
 ```
 
-### 2. Buat Branch & Kembangkan
-```bash
-git checkout -b feat/export-csv
-python3 -m http.server 8000   # test lokal di http://localhost:8000
-```
-
-### 3. Commit & Pull Request
-```bash
-git commit -m "feat: tambah export data ke CSV"
-git push origin feat/export-csv
-# Buka GitHub → buat Pull Request
-```
+### Tidak Perlu
+- ❌ `npm install`
+- ❌ Build process
+- ❌ Environment variables
+- ❌ Database setup
 
 ---
 
-## Panduan Kode
+## Alur Kontribusi Kode
 
-### ✅ DO — Yang Harus Dilakukan
+```bash
+# 1. Pastikan fork kamu up-to-date
+git fetch upstream
+git checkout main
+git merge upstream/main
 
-```javascript
-// 1. Null-safe DOM access
-function el(id) { return document.getElementById(id); }
-function setText(id, val) { const e = el(id); if (e) e.textContent = val; }
+# 2. Buat branch baru
+git checkout -b feat/nama-fitur
+# atau
+git checkout -b fix/nama-bug
 
-// 2. Gunakan _activeInputDate, bukan DOM logDate.value
-const dateStr = getActiveInputDate(); // ✅
+# 3. Edit index.html
+# ... lakukan perubahan ...
 
-// 3. updateAllUI() setelah setiap perubahan data
-save(); updateAllUI(); // ✅
+# 4. Test manual (lihat checklist di bawah)
 
-// 4. calcBreakdown() dengan cap Maghrib
-function calcBreakdown(daily) {
-  // ... hitung bobot ...
-  if (bd['Maghrib'] > MAGHRIB_MAX) {
-    bd['Tarawih'] += bd['Maghrib'] - MAGHRIB_MAX;
-    bd['Maghrib'] = MAGHRIB_MAX;
-  }
-  return bd;
-}
+# 5. Commit
+git add index.html
+git commit -m "feat: tambahkan kalender visual Ramadhan"
 
-// 5. renderPrayerPreview WAJIB pakai calcBreakdown
-function renderPrayerPreview(containerId, daily) {
-  const bd = calcBreakdown(daily); // ✅
-}
+# 6. Push
+git push origin feat/nama-fitur
 
-// 6. Fitur delete selalu perlu konfirmasi modal
-function confirmDeleteReminder(id) {
-  showModal('Hapus?', '...', 'Hapus', `deleteReminder(${id})`, 'Batal', 'closeModal()');
-}
-function deleteReminder(id) {
-  S.reminders = S.reminders.filter(r => r.id !== id);
-  save(); closeModal(); renderReminders(); showToast('Dihapus');
-}
+# 7. Buat Pull Request di GitHub
 ```
 
-### ❌ DON'T — Yang Harus Dihindari
+### Checklist Sebelum Pull Request
+
+- [ ] Aplikasi terbuka tanpa error di console browser
+- [ ] Setup wizard bisa diselesaikan (step 1-3)
+- [ ] Input log berfungsi dan tersimpan ke localStorage
+- [ ] Tidak ada `console.error` baru
+- [ ] Tidak ada penggunaan `eval()` atau `new Function(string)` baru
+- [ ] Ukuran font tidak ada yang di bawah 11px (cek dengan DevTools)
+- [ ] Semua text penting punya atribut `aria-label`
+- [ ] Export CSV terbuka dengan benar di Excel (tidak ada kolom yang rusak)
+- [ ] Responsif di layar 360px dan 428px
+- [ ] File `index.html` tetap satu file tunggal (tidak pecah jadi beberapa file)
+
+---
+
+## Konvensi Kode
+
+### JavaScript
 
 ```javascript
-document.getElementById('x').textContent = val;  // ❌ bisa null
-const date = document.getElementById('logDate').value; // ❌ state dari DOM
-el.value += n;  // ❌ akumulatif, pakai el.value = n
-setInterval(() => updateAllUI(), 1000); // ❌ pakai event-driven
+// ✅ BAIK — function reference, bukan string
+showModal('Judul', 'Body', 'OK', doSomething, 'Batal', closeModal);
 
-// Jangan hitung breakdown manual — bypass cap Maghrib
-const pg = Math.round((PRAYER_WEIGHTS[p.name] / totalW) * daily); // ❌ di renderPrayerPreview
+// ❌ HINDARI — string sebagai callback (XSS risk)
+showModal('Judul', 'Body', 'OK', 'doSomething()', 'Batal', 'closeModal()');
+
+// ✅ BAIK — event delegation
+container.querySelectorAll('.item').forEach((el, i) => {
+  el.addEventListener('click', () => handler(i));
+});
+
+// ❌ HINDARI — inline onclick di innerHTML
+container.innerHTML = `<div onclick="handler(${i})">...</div>`;
+
+// ✅ BAIK — escape semua field CSV
+rows.push([date, prayer, pages, pos].map(csvEscape).join(','));
+
+// ❌ HINDARI — hanya sebagian yang di-escape
+rows.push([date, prayer, `"${pos}"`].join(','));
 ```
 
-### Prinsip Desain
+### CSS
 
-1. **Single File** — semua dalam 1 `index.html`
-2. **Offline First** — tidak ada network request saat runtime
-3. **Null Safe** — setiap akses DOM via helper
-4. **No Framework** — vanilla JS murni
-5. **Bahasa Indonesia** — semua UI dalam Bahasa Indonesia
-6. **Mobile First** — desain untuk layar kecil
-7. **Kontrol Penuh** — fitur hapus wajib ada di semua daftar yang bisa bertambah
+```css
+/* ✅ BAIK — gunakan CSS variables */
+.element { color: var(--gold2); font-size: 0.82rem; }
+
+/* ❌ HINDARI — hardcode warna */
+.element { color: #f5d06e; }
+
+/* ✅ BAIK — font minimum 11px (0.69rem @ 16px base) */
+.nav-label { font-size: 0.69rem; }
+
+/* ❌ HINDARI — font terlalu kecil */
+.tiny-text { font-size: 0.5rem; } /* 8px — tidak terbaca */
+```
+
+### HTML Accessibility
+
+```html
+<!-- ✅ BAIK -->
+<button aria-label="Hapus catatan tilawah" onclick="deleteLog()">🗑</button>
+<input aria-label="Jumlah halaman yang dibaca" type="number">
+
+<!-- ❌ KURANG BAIK — tidak ada label yang jelas -->
+<button onclick="deleteLog()">🗑</button>
+```
 
 ---
 
 ## Konvensi Commit
 
+Format: `type: deskripsi singkat`
+
+| Type | Digunakan Untuk |
+|------|----------------|
+| `feat` | Fitur baru |
+| `fix` | Perbaikan bug |
+| `style` | Perubahan CSS/UI tanpa mengubah logika |
+| `refactor` | Refaktor kode tanpa bug fix atau fitur baru |
+| `docs` | Perubahan dokumentasi saja |
+| `a11y` | Perbaikan aksesibilitas |
+| `perf` | Optimasi performa |
+| `security` | Perbaikan keamanan |
+
+### Contoh
 ```
-feat: tambah export data ke CSV
-fix: cap halaman Maghrib maksimal 6, redistribusi ke Tarawih
-fix: tambah tombol hapus pengingat dengan konfirmasi
-style: perbesar huruf kini berlaku menyeluruh
-docs: update README dengan ikon homescreen
-chore: update index.html v1.3.0
+feat: tambahkan kalender visual 5x6 untuk streak
+fix: streak counter tidak konsisten di hari terakhir Ramadhan
+style: perbesar streak dots dari 16px ke 24px
+fix(a11y): tambahkan aria-label ke semua tombol ikon
+security: ganti new Function() dengan function reference di showModal
+docs: perbarui README dengan instruksi deploy
 ```
 
 ---
 
-## Checklist PR
+## ❓ Pertanyaan?
 
-- [ ] Tidak ada error di browser console
-- [ ] `calcBreakdown()` masih menerapkan cap Maghrib + redistribusi Tarawih
-- [ ] `renderPrayerPreview()` masih pakai `calcBreakdown()`
-- [ ] Fitur hapus (reminder/log) masih menggunakan konfirmasi modal
-- [ ] Font size toggle masih mencakup semua kelas teks
-- [ ] `index.html` masih single file
-
----
+Buka [Discussion](https://github.com/mitrawashlaundry-code/tilawah-ramadhan/discussions) atau buat Issue dengan label `question`.
 
 Jazakallahu khairan atas kontribusinya! 🌙
